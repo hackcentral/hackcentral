@@ -11,6 +11,8 @@
     <%= content_tag(:div, msg, class: "alert alert-#{name}") %>
   <% end %>
 
+  <%= render "layouts/header" %>
+
   <%= yield %>
 
 </body>
