@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141102194938) do
+ActiveRecord::Schema.define(version: 20141102195256) do
 
   create_table "hackathons", force: true do |t|
     t.string   "name"
@@ -27,6 +27,10 @@ ActiveRecord::Schema.define(version: 20141102194938) do
     t.string   "logo_content_type"
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
+    t.string   "header_file_name"
+    t.string   "header_content_type"
+    t.integer  "header_file_size"
+    t.datetime "header_updated_at"
   end
 
 end
