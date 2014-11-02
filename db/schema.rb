@@ -11,14 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141102195256) do
+ActiveRecord::Schema.define(version: 20141102200454) do
+
+  create_table "applications", force: true do |t|
+    t.string   "name"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.string   "school_grad"
+    t.text     "bio"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "website"
+    t.string   "github"
+  end
 
   create_table "hackathons", force: true do |t|
     t.string   "name"
     t.text     "about"
     t.string   "tagline"
     t.string   "location"
-    t.string   "slug"
+    t.string   "slug", :unique => true
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "start"
