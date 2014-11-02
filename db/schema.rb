@@ -11,24 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141102223036) do
-
-  create_table "applications", force: true do |t|
-    t.string   "name"
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "email"
-    t.string   "school_grad"
-    t.text     "bio"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "website"
-    t.string   "github"
-    t.string   "resume_file_name"
-    t.string   "resume_content_type"
-    t.integer  "resume_file_size"
-    t.datetime "resume_updated_at"
-  end
+ActiveRecord::Schema.define(version: 20141102223312) do
 
   create_table "hackathons", force: true do |t|
     t.string   "name"
