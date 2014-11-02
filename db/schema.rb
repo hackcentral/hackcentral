@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141102222453) do
+ActiveRecord::Schema.define(version: 20141102223036) do
 
   create_table "applications", force: true do |t|
     t.string   "name"
@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 20141102222453) do
     t.string   "resume_content_type"
     t.integer  "resume_file_size"
     t.datetime "resume_updated_at"
+    t.text     "dietary_needs"
   end
 
   create_table "users", force: true do |t|
