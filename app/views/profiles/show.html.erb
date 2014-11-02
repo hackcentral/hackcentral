@@ -40,5 +40,10 @@
   <%= @profile.github %>
 </p>
 
+<p>
+  <strong>Resume:</strong>
+  <%= link_to 'Resume', @profile.resume.url%>
+</p>
+
 <%= link_to 'Edit', edit_profile_path(@profile) %> |
 <%= link_to 'Back', profiles_path %>
