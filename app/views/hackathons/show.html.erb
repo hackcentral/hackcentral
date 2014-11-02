@@ -25,5 +25,15 @@
   <%= @hackathon.slug %>
 </p>
 
+<p>
+  <strong>Start Time:</strong>
+  <%= @hackathon.start %>
+</p>
+
+<p>
+  <strong>End Time:</strong>
+  <%= @hackathon.end %>
+</p>
+
 <%= link_to 'Edit', edit_hackathon_path(@hackathon) %> |
 <%= link_to 'Back', hackathons_path %>

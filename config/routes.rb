@@ -1,13 +1,14 @@
 Rails.application.routes.draw do
 
-  resources :hackathons
-
   # Root
   root to: 'pages#home'
 
   # Static Pages
   get 'pages/about' => "pages#about"
   get 'pages/contact' => "pages#contact"
+
+  # Scaffolds
+  resources :hackathons
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
