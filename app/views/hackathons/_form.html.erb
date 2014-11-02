@@ -1,4 +1,4 @@
-<%= form_for(@hackathon) do |f| %>
+<%= form_for @hackathon, html: { multipart: true } do |f| %>
   <% if @hackathon.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@hackathon.errors.count, "error") %> prohibited this hackathon from being saved:</h2>
@@ -30,6 +30,10 @@
   <div class="field">
     <%= f.label :slug %><br>
     <%= f.text_field :slug %>
+  </div>
+  <div class="field">
+    <%= f.label :logo %><br>
+    <%= f.file_field :logo %>
   </div>
   <div class="field">
     <%= f.label :start %><br>
