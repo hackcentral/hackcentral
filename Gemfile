@@ -15,6 +15,7 @@ gem 'spring',        group: :development
 gem 'paperclip'
 gem 'figaro'
 gem 'aws-sdk'
+gem 'devise'
 
 # Environment Dependencies
 group :development, :test do
