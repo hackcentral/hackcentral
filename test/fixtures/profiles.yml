@@ -7,6 +7,8 @@ one:
   email: MyString
   school_grad: MyString
   bio: MyText
+  website: MyString
+  github: MyString
 
 two:
   name: MyString
@@ -15,3 +17,5 @@ two:
   email: MyString
   school_grad: MyString
   bio: MyText
+  website: MyString
+  github: MyString

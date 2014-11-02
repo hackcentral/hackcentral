@@ -1,10 +1,10 @@
-<%= form_for @application, html: { multipart: true } do |f| %>
-  <% if @application.errors.any? %>
+<%= form_for(@profile) do |f| %>
+  <% if @profile.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@application.errors.count, "error") %> prohibited this application from being saved:</h2>
+      <h2><%= pluralize(@profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
 
       <ul>
-      <% @application.errors.full_messages.each do |message| %>
+      <% @profile.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -32,20 +32,16 @@
     <%= f.text_field :school_grad %>
   </div>
   <div class="field">
+    <%= f.label :bio %><br>
+    <%= f.text_area :bio %>
+  </div>
+  <div class="field">
     <%= f.label :website %><br>
     <%= f.text_field :website %>
   </div>
   <div class="field">
     <%= f.label :github %><br>
     <%= f.text_field :github %>
-  </div>
-  <div class="field">
-    <%= f.label :bio %><br>
-    <%= f.text_area :bio %>
-  </div>
-  <div class="field">
-    <%= f.label :resume %><br>
-    <%= f.file_field :resume %>
   </div>
   <div class="actions">
     <%= f.submit %>
