@@ -13,6 +13,8 @@ gem 'spring',        group: :development
 
 # App Dependencies
 gem 'paperclip'
+gem 'figaro'
+gem 'aws-sdk'
 
 # Environment Dependencies
 group :development, :test do
