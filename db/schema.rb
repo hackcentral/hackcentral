@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141102223312) do
+ActiveRecord::Schema.define(version: 20141102223508) do
 
   create_table "hackathons", force: true do |t|
     t.string   "name"
@@ -49,7 +49,10 @@ ActiveRecord::Schema.define(version: 20141102223312) do
     t.integer  "resume_file_size"
     t.datetime "resume_updated_at"
     t.text     "dietary_needs"
+    t.integer  "user_id"
   end
+
+  add_index "profiles", ["user_id"], name: "index_profiles_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
