@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141102200454) do
+ActiveRecord::Schema.define(version: 20141102201102) do
 
   create_table "applications", force: true do |t|
     t.string   "name"
@@ -24,6 +24,10 @@ ActiveRecord::Schema.define(version: 20141102200454) do
     t.datetime "updated_at"
     t.string   "website"
     t.string   "github"
+    t.string   "resume_file_name"
+    t.string   "resume_content_type"
+    t.integer  "resume_file_size"
+    t.datetime "resume_updated_at"
   end
 
   create_table "hackathons", force: true do |t|
@@ -31,7 +35,7 @@ ActiveRecord::Schema.define(version: 20141102200454) do
     t.text     "about"
     t.string   "tagline"
     t.string   "location"
-    t.string   "slug", :unique => true
+    t.string   "slug"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "start"
