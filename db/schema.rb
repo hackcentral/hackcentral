@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20141102205046) do
     t.text     "about"
     t.string   "tagline"
     t.string   "location"
-    t.string   "slug"
+    t.string   "slug", :unique => true
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "start"
