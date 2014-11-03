@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Reimbursement needed:</strong>
+  <%= @application.reimbursement_needed %>
+</p>
+
+<p>
+  <strong>Accepted:</strong>
+  <%= @application.accepted %>
+</p>
+
+<%= link_to 'Edit', edit_application_path(@application) %> |
+<%= link_to 'Back', applications_path %>
