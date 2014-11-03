@@ -1,1 +1,1 @@
-json.extract! @application, :id, :reimbursement_needed, :accepted, :created_at, :updated_at
+json.extract! @application, :id, :reimbursement_needed, :accepted, :profile_id, :user_id, :created_at, :updated_at
