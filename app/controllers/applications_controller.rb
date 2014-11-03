@@ -43,7 +43,7 @@ class ApplicationsController < ApplicationController
   # PATCH/PUT /applications/1.json
   def update
     respond_to do |format|
-      if @application.update(application)
+      if @application.update(application_params)
         format.html { redirect_to @application, notice: 'Application was successfully updated.' }
         format.json { render :show, status: :ok, location: @application }
       else
@@ -74,6 +74,6 @@ class ApplicationsController < ApplicationController
     end
 
     def application_params
-      params.require(:application).permit(:reimbursement_needed, :accepted, :user_id)
+      params.require(:application).permit(:reimbursement_needed, :accepted, :user_id, :profile_id)
     end
 end

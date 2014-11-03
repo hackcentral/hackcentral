@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141103010417) do
+ActiveRecord::Schema.define(version: 20141103011703) do
 
   create_table "applications", force: true do |t|
     t.boolean  "reimbursement_needed"
@@ -19,8 +19,10 @@ ActiveRecord::Schema.define(version: 20141103010417) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.integer  "profile_id"
   end
 
+  add_index "applications", ["profile_id"], name: "index_applications_on_profile_id"
   add_index "applications", ["user_id"], name: "index_applications_on_user_id"
 
   create_table "hackathons", force: true do |t|
