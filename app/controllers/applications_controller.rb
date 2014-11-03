@@ -16,7 +16,7 @@ class ApplicationsController < ApplicationController
 
   # GET /applications/new
   def new
-    @application = current_user.applications.build #Application.new
+    @application = current_user.applications.build(hackathon_id: params[:hackathon_id]) #Application.new
   end
 
   # GET /applications/1/edit
@@ -26,7 +26,7 @@ class ApplicationsController < ApplicationController
   # POST /applications
   # POST /applications.json
   def create
-    @application = current_user.applications.build(application_params) #Application.new(application_params)
+    @application = current_user.applications.build(application_params.merge(hackathon_id: params[:hackathon_id])) #Application.new(application_params)
 
     respond_to do |format|
       if @application.save

@@ -1,5 +1,7 @@
 <p id="notice"><%= notice %></p>
 
+<p><%= link_to "Signup for this hackathon!", new_application_path(:hackathon_id => @hackathon.id) %></p>
+
 <p>
   <strong>Name:</strong>
   <%= @hackathon.name %>

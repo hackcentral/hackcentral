@@ -12,6 +12,9 @@
   <% end %>
 
   <div class="field">
+    <%= hidden_field_tag :hackathon_id, params[:hackathon_id] %>
+  </div>
+  <div class="field">
     <%= f.label :profile_id %><br>
     <%= f.collection_select :profile_id, Profile.where(user_id: current_user.id).all, :id, :name %>
   </div>
