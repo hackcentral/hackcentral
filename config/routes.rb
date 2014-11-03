@@ -8,9 +8,10 @@ Rails.application.routes.draw do
   get 'pages/contact' => "pages#contact"
 
   # Scaffolds
-  resources :hackathons
   resources :profiles
-  resources :applications
+  resources :hackathons do
+    resources :applications
+  end
 
   # Devise
   devise_for :users
