@@ -29,7 +29,7 @@ class ApplicationsController < ApplicationController
     @application = current_user.applications.build(application_params) #Application.new(application_params)
 
     respond_to do |format|
-      if @profile.save
+      if @application.save
         format.html { redirect_to @application, notice: 'Application was successfully created.' }
         format.json { render :show, status: :created, location: @application }
       else
