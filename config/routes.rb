@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-  resources :applications
-
   # Root
   root to: 'pages#home'
 
@@ -12,6 +10,7 @@ Rails.application.routes.draw do
   # Scaffolds
   resources :hackathons
   resources :profiles
+  resources :applications
 
   # Devise
   devise_for :users
