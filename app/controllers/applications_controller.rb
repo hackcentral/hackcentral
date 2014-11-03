@@ -74,6 +74,6 @@ class ApplicationsController < ApplicationController
     end
 
     def application_params
-      params.require(:application).permit(:reimbursement_needed, :accepted, :user_id, :profile_id)
+      params.require(:application).permit(:reimbursement_needed, :accepted, :user_id, :profile_id, :hackathon_id)
     end
 end
