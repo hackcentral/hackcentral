@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141102223508) do
+ActiveRecord::Schema.define(version: 20141103005750) do
+
+  create_table "applications", force: true do |t|
+    t.boolean  "reimbursement_needed"
+    t.boolean  "accepted"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "hackathons", force: true do |t|
     t.string   "name"
