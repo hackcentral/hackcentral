@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :submissions
+
   # Root
   root to: 'pages#home'
 
