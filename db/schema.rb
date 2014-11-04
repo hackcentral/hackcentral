@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141103224111) do
+ActiveRecord::Schema.define(version: 20141104002312) do
 
   create_table "applications", force: true do |t|
     t.boolean  "reimbursement_needed"
@@ -31,7 +31,6 @@ ActiveRecord::Schema.define(version: 20141103224111) do
     t.text     "about"
     t.string   "tagline"
     t.string   "location"
-    t.string   "slug"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "start"
@@ -44,7 +43,10 @@ ActiveRecord::Schema.define(version: 20141103224111) do
     t.string   "header_content_type"
     t.integer  "header_file_size"
     t.datetime "header_updated_at"
+    t.string   "slug"
   end
+
+  add_index "hackathons", ["slug"], name: "index_hackathons_on_slug", unique: true
 
   create_table "profiles", force: true do |t|
     t.string   "name"
