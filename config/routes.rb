@@ -15,6 +15,9 @@ Rails.application.routes.draw do
   # Devise
   devise_for :users
 
+  # Subdomain routing
+  get '', to: 'hackathons#show', constraints: {subdomain: /.+/}
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

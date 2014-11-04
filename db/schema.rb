@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141104002312) do
+ActiveRecord::Schema.define(version: 20141104002743) do
 
   create_table "applications", force: true do |t|
     t.boolean  "reimbursement_needed"
@@ -43,10 +43,10 @@ ActiveRecord::Schema.define(version: 20141104002312) do
     t.string   "header_content_type"
     t.integer  "header_file_size"
     t.datetime "header_updated_at"
-    t.string   "slug"
+    t.string   "subdomain"
   end
 
-  add_index "hackathons", ["slug"], name: "index_hackathons_on_slug", unique: true
+  add_index "hackathons", ["subdomain"], name: "index_hackathons_on_subdomain", unique: true
 
   create_table "profiles", force: true do |t|
     t.string   "name"
