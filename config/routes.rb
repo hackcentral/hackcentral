@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  require 'subdomain'
 
   # Root
   root to: 'pages#home'
