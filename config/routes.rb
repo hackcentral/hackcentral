@@ -10,8 +10,9 @@ Rails.application.routes.draw do
   # Scaffolds
   resources :profiles
   resources :applications
-  resources :hackathons
-  resources :submissions
+  resources :hackathons do
+    resources :submissions
+  end
 
   # Devise
   devise_for :users
