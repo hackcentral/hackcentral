@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141104013016) do
+ActiveRecord::Schema.define(version: 20141104013811) do
 
   create_table "applications", force: true do |t|
     t.boolean  "reimbursement_needed"
@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(version: 20141104013016) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.integer  "hackathon_id"
   end
 
   add_index "submissions", ["user_id"], name: "index_submissions_on_user_id"
