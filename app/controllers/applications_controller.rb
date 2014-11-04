@@ -16,7 +16,11 @@ class ApplicationsController < ApplicationController
 
   # GET /applications/new
   def new
-    @application = current_user.applications.build(hackathon_id: params[:hackathon_id]) #Application.new
+    if(params.has_key?(:hackathon_id))
+      @application = current_user.applications.build(hackathon_id: params[:hackathon_id]) #Application.new
+    else
+      redirect_to applications_path, notice: 'An application needs to have a hackathon_id.'
+    end
   end
 
   # GET /applications/1/edit
