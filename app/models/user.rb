@@ -6,4 +6,5 @@ class User < ActiveRecord::Base
 
   has_many :profiles
   has_many :applications
+  has_many :submissions
 end

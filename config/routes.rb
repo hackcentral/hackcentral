@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-  resources :submissions
-
   # Root
   root to: 'pages#home'
 
@@ -13,6 +11,7 @@ Rails.application.routes.draw do
   resources :profiles
   resources :applications
   resources :hackathons
+  resources :submissions
 
   # Devise
   devise_for :users
