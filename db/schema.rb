@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141104002743) do
+ActiveRecord::Schema.define(version: 20141104012726) do
 
   create_table "applications", force: true do |t|
     t.boolean  "reimbursement_needed"
@@ -68,6 +68,16 @@ ActiveRecord::Schema.define(version: 20141104002743) do
   end
 
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id"
+
+  create_table "submissions", force: true do |t|
+    t.string   "title"
+    t.string   "tagline"
+    t.text     "description"
+    t.string   "video"
+    t.string   "website"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
