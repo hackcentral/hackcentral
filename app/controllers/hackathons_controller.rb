@@ -10,6 +10,7 @@ class HackathonsController < ApplicationController
   # GET /hackathons/1
   # GET /hackathons/1.json
   def show
+    #@hackathon = Hackathon.find_by_subdomain!(request.subdomain)
   end
 
   # GET /hackathons/new
@@ -28,7 +29,7 @@ class HackathonsController < ApplicationController
 
     respond_to do |format|
       if @hackathon.save
-        format.html { redirect_to @hackathon, notice: 'Hackathon was successfully created.' }
+        format.html { redirect_to hackathons_path, notice: 'Hackathon was successfully created.' }
         format.json { render :show, status: :created, location: @hackathon }
       else
         format.html { render :new }
@@ -42,7 +43,7 @@ class HackathonsController < ApplicationController
   def update
     respond_to do |format|
       if @hackathon.update(hackathon_params)
-        format.html { redirect_to @hackathon, notice: 'Hackathon was successfully updated.' }
+        format.html { redirect_to hackathons_path, notice: 'Hackathon was successfully updated.' }
         format.json { render :show, status: :ok, location: @hackathon }
       else
         format.html { render :edit }
@@ -69,6 +70,6 @@ class HackathonsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def hackathon_params
-      params.require(:hackathon).permit(:name, :about, :tagline, :location, :slug, :logo, :header, :start, :end)
+      params.require(:hackathon).permit(:name, :subdomain, :about, :tagline, :location, :logo, :header, :start, :end)
     end
 end

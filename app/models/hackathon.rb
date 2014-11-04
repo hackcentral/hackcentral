@@ -9,10 +9,10 @@ class Hackathon < ActiveRecord::Base
   validates_attachment_content_type :header, :content_type => /\Aimage\/.*\Z/
 
   validates :name, presence: true
+  validates :subdomain, presence: true
   validates :about, presence: true
   validates :tagline, presence: true
   validates :location, presence: true
-  validates :slug, presence: true
   validates :start, presence: true
   validates :end, presence: true
 end

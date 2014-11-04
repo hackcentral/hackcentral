@@ -7,7 +7,6 @@
       <th>About</th>
       <th>Tagline</th>
       <th>Location</th>
-      <th>Slug</th>
       <th>Logo</th>
       <th>Header</th>
       <th>Start Time</th>
@@ -20,15 +19,16 @@
     <% @hackathons.each do |hackathon| %>
       <tr>
         <td><%= hackathon.name %></td>
+
         <td><%= hackathon.about %></td>
         <td><%= hackathon.tagline %></td>
         <td><%= hackathon.location %></td>
-        <td><%= hackathon.slug %></td>
         <td><%= image_tag hackathon.logo.url(:medium) %></td>
         <td><%= image_tag hackathon.header.url(:medium) %></td>
         <td><%= hackathon.start %></td>
         <td><%= hackathon.end %></td>
         <td><%= link_to 'Show', hackathon %></td>
+        <td><%= link_to hackathon.name, root_url(subdomain: hackathon.subdomain) %></td>
         <td><%= link_to 'Edit', edit_hackathon_path(hackathon) %></td>
         <td><%= link_to 'Destroy', hackathon, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

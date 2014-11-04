@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  require 'subdomain'
 
   # Root
   root to: 'pages#home'
@@ -16,7 +17,10 @@ Rails.application.routes.draw do
   devise_for :users
 
   # Subdomain routing
-  get '', to: 'hackathons#show', constraints: {subdomain: /.+/}
+  #get '/' => 'hackathons#show', :constraints => { :subdomain => /.+/ }
+  #constraints(Subdomain) do
+    #get '/' => 'hackathons#show'
+  #end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
