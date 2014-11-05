@@ -1,6 +1,8 @@
 class SubmissionsController < ApplicationController
   before_action :set_hackathon
   before_action :set_submission, only: [:show, :edit, :update, :destroy]
+  #before_action :correct_user, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /submissions
   # GET /submissions.json
@@ -72,6 +74,11 @@ class SubmissionsController < ApplicationController
     def set_hackathon
       @hackathon = Hackathon.find(params[:hackathon_id])
     end
+
+    #def correct_user
+      #@submission = current_user.submissions.find_by(id: params[:id])
+      #redirect_to hackathon_submissions_path(@hackathon), notice: "Not authorized to edit this submission" if @submission.nil?
+    #end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def submission_params
