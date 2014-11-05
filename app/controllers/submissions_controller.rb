@@ -15,7 +15,7 @@ class SubmissionsController < ApplicationController
 
   # GET /submissions/new
   def new
-    @submission = current_user.submissions.build #Submission.new
+    @submission = @hackathon.submissions.build #Submission.new
   end
 
   # GET /submissions/1/edit
@@ -25,6 +25,7 @@ class SubmissionsController < ApplicationController
   # POST /submissions
   # POST /submissions.json
   def create
+    #@submission.user_id = current_user
     @submission = @hackathon.submissions.build(submission_params) #Submission.new(submission_params)
 
     respond_to do |format|
