@@ -31,8 +31,9 @@
   <%= render "layouts/header" %>
 
   <div class="container">
+
     <% flash.each do |name, msg| %>
-      <%= content_tag(:div, msg, class: "alert alert-#{name}") %>
+      <%= content_tag(:div, msg, class: "alert alert-success alert-dismissible", role: "alert") %>
     <% end %>
 
     <%= yield %>
