@@ -16,6 +16,7 @@ gem 'paperclip'
 gem 'figaro'
 gem 'aws-sdk'
 gem 'devise'
+gem 'bootstrap-sass'
 
 # Environment Dependencies
 group :development, :test do
