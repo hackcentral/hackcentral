@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  
+
 <!--
 ======================================================================
 === brought to you by... ================================= HackCentral
@@ -24,15 +24,18 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-  <% flash.each do |name, msg| %>
-    <%= content_tag(:div, msg, class: "alert alert-#{name}") %>
-  <% end %>
 
   <%= render "layouts/header" %>
 
-  <%= yield %>
+  <div class="container">
+    <% flash.each do |name, msg| %>
+      <%= content_tag(:div, msg, class: "alert alert-#{name}") %>
+    <% end %>
+
+    <%= yield %>
 
 </body>
 </html>
