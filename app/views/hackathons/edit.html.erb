@@ -1,6 +1,14 @@
-<h1>Editing hackathon</h1>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="panel-title">
+      <h1>Editing hackathon</h1>
+    </div>
+  </div>
 
-<%= render 'form' %>
+  <%= render 'form' %>
 
-<%= link_to 'Show', @hackathon %> |
-<%= link_to 'Back', hackathons_path %>
+  <div class="panel-footer">
+    <%= link_to 'Show', @hackathon %> |
+    <%= link_to 'Back', hackathons_path %>
+  </div>
+</div>
