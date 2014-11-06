@@ -26,10 +26,10 @@
   <%= csrf_meta_tags %>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body>
+<body class="">
 
   <%= render "layouts/header" %>
-
+  
   <div class="container">
 
     <% flash.each do |name, msg| %>
@@ -38,5 +38,6 @@
 
     <%= yield %>
 
+  </div>
 </body>
 </html>
