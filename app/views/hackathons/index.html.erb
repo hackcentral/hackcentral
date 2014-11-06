@@ -1,3 +1,24 @@
+<div class="row">
+  <% @hackathons.each do |hackathon| %>
+    <div class="col-sm-6 col-md-4">
+      <div class="thumbnail">
+        <%= image_tag hackathon.logo.url(:medium) %>
+        <div class="caption">
+          <h3><%= hackathon.name %></h3>
+          <p><%= hackathon.tagline %></p>
+          <p>
+            <%= link_to 'More', hackathon, :class => "btn btn-primary", :role => "button" %>
+            <%= link_to 'Signup', new_application_path(:hackathon_id => hackathon.id), :class => "btn btn-default", :role => "button" %>
+          </p>
+        </div> <!-- ./caption -->
+      </div> <!-- ./thumbnail -->
+    </div> <!-- ./col-sm-6 col-md-4 -->
+  <% end %>
+</div> <!-- ./row -->
+
+
+
+
 <h1>Listing hackathons</h1>
 
 <table>
@@ -19,7 +40,6 @@
     <% @hackathons.each do |hackathon| %>
       <tr>
         <td><%= hackathon.name %></td>
-
         <td><%= hackathon.about %></td>
         <td><%= hackathon.tagline %></td>
         <td><%= hackathon.location %></td>
