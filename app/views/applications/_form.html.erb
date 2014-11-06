@@ -1,32 +1,34 @@
-<%= form_for(@application) do |f| %>
-  <% if @application.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@application.errors.count, "error") %> prohibited this application from being saved:</h2>
+<div class="panel-body">
+  <%= form_for(@application) do |f| %>
+    <% if @application.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@application.errors.count, "error") %> prohibited this application from being saved:</h2>
 
-      <ul>
-      <% @application.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+        <ul>
+        <% @application.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= hidden_field_tag :hackathon_id, params[:hackathon_id] %>
+    </div>
+    <div class="form-group">
+      <%= f.label :profile_id %><br>
+      <%= f.collection_select :profile_id, Profile.where(user_id: current_user.id).all, :id, :name %>
+    </div>
+    <div class="form-group">
+      <%= f.label :reimbursement_needed %><br>
+      <%= f.check_box :reimbursement_needed %>
+    </div>
+    <div class="form-group">
+      <%= f.label :accepted %><br>
+      <%= f.check_box :accepted %>
+    </div>
+    <div class="form-group">
+      <%= f.submit "Submit", :class => "btn btn-primary" %>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= hidden_field_tag :hackathon_id, params[:hackathon_id] %>
-  </div>
-  <div class="field">
-    <%= f.label :profile_id %><br>
-    <%= f.collection_select :profile_id, Profile.where(user_id: current_user.id).all, :id, :name %>
-  </div>
-  <div class="field">
-    <%= f.label :reimbursement_needed %><br>
-    <%= f.check_box :reimbursement_needed %>
-  </div>
-  <div class="field">
-    <%= f.label :accepted %><br>
-    <%= f.check_box :accepted %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>
