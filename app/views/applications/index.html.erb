@@ -1,27 +1,36 @@
-<h1>Listing applications</h1>
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">My applications</div>
+  <div class="panel-body">
+    <p>You have <%= current_user.applications.count %> applications!</p>
+  </div>
 
-<h3>You have <%= current_user.applications.count %> applications! </h3>
-
-<table>
-  <thead>
-    <tr>
-      <th>Applied to</th>
-      <th>Reimbursement needed</th>
-      <th>Accepted</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @applications.each do |application| %>
+  <!-- Table -->
+  <table class="table">
+    <thead>
       <tr>
-        <td><%= application.hackathon_id %></td>
-        <td><%= application.reimbursement_needed %></td>
-        <td><%= application.accepted %></td>
-        <td><%= link_to 'Show', application %></td>
-        <td><%= link_to 'Edit', edit_application_path(application) %></td>
-        <td><%= link_to 'Destroy', application, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Applied to</th>
+        <th>Reimbursement needed</th>
+        <th>Accepted</th>
+        <th colspan="3"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% @applications.each do |application| %>
+        <tr>
+          <td><%= application.hackathon_id %></td>
+          <td><%= application.reimbursement_needed %></td>
+          <td><%= application.accepted %></td>
+          <td>
+            <div class="btn-group">
+              <button type="button" class="btn btn-default"><%= link_to 'Show', application %></button>
+              <button type="button" class="btn btn-default"><%= link_to 'Edit', edit_application_path(application) %></button>
+              <button type="button" class="btn btn-default"><%= link_to 'Destroy', application, method: :delete, data: { confirm: 'Are you sure?' } %></button>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

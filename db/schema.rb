@@ -11,18 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141104013811) do
+ActiveRecord::Schema.define(version: 20141106203106) do
 
   create_table "applications", force: true do |t|
     t.boolean  "reimbursement_needed"
-    t.boolean  "accepted"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
     t.integer  "profile_id"
     t.integer  "hackathon_id"
+    t.boolean  "accepted",             default: false
   end
 
+  add_index "applications", ["accepted"], name: "index_applications_on_accepted"
   add_index "applications", ["profile_id"], name: "index_applications_on_profile_id"
   add_index "applications", ["user_id"], name: "index_applications_on_user_id"
 
