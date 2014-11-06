@@ -1,2 +1,11 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="jumbotron">
+  <div class="container">
+    <h1>Pages#home</h1>
+    <p>Find me in app/views/pages/home.html.erb</p>
+    <% if user_signed_in? %>
+      <h1>sup.</h1>
+    <% #else %>
+      <h1><%= link_to "Sign up", new_user_registration_path, :class => "btn btn-primary", :role => "button" %></h1>
+    <% end %>
+  </div>
+</div>
