@@ -17,8 +17,12 @@ Rails.application.routes.draw do
   # Devise
   devise_for :users
 
+  get '/admin/hackathons' => "hackathons#index"
+  get '/admin/hackathons/:id/edit' => "hackathons#edit"
+  get '/admin/hackathons/:id/checkin' => "hackathons#show"
+
   # Subdomain routing
-  #get '/' => 'hackathons#show', :constraints => { :subdomain => /.+/ }
+  #get '/' => 'hackathons#show', :constraints => { :sub domain => /.+/ }
   #constraints(Subdomain) do
     #get '/' => 'hackathons#show'
   #end

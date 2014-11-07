@@ -62,6 +62,12 @@ class HackathonsController < ApplicationController
     end
   end
 
+  # /admin/hackathons/1/checkin
+  def checkin
+    #@hackathon = Hackathon.all
+    #@hackathon = Hackathon.applications.where(accepted: true).all
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_hackathon
