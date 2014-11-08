@@ -25,8 +25,7 @@
           <li><%= link_to "Account Settings", edit_user_registration_path %></li>
           <li><%= link_to "Log out", destroy_user_session_path, method: :delete %></li>
         <% else %>
-          <li><%= render "layouts/modal" %>
-
+          <li><%= render "layouts/modal" %></li>
         <% end %>
       </ul>
     </div><!-- /.navbar-collapse -->
