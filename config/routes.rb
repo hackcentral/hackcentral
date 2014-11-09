@@ -21,10 +21,10 @@ Rails.application.routes.draw do
   get "/admin" => "admin/dashboards#index"
 
   # Subdomain routing
-  #get '/' => 'hackathons#show', :constraints => { :sub domain => /.+/ }
-  #constraints(Subdomain) do
-    #get '/' => 'hackathons#show'
-  #end
+    #get '/' => 'hackathons#show', :constraints => { :sub domain => /.+/ }
+    #constraints(Subdomain) do
+      #get '/' => 'hackathons#show'
+    #end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
