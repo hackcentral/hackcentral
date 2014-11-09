@@ -1,5 +1,6 @@
-class Admin::DashboardsController < ActionController::Base
+class Admin::DashboardsController < ApplicationController
 
   def index
   end
+
 end

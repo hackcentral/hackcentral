@@ -18,9 +18,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   # Admin
-  namespace :admin do
-    get '/' => "dashboards#index"
-  end
+  get "/admin" => "admin/dashboards#index"
 
   # Subdomain routing
   #get '/' => 'hackathons#show', :constraints => { :sub domain => /.+/ }
