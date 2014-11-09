@@ -19,7 +19,7 @@ Rails.application.routes.draw do
 
   # Admin
   namespace :admin do
-    get '/' => "admin#index"
+    get '/' => "dashboards#index"
   end
 
   # Subdomain routing
