@@ -23,10 +23,12 @@
       <%= f.label :reimbursement_needed %><br>
       <%= f.check_box :reimbursement_needed, class: "form-control" %>
     </div>
-    <div class="form-group">
-      <%= f.label :accepted %><br>
-      <%= f.check_box :accepted, class: "form-control" %>
-    </div>
+    <% if current_user.try(:admin?) %>
+      <div class="form-group">
+        <%= f.label :accepted %><br>
+        <%= f.check_box :accepted, class: "form-control" %>
+      </div>
+    <% end %>
     <div class="form-group">
       <%= f.submit "Submit", :class => "btn btn-primary" %>
     </div>
