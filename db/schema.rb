@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141109225505) do
+ActiveRecord::Schema.define(version: 20141113002154) do
 
   create_table "applications", force: true do |t|
     t.boolean  "reimbursement_needed"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20141109225505) do
     t.integer  "header_file_size"
     t.datetime "header_updated_at"
     t.string   "subdomain"
+    t.boolean  "hs_hackers_allowed",  default: false
   end
 
   add_index "hackathons", ["subdomain"], name: "index_hackathons_on_subdomain", unique: true
