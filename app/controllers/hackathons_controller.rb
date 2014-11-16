@@ -76,6 +76,6 @@ class HackathonsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def hackathon_params
-      params.require(:hackathon).permit(:name, :subdomain, :about, :tagline, :location, :logo, :header, :start, :end)
+      params.require(:hackathon).permit(:name, :subdomain, :about, :tagline, :location, :logo, :header, :start, :end, :hs_hackers_allowed, :mlh_sactioned)
     end
 end

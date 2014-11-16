@@ -4,6 +4,19 @@
 
 <p><%= link_to "Signup for this hackathon!", new_application_path(:hackathon_id => @hackathon.id) %></p>
 
+<div>
+  <p>
+    <% if @hackathon.hs_hackers_allowed? %>
+      We love HS Hackers!
+    <% end %>
+  </p>
+  <p>
+    <% if @hackathon.mlh_sactioned? %>
+      We are MLH sanctioned!
+    <% end %>
+  </p>
+</div>
+
 <p>
   <strong>Name:</strong>
   <%= @hackathon.name %>

@@ -49,6 +49,10 @@
       <%= f.datetime_select :end, class: "form-control" %>
     </div>
     <div class="form-group">
+      <%= f.label :hs_hackers_allowed %><br>
+      <%= f.check_box :hs_hackers_allowed, class: "form-control" %>
+    </div>
+    <div class="form-group">
       <%= f.submit class: "btn btn-primary" %>
     </div>
   <% end %>
