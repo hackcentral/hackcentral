@@ -6,7 +6,7 @@ class Admin::DashboardsController < ApplicationController
   end
 
   def mlh
-    @hackathon = Hackathon.all
+    @hackathons = Hackathon.all
   end
 
   private

@@ -15,11 +15,12 @@ Rails.application.routes.draw do
   end
 
   # Devise
-  devise_for :users, :path => '', :path_names => {:sign_in => 'login', :sign_out => 'logout'}
+  devise_for :users, :path => '', :path_names => {:sign_in => 'login', :sign_out => 'logout', :sign_up => 'register'}
 
-  # Admin
-  get "/admin" => "admin/dashboards#index"
-  get "/admin/mlh" => "admin/dashboards#mlh"
+  # Admin Root
+    get "/admin" => "admin/dashboards#index"
+  # Admin MLH
+    get "/admin/mlh" => "admin/dashboards#mlh"
 
   # Subdomain routing
     #get '/' => 'hackathons#show', :constraints => { :sub domain => /.+/ }
