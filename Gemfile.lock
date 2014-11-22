@@ -55,6 +55,8 @@ GEM
       responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
+    doorkeeper (1.4.0)
+      railties (>= 3.1)
     erubis (2.7.0)
     execjs (2.2.2)
     figaro (1.0.0)
@@ -152,6 +154,7 @@ DEPENDENCIES
   bootstrap-sass
   coffee-rails (~> 4.0.0)
   devise
+  doorkeeper
   figaro
   jbuilder (~> 2.0)
   jquery-rails

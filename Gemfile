@@ -13,10 +13,11 @@ gem 'spring',        group: :development
 
 # HC Dependencies
 gem 'paperclip'
-gem 'figaro'
 gem 'aws-sdk'
-gem 'devise'
+gem 'figaro'
 gem 'bootstrap-sass'
+gem 'devise'
+gem 'doorkeeper'
 
 # Environment Dependencies
 group :development, :test do
