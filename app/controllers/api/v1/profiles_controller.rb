@@ -5,8 +5,7 @@ module Api
       respond_to :json
 
       def index
-        user = User.find(doorkeeper_token.resource_owner_id)
-        respond_with user.profiles
+        respond_with current_user.profiles
       end
       #def show
         #respond_with Profile.find(params[:id])
