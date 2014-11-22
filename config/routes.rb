@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  use_doorkeeper
   # Root
   root to: 'pages#home'
 
@@ -19,6 +18,8 @@ Rails.application.routes.draw do
   devise_for :users, :path => '', :path_names => {:sign_in => 'login', :sign_out => 'logout', :sign_up => 'register'}
 
   # API
+  use_doorkeeper
+
   namespace :api, defaults: {format: 'json'} do
     scope module: :v1 do
       resources :profiles
