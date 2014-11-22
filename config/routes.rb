@@ -18,6 +18,17 @@ Rails.application.routes.draw do
   # Devise
   devise_for :users, :path => '', :path_names => {:sign_in => 'login', :sign_out => 'logout', :sign_up => 'register'}
 
+  # API
+  namespace :api, defaults: {format: 'json'} do
+    scope module: :v1 do
+      resources :profiles
+      resources :applications
+      resources :hackathons do
+        resources :submissions
+      end
+    end
+  end
+
   # Admin Root
     get "/admin" => "admin/dashboards#index"
   # Admin MLH
