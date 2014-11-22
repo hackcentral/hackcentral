@@ -7,9 +7,9 @@ module Api
       def index
         respond_with current_user.profiles
       end
-      #def show
-        #respond_with Profile.find(params[:id])
-      #end
+      def create
+        respond_with current_user.profiles.create(params[:profile])
+      end
     end
   end
 end
