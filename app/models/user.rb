@@ -7,4 +7,5 @@ class User < ActiveRecord::Base
   has_many :profiles
   has_many :applications
   has_many :submissions
+  has_many :oauth_applications, class_name: 'Doorkeeper::Application', as: :owner
 end
