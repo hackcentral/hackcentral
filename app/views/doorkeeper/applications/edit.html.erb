@@ -1,5 +1,14 @@
-<div class="page-header">
-  <h1>Edit application</h1>
-</div>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="panel-title">
+      <h1>Editing application</h1>
+    </div>
+  </div>
 
-<%= render 'form', application: @application %>
+  <%= render 'form', application: @application %>
+
+  <div class="panel-footer">
+    <%= link_to 'Show', oauth_application_path %> |
+    <%= link_to 'Back', oauth_applications_path %>
+  </div>
+</div>

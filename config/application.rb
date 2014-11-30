@@ -9,6 +9,13 @@ Bundler.require(*Rails.groups)
 module Hackcentral
   class Application < Rails::Application
     config.assets.initialize_on_precompile = false
+    config.to_prepare do
+      Doorkeeper::ApplicationsController.layout "api_base"
+
+      Doorkeeper::AuthorizationsController.layout "api_base"
+
+      Doorkeeper::AuthorizedApplicationsController.layout "api_base"
+    end
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
