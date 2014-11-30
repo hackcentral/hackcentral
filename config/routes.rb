@@ -22,6 +22,7 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: {format: 'json'} do
     scope module: :v1 do
+      get '/user' => "users#show"
       resources :profiles
       resources :applications
       resources :hackathons do
