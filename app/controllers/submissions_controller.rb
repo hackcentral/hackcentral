@@ -7,7 +7,7 @@ class SubmissionsController < ApplicationController
   # GET /submissions
   # GET /submissions.json
   def index
-    @submissions = @hackathon.submissions #Submission.all
+    @submissions = @hackathon.submissions.where(user_id: current_user.id).all #Submission.all
   end
 
   # GET /submissions/1
@@ -18,6 +18,7 @@ class SubmissionsController < ApplicationController
   # GET /submissions/new
   def new
     @submission = @hackathon.submissions.build #Submission.new
+    @submission.user_id = current_user.id
   end
 
   # GET /submissions/1/edit
@@ -29,6 +30,7 @@ class SubmissionsController < ApplicationController
   def create
     #@submission.user_id = current_user
     @submission = @hackathon.submissions.build(submission_params) #Submission.new(submission_params)
+    @submission.user_id = current_user.id
 
     respond_to do |format|
       if @submission.save
@@ -75,10 +77,10 @@ class SubmissionsController < ApplicationController
       @hackathon = Hackathon.find(params[:hackathon_id])
     end
 
-    #def correct_user
-      #@submission = current_user.submissions.find_by(id: params[:id])
-      #redirect_to hackathon_submissions_path(@hackathon), notice: "Not authorized to edit this submission" if @submission.nil?
-    #end
+    def correct_user
+      @submission = current_user.submissions.find_by(id: params[:id])
+      redirect_to hackathon_submissions_path(@hackathon), notice: "Not authorized to edit this submission" if @submission.nil?
+    end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def submission_params
