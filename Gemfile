@@ -16,6 +16,7 @@ gem 'paperclip'
 gem 'aws-sdk'
 gem 'figaro'
 gem 'bootstrap-sass'
+gem 'font-awesome-sass'
 gem 'devise'
 gem 'doorkeeper'
 

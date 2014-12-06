@@ -9,6 +9,8 @@ $brand-primary:                                    #c0392b;
 $jumbotron-bg:                                         white;
 
 @import 'bootstrap';
+@import "font-awesome-sprockets";
+@import "font-awesome";
 
 .center {
      text-align: center;
