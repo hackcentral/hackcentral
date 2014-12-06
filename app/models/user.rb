@@ -11,7 +11,9 @@ class User < ActiveRecord::Base
 
   after_init :send_welcome_email
 
-  def self.send_welcome_email
+private
+  def send_welcome_email
     NotificationMailer.welcome_email(user).deliver_now
   end
+
 end
