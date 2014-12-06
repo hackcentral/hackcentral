@@ -1,6 +1,6 @@
 class AddPortfolioStuffToAppplications < ActiveRecord::Migration
   def self.up
-    change_table :applications do |t|
+    create_table :applications do |t|
       t.string :website
       t.string :github
     end
