@@ -1,18 +1,35 @@
 class Admin::DashboardsController < ApplicationController
-  before_action :is_mlh, only: [:mlh]
+  before_action :is_mlh, only: [:mlh, :sanction, :unsanction]
   before_action :authenticate_user!
 
-  def index
-  end
+  # Admin Root
+    def index
+    end
+  # Admin MLH
+    def mlh_root
+      @hackathons = Hackathon.all
+    end
 
-  def mlh
-    @hackathons = Hackathon.all
-  end
+    def mlh_sanction
+      @hackathon = Hackathon.find(params[:hackathon_id])
+      @hackathon.update_attribute :mlh_sanctioned, true
+      redirect_to admin_mlh_path, notice: "Sanctioning complete!"
+    end
+
+    def mlh_unsanction
+      @hackathon = Hackathon.find(params[:hackathon_id])
+      @hackathon.update_attribute :mlh_sanctioned, false
+      redirect_to admin_mlh_path, notice: "Unsanctioning complete!"
+    end
 
   private
     def is_mlh
-      if current_user.mlh == false
-        redirect_to root_path, notice: "Not authorized"
+      if user_signed_in?
+          if current_user.mlh == false
+            redirect_to root_path, notice: "Not authorized"
+          else
+          end
+      else
       end
     end
 end

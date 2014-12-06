@@ -1,0 +1,51 @@
+<h1>Listing hackathons</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Sanctioning Status</th>
+      <th>Sanction</th>
+      <th>Unsanction</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @hackathons.each do |hackathon| %>
+      <tr>
+        <td><%= hackathon.name %></td>
+        <td>
+          <% if hackathon.mlh_sanctioned? %>
+            <span class="label label-success">Sanctioned</span>
+          <% else %>
+            <span class="label label-default">Not Sanctioned</span>
+          <% end %>
+        </td>
+        <td>
+          <div class="form-group">
+            <%= button_to "Sanction", :class => "btn btn-primary",
+              :controller => 'admin/dashboards',
+              :action => "mlh_sanction",
+              :hackathon_id => hackathon.id,
+              :method => :post
+            %>
+          </div>
+        </td>
+
+        <td>
+          <div class="form-group">
+            <%= button_to "Unsanction", :class => "btn btn-default",
+              :controller => 'admin/dashboards',
+              :action => "mlh_unsanction",
+              :hackathon_id => hackathon.id,
+              :method => :post
+            %>
+          </div>
+        </td>
+        <td><%= link_to 'Show', hackathon %></td>
+        <td><%= link_to hackathon.name, root_url(subdomain: hackathon.subdomain) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
