@@ -27,9 +27,9 @@ Rails.application.routes.draw do
       get '/user' => "users#show"
       resources :profiles
       resources :applications
-      resources :hackathons do
-        resources :submissions
-      end
+      resources :hackathons #do
+        #resources :submissions
+      #end
     end
   end
 
