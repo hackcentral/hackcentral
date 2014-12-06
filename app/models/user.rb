@@ -9,8 +9,9 @@ class User < ActiveRecord::Base
   has_many :submissions
   has_many :oauth_applications, class_name: 'Doorkeeper::Application', as: :owner
 
-  after_init :send_welcome_email
+  #after_init :send_welcome_email
 
-  def send_welcome_email!
-  end
+  #def send_welcome_email
+    #@user = current_user
+  #end
 end
