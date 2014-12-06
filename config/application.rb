@@ -9,7 +9,7 @@ Bundler.require(*Rails.groups)
 module Hackcentral
   class Application < Rails::Application
     config.assets.initialize_on_precompile = false
-    config.serve_static_assets = true
+
     config.to_prepare do
       Doorkeeper::ApplicationsController.layout "api_base"
 
