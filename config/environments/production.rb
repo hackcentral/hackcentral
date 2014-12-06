@@ -1,5 +1,7 @@
 Rails.application.configure do
 
+  config.assets.compile = true
+
   config.paperclip_defaults = {
     :storage => :s3,
     :s3_credentials => {
