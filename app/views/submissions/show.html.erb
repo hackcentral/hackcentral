@@ -1,38 +1,121 @@
-<div class="row">
-  
-</div>
-
-
-
-
-
-
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @submission.title %>
-</p>
+<div class="jumbotron">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9">
+        <h1><%= @submission.title %></h1>
 
-<p>
-  <strong>Tagline:</strong>
-  <%= @submission.tagline %>
-</p>
+        <% if @submission.submitted_at == nil %>
+          <p>In Progress</p>
+        <% else %>
+          <p>Submitted for Judging</p>
+        <% end %>
 
-<p>
-  <strong>Description:</strong>
-  <%= @submission.description %>
-</p>
+        <hr>
 
-<p>
-  <strong>Video:</strong>
-  <%= @submission.video %>
-</p>
+        <h2><%= @submission.tagline %></h2>
 
-<p>
-  <strong>Website:</strong>
-  <%= @submission.website %>
-</p>
+        <p><%= @submission.description %></p>
 
-<%= link_to 'Edit', edit_hackathon_submission_path(@hackathon, @submission) %> |
-<%= link_to 'Back', hackathon_submissions_path(@hackathon) %>
+        <p>video coming soon</p>
+        <% if @submission.video? %>
+          <% if @submission.video.string.include?(vimeo.com) %>
+            <div class="embed-responsive embed-responsive-4by3">
+              <iframe class="embed-responsive-item" src=""></iframe>
+            </div>
+          <% end %>
+
+        <p>Built With:</p> <span class="label label-default">Tags go here</span>
+
+        <hr>
+
+        <p>comments go here</p>
+
+      </div><!-- .col-md-9 -->
+      <div class="col-md-3">
+<style>
+  .thumbnail {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5px;
+    margin-top: 20px;
+    text-align: center;
+    position: relative;
+    width: 250px;
+    padding: 20px;
+    display: block;
+    line-height: 1.428571429;
+    background-color: white;
+    border: 1px solid #eaeaea;
+    border-radius: 4px;
+  }
+  .avatar {
+    width: 48px;
+    padding: 1px;
+    border: 1px solid #ccc;
+    border-radius: 100px;
+  }
+</style>
+
+        <!-- Screenshot -->
+
+          <div class="text-center hidden-xs">
+            <div class="thumbnail">
+              thumbnail
+            </div>
+          </div>
+          <div class="text-center hidden-xs">
+            <%= link_to "View Website", (@submission.website).html_safe %>
+            <p>favorite</p>
+          </div>
+
+        <!-- .Screenshot -->
+
+        <br />
+
+        <!-- Team -->
+
+          <div class="panel panel-default">
+            <div class="panel-heading">Team</div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-sm-6 col-xs-4 participation">
+                  <a href="/users/poegem"><img alt="D9b04855e710bbdd460e21be5f249d5e?s=60&amp;d=retro" class="avatar" src="https://secure.gravatar.com/avatar/d9b04855e710bbdd460e21be5f249d5e?s=60&amp;d=retro"></a>
+                  <br>
+                  <strong><a href="/users/poegem" class="username">poegem</a></strong>
+                  <br>
+                  <small><%= @submission.user.name %></small>
+                </div>
+              </div><!-- .row -->
+            </div><!-- .panel-body -->
+          </div><!-- .panel panel-default -->
+
+        <!-- .Team -->
+
+        <br />
+
+        <!-- Options -->
+
+          <% if @submission.user_id == current_user.id %>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                Options
+              </div><!-- .panel-heading -->
+              <div class="panel-body">
+                <ul class="list-unstyled">
+                    <li><i class="fa fa-pencil-square-o"></i><%= link_to ' Edit', edit_hackathon_submission_path(@hackathon, @submission) %></li>
+                    <li><i class="fa fa-trash"></i><%= link_to ' Destroy', hackathon_submission_path(@hackathon, @submission), method: :delete, data: { confirm: 'Are you sure?' } %></li>
+                </ul>
+              </div><!-- .panel-body -->
+            </div><!-- .panel panel-default -->
+          <% end %>
+
+        <!-- .Options -->
+
+        <br />
+
+      </div><!-- .col-md-3 -->
+    </div><!-- .row -->
+  </div><!-- .container -->
+</div><!-- .jumbotron -->
