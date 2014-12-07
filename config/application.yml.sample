@@ -3,3 +3,6 @@
 aws_bucket: "blah"
 aws_access_key_id: "secret"
 aws_secret_access_key: "secret"
+sendgrid_username: "blah"
+sendgrid_password: "blah"
+domain: "blah"
