@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141207165445) do
+ActiveRecord::Schema.define(version: 20141207215548) do
 
   create_table "applications", force: true do |t|
     t.boolean  "reimbursement_needed"
@@ -128,6 +128,22 @@ ActiveRecord::Schema.define(version: 20141207165445) do
   end
 
   add_index "submissions", ["user_id"], name: "index_submissions_on_user_id"
+
+  create_table "taggings", force: true do |t|
+    t.integer  "tag_id"
+    t.integer  "submission_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "taggings", ["submission_id"], name: "index_taggings_on_submission_id"
+  add_index "taggings", ["tag_id"], name: "index_taggings_on_tag_id"
+
+  create_table "tags", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",    null: false
