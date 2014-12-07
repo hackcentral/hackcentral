@@ -1,3 +1,25 @@
 // Place all the styles related to the submissions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+  .thumbnail {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5px;
+    margin-top: 20px;
+    text-align: center;
+    position: relative;
+    width: 250px;
+    padding: 20px;
+    display: block;
+    line-height: 1.428571429;
+    background-color: white;
+    border: 1px solid #eaeaea;
+    border-radius: 4px;
+  }
+  .avatar {
+    width: 48px;
+    padding: 1px;
+    border: 1px solid #ccc;
+    border-radius: 100px;
+  }
