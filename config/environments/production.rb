@@ -1,5 +1,7 @@
 Rails.application.configure do
 
+  Rails.application.routes.default_url_options[:host] = 'https://hackcentral-staging.herokuapp.com'
+
   config.assets.precompile += %w( .svg .eot .woff .ttf )
 
   config.paperclip_defaults = {
