@@ -7,7 +7,7 @@ class SubmissionsController < ApplicationController
   # GET /submissions
   # GET /submissions.json
   def index
-    @submissions = @hackathon.submissions.where(user_id: current_user.id).all #Submission.all
+    @submissions = @hackathon.submissions.all #Submission.all
   end
 
   # GET /submissions/1

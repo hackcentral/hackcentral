@@ -1,32 +1,61 @@
-<h1>Listing submissions</h1>
+<style>
+  .container .jumbotron {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+</style>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Tagline</th>
-      <th>Description</th>
-      <th>Video</th>
-      <th>Website</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div class="jumbotron">
+  <div class="container">
 
-  <tbody>
-    <% @submissions.each do |submission| %>
-      <tr>
-        <td><%= submission.title %></td>
-        <td><%= submission.tagline %></td>
-        <td><%= submission.description %></td>
-        <td><%= submission.video %></td>
-        <td><%= submission.website %></td>
-        <td><%= link_to 'Show', hackathon_submission_path(@hackathon, submission) %></td>
-        <td><%= link_to 'Edit', edit_hackathon_submission_path(@hackathon, submission) %></td>
-        <td><%= link_to 'Destroy', hackathon_submission_path(@hackathon, submission), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+    <h2 class="section-name"><strong><%= @submissions.count %> submissions</strong></h2>
+
+    <br />
+
+    <div class="row">
+      <div class="col-md-9">
+        <p>search1</p>
+
+        <br />
+
+          <div class="row">
+
+          <% @submissions.each do |submission| %>
+
+            <div class="col-sm-6 col-md-4">
+              <div class="thumbnail">
+                <img data-src="holder.js/300x300" alt="...">
+                <div class="caption">
+                  <h2 class="section-name"><%= submission.title %></h2>
+                  <p><%= submission.tagline %></p>
+                  <p><%= submission.user.name if submission.user %></p>
+                  <p>
+                    <%= link_to 'Show', hackathon_submission_path(@hackathon, submission), class: "btn btn-lg btn-primary" %>
+                  </p>
+                </div><!-- .caption -->
+              </div><!-- .thumbnail -->
+            </div><!-- col-sm-6 col-md-4 -->
+
+          <% end %>
+
+        </div><!-- row -->
+      </div><!-- .col-md-9 -->
+
+      <div class="col-md-3">
+        <p>search2</p>
+
+        <br />
+
+        <div class="well well-lg">
+          <div class="center">
+            <h3 class="section-title">Prizes</h3>
+          </div><!-- .center -->
+
+        </div><!-- .well well-lg -->
+      </div><!-- .col-md-3 -->
+    </div><!-- .row -->
+  </div><!-- .container -->
+</div><!-- .jumbotron -->
 
 <br>
 
