@@ -1,66 +1,156 @@
-<div class="page-header">
-  <h1><%= @hackathon.name %> <small><%= @hackathon.tagline %></small></h1>
-</div>
-
-<p><%= link_to "Signup for this hackathon!", new_application_path(:hackathon_id => @hackathon.id) %></p>
-
-<div>
-  <p>
-    <% if @hackathon.hs_hackers_allowed? %>
-      We love HS Hackers!
-    <% end %>
-  </p>
-  <p>
-    <% if @hackathon.mlh_sanctioned? %>
-      We are MLH sanctioned!
-    <% end %>
-  </p>
-</div>
-
-<p>
-  <strong>Name:</strong>
-  <%= @hackathon.name %>
-</p>
-
-<p>
-  <strong>About:</strong>
-  <%= @hackathon.about %>
-</p>
-
-<p>
-  <strong>Tagline:</strong>
-  <%= @hackathon.tagline %>
-</p>
-
-<p>
-  <strong>Location:</strong>
-  <%= @hackathon.location %>
-</p>
-
-<p>
-  <strong>Subdomain:</strong>
-  <%= @hackathon.subdomain %>
-</p>
-
-<p>
-  <strong>Logo:</strong>
-  <%= image_tag @hackathon.logo.url(:medium) %>
-</p>
-
 <p>
   <strong>Header:</strong>
   <%= image_tag @hackathon.header.url(:medium) %>
 </p>
 
-<p>
-  <strong>Start Time:</strong>
-  <%= @hackathon.start %>
-</p>
 
-<p>
-  <strong>End Time:</strong>
-  <%= @hackathon.end %>
-</p>
 
-<%= link_to 'Edit', edit_hackathon_path(@hackathon) %> |
-<%= link_to 'Back', hackathons_path %>
+
+
+
+
+<style>
+  .page-header .subheader {
+    text-align :center;
+  }
+
+  .banner.major {
+    background: #b0ff71;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    position: absolute;
+    top: 30px;
+    right: -15px;
+    padding: 4px 40px;
+    color: #234e00;
+    font-weight: bold;
+    text-shadow: 0 1px 0 #8bbe62;
+    font-size: 10px;
+    -webkit-box-shadow: 0 4px 0 0 rgba(0, 0, 0, 0.25);
+    box-shadow: 0 4px 0 0 rgba(0, 0, 0, 0.25);
+  }
+</style>
+
+
+<div class="jumbotron">
+  <div class="container">
+
+    <div class="page-header">
+      <div class="sub-header">
+        <div class="hackathon-image">
+          <div class="hackathon-image-border">
+            <img alt="Logo for hackru-fall-2014" src="https://s3.amazonaws.com/hackerleague-production/organizations/logos/5433fa959f00352c14000006/medium.png?1412693198">
+          </div><!-- .hackathon-image-border -->
+        </div><!-- .hackathon-image -->
+        <h2 class="page-title">
+          HackRU Fall 2014
+
+          <div class="small">
+            Oct 11th-12th, 2014
+            in New Brunswick, NJ
+          </div>
+        </h2>
+      </div><!-- .sub-header -->
+    </div><!-- .page-header -->
+
+
+    <!-- Name and Tagline -->
+    <div class="row">
+      <div class="page-header">
+        <div class="sub-header">
+          <div class="center">
+            <h2 class="page-title">
+              <%= image_tag @hackathon.logo.url(:small) %>  <%= @hackathon.name %>
+            </h2>
+            <br />
+            <h2 class="page-title">
+              <div class="small"><%= @hackathon.tagline %></div>
+            </h2>
+          </div><!-- .center -->
+        </div><!-- .sub-header -->
+      </div><!-- .page-header -->
+    </div><!-- .row -->
+    <!-- .Name and Tagline -->
+
+    <div class="row">
+      <div class="col-md-8">
+        <div class="row">
+          <div class="description col-sm-12">
+
+          <!-- About -->
+            <div class="row">
+              <div class="col-md-3">
+                <p><strong>About:</strong></p>
+              </div><!-- .col-md-3 -->
+              <div class="col-md-9">
+                <hr>
+              </div><!-- .col-md-9 -->
+            </div><!-- .row -->
+            <div class="row">
+              <div class="col-sm-12">
+                  <p>
+                    <%= @hackathon.about %>
+                  </p>
+              </div><!-- .col-sm-12 -->
+            </div><!-- .row -->
+          <!-- .About -->
+
+          <br />
+
+          <!-- How to Enter -->
+            <div class="row">
+              <div class="col-md-3">
+                <p><strong>How To Enter:</strong></p>
+              </div><!-- .col-md-3 -->
+              <div class="col-md-9">
+                <hr>
+              </div><!-- .col-md-9 -->
+            </div><!-- .row -->
+            <p>
+              All current university
+                <% if @hackathon.hs_hackers_allowed? %>
+                  and current high school students
+                  <% else %>
+                  students
+                <% end %>
+              are allowed to submit applications to be reviewed. Only the students that have been accepted to <%= @hackathon.name %> can submit a hack.
+            </p>
+          <!-- .How to Enter -->
+
+          </div><!-- .description col-sm-12 -->
+        </div><!-- .row -->
+      </div><!-- .col-md-8 -->
+
+      <div class="col-md-4">
+        <div class="well">
+          <% if @hackathon.mlh_sanctioned? %>
+            <div class="banner major"><a href="https://mlh.io">MAJOR LEAGUE</a></div>
+          <% end %>
+
+          <h3 class="section-title"><strong>Register</strong></h3>
+            <p><%= link_to "Signup for this hackathon!", new_application_path(:hackathon_id => @hackathon.id), class: "btn btn-lg btn-primary" %><p>
+
+          <br />
+
+          <h3 class="section-title"><strong>Time</strong></h3>
+            <p><i class="fa fa-clock-o"></i> <%= @hackathon.start.strftime("%b %e, %Y") %> until <%= @hackathon.end.strftime("%b %e, %Y") %></p>
+
+          <br />
+
+          <h3 class="section-title"><strong>Location</strong></h3>
+            <p><i class="fa fa-map-marker"></i> <%= @hackathon.location %></p>
+
+          <br />
+
+          <h3 class="section-title"><strong>Organizers</strong></h3>
+            <p>coming soon</p>
+          <h3 class="section-title"><strong>Manage</strong></h3>
+            <%= link_to 'Edit', edit_hackathon_path(@hackathon), class: "btn btn-md btn-primary" %>
+            <%= link_to 'Back', hackathons_path, class: "btn btn-md btn-primary" %>
+        </div><!-- .well -->
+      </div><!-- .col-md-4 -->
+    </div><!-- .row -->
+
+  </div><!-- .container -->
+</div><!-- .jumbotron -->
