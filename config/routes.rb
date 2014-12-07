@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   get 'pages/about' => "pages#about"
   get 'pages/contact' => "pages#contact"
 
+  get 'tags/:tag', to: 'submissions#index', as: :tag
+
   # Scaffolds
   resources :profiles
   resources :applications

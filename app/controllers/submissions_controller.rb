@@ -7,7 +7,11 @@ class SubmissionsController < ApplicationController
   # GET /submissions
   # GET /submissions.json
   def index
-    @submissions = @hackathon.submissions.all #Submission.all
+    if params[:tag]
+      @submissions = Submission.tagged_with(params[:tag])
+    else
+      @submissions = @hackathon.submissions.all #Submission.all
+    end
   end
 
   # GET /submissions/1
