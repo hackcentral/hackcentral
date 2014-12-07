@@ -2,6 +2,7 @@
   <div class="container">
     <h1 class="center"><i class="fa fa-users"></i> Welcome to Hack Central, <%= @email %>!</h1>
     <br />
+    <p class="center">You can confirm your account email through the link below:</p>
     <p class="center"><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
 
     <br />
