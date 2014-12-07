@@ -1,5 +1,5 @@
 class SubmissionsController < ApplicationController
-  before_action :set_hackathon
+  before_action :set_hackathon, except: :tag
   before_action :set_submission, only: [:show, :edit, :update, :destroy]
   #before_action :correct_user, only: [:edit, :update, :destroy]
   before_action :authenticate_user!
@@ -7,11 +7,11 @@ class SubmissionsController < ApplicationController
   # GET /submissions
   # GET /submissions.json
   def index
-    if params[:tag]
-      @submissions = Submission.tagged_with(params[:tag])
-    else
       @submissions = @hackathon.submissions.all #Submission.all
-    end
+  end
+
+  def tag
+    @submissions = Submission.tagged_with(params[:tag])
   end
 
   # GET /submissions/1

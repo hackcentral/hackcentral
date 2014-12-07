@@ -1,0 +1,34 @@
+<style>
+  .container .jumbotron {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+</style>
+
+<div class="jumbotron">
+  <div class="container">
+
+    <h2 class="section-name"><strong><%= @submissions.count %> submissions</strong></h2>
+
+    <br />
+
+    <div class="row">
+
+      <% @submissions.each do |submission| %>
+
+        <div class="col-sm-6 col-md-4">
+          <div class="thumbnail">
+            <img data-src="holder.js/300x300" alt="...">
+            <div class="caption">
+              <h2 class="section-name"><%= submission.title %></h2>
+              <p><%= submission.tagline %></p>
+              <p><%= submission.user.name if submission.user %></p>
+            </div><!-- .caption -->
+          </div><!-- .thumbnail -->
+        </div><!-- col-sm-6 col-md-4 -->
+
+      <% end %>
+
+    </div><!-- row -->
+  </div><!-- .container -->
+</div><!-- .jumbotron -->

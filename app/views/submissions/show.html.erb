@@ -27,8 +27,7 @@
           <% end %>
         <% end %>
 
-        <p>Built With:</p> <span class="label label-default">Tags go here</span>
-        <%= raw @submission.tags.map(&:name).map { |t| link_to t, tag_path(t) }.join(', ') %>
+        <p>Built With:</p> <%= raw @submission.tags.map(&:name).map { |t| link_to t, tag_path(t) }.join(', ') %>
 
         <hr>
 
