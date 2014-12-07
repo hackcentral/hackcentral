@@ -20,11 +20,12 @@
 
         <p>video coming soon</p>
         <% if @submission.video? %>
-          <% if @submission.video.string.include?(vimeo.com) %>
+          <% if @submission.video.include?('vimeo.com') %>
             <div class="embed-responsive embed-responsive-4by3">
               <iframe class="embed-responsive-item" src=""></iframe>
             </div>
           <% end %>
+        <% end %>
 
         <p>Built With:</p> <span class="label label-default">Tags go here</span>
 
@@ -33,7 +34,7 @@
         <p>comments go here</p>
 
       </div><!-- .col-md-9 -->
-      
+
       <div class="col-md-3">
 
         <!-- Screenshot -->
