@@ -7,14 +7,14 @@ Rails.application.routes.draw do
   get 'pages/about' => "pages#about"
   get 'pages/contact' => "pages#contact"
 
-  get 'tags/:tag', to: 'submissions#tag', as: :tag
-
   # Scaffolds
   resources :profiles
   resources :applications
   resources :hackathons do
     resources :submissions
   end
+
+  # Submission Tags
 
   # Devise
   devise_for :users, :path => '', :path_names => {:sign_in => 'login', :sign_out => 'logout', :sign_up => 'register'}
