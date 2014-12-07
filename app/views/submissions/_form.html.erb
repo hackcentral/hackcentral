@@ -1,38 +1,40 @@
-<%= form_for [@hackathon, @submission] do |f| %>
-  <% if @submission.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@submission.errors.count, "error") %> prohibited this submission from being saved:</h2>
+<div class="panel-body">
+  <%= form_for [@hackathon, @submission] do |f| %>
+    <% if @submission.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@submission.errors.count, "error") %> prohibited this submission from being saved:</h2>
 
-      <ul>
-      <% @submission.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+        <ul>
+        <% @submission.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= f.label :title %><br>
+      <%= f.text_field :title, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :tagline %><br>
+      <%= f.text_field :tagline, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :description %><br>
+      <%= f.text_area :description, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :video %><br>
+      <%= f.text_field :video, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :website %><br>
+      <%= f.text_field :website, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.submit "Submit", :class => "btn btn-primary" %>
+      <%= f.submit "Save as a Draft", :class => "btn btn-default" %>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
-  </div>
-  <div class="field">
-    <%= f.label :tagline %><br>
-    <%= f.text_field :tagline %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
-  </div>
-  <div class="field">
-    <%= f.label :video %><br>
-    <%= f.text_field :video %>
-  </div>
-  <div class="field">
-    <%= f.label :website %><br>
-    <%= f.text_field :website %>
-  </div>
-  <div class="actions">
-    <%= f.submit "Submit", :class => "btn btn-primary" %>
-    <%= f.submit "Save as a Draft", :class => "btn btn-default" %>
-  </div>
-<% end %>
+</div><!-- .panel-body -->

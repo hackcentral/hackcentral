@@ -1,6 +1,14 @@
-<h1>Editing submission</h1>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="panel-title">
+      <h1>Editing submission</h1>
+    </div>
+  </div>
 
-<%= render 'form' %>
+  <%= render 'form' %>
 
-<%= link_to 'Show', hackathon_submission_path(@hackathon, @submission) %> |
-<%= link_to 'Back', hackathon_submissions_path %>
+  <div class="panel-footer">
+    <%= link_to 'Show', hackathon_submission_path(@hackathon, @submission) %> |
+    <%= link_to 'Back', hackathon_submissions_path %>
+  </div>
+</div>
