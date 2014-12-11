@@ -1,6 +1,10 @@
 set :stage, :production
 
+server = ENV['production_ip'], user = 'deploy', roles = %w{web app}
 
+after :finishing, :notify do
+  'All done!'
+end
 
 # Simple Role Syntax
 # ==================
@@ -8,9 +12,9 @@ set :stage, :production
 # is considered to be the first unless any hosts have the primary
 # property set.  Don't declare `role :all`, it's a meta role.
 
-role :app, %w{deploy@ENV['production_ip']}
-role :web, %w{deploy@ENV['production_ip']}
-role :db,  %w{deploy@ENV['production_ip']}
+#role :app, %w{deploy@ENV['production_ip']}
+#role :web, %w{deploy@ENV['production_ip']}
+#role :db,  %w{deploy@ENV['production_ip']}
 
 
 # Extended Server Syntax
