@@ -4,10 +4,6 @@ set :password, ask('Server password', nil)
 
 server = ENV['production_ip'], user = 'deploy', password = fetch(:password), roles = %w{web app}
 
-after :finishing, :notify do
-  info "All done!"
-end
-
 # Simple Role Syntax
 # ==================
 # Supports bulk-adding hosts to roles, the primary server in each group
