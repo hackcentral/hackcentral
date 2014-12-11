@@ -1,8 +1,6 @@
 set :stage, :production
 
-set :password, ask('Server password', nil)
-
-server = ENV['production_ip'], user = 'deploy', password = fetch(:password), roles = %w{web app}
+server = ENV['production_ip'], user = 'deploy', roles = %w{web app}
 
 # Simple Role Syntax
 # ==================
