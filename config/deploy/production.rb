@@ -1,9 +1,11 @@
 set :stage, :production
 
-server = ENV['production_ip'], user = 'deploy', roles = %w{web app}
+set :password, ask('Server password', nil)
+
+server = ENV['production_ip'], user = 'deploy', password = fetch(:password), roles = %w{web app}
 
 after :finishing, :notify do
-  'All done!'
+  info "All done!"
 end
 
 # Simple Role Syntax
