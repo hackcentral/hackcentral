@@ -183,10 +183,10 @@ PLATFORMS
 DEPENDENCIES
   aws-sdk
   bootstrap-sass
-  capistrano (~> 3.3.0)
-  capistrano-bundler (~> 1.1.2)
-  capistrano-rails (~> 1.1.1)
-  capistrano-rbenv (~> 2.0)
+  capistrano
+  capistrano-bundler
+  capistrano-rails
+  capistrano-rbenv
   coffee-rails (~> 4.0.0)
   devise
   doorkeeper
