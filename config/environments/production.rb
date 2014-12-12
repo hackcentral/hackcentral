@@ -1,5 +1,7 @@
 Rails.application.configure do
 
+  config.logger = RemoteSyslogLogger.new('logs.papertrailapp.com', 46910)
+
   config.action_mailer.default_url_options = { :host => 'https://hackcentral-staging.herokuapp.com' }
 
   config.assets.precompile += %w( .svg .eot .woff .ttf )
