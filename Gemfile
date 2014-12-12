@@ -19,17 +19,17 @@ gem 'bootstrap-sass'
 gem 'font-awesome-sass'
 gem 'devise'
 gem 'doorkeeper'
-gem 'mina'
 
 # Environment Dependencies
 group :development, :test do
   gem 'sqlite3'
+  gem 'thin'
+  gem 'mina'
 end
 
 group :production do
   gem 'pg'
   gem 'rails_12factor'
-  gem 'thin'
 end
 
 # Use ActiveModel has_secure_password
