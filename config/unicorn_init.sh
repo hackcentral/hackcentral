@@ -26,7 +26,7 @@ oldsig () {
 case $action in
 start)
         sig 0 && echo >&2 "Already running" && exit 0
-        su -c "$CMD" - <username>
+        su -c "$CMD" - vagrant
         ;;
 stop)
         sig QUIT && exit 0
@@ -39,7 +39,7 @@ force-stop)
 restart|reload)
         sig HUP && echo reloaded OK && exit 0
         echo >&2 "Couldn't reload, starting '$CMD' instead"
-        su -c "$CMD" - <username>
+        su -c "$CMD" - vagrant
         ;;
 upgrade)
         if sig USR2 && sleep 2 && sig 0 && oldsig QUIT
@@ -59,13 +59,13 @@ upgrade)
                 exit 0
         fi
         echo >&2 "Couldn't upgrade, starting '$CMD' instead"
-        su -c "$CMD" - <username>
+        su -c "$CMD" - vagrant
         ;;
 reopen-logs)
         sig USR1
         ;;
 *)
-        echo >&2 "Usage: $0 "
+        echo >&2 "Usage: $0 <start|stop|restart|upgrade|force-stop|reopen-logs>"
         exit 1
         ;;
 esac
