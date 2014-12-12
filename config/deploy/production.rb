@@ -1,6 +1,6 @@
 set :stage, :production
 
-server = ENV['production_ip'], user = 'deploy', roles = %w{web app}
+server = ENV['production_ip'], user = 'deploy', roles = %w{web app db}
 
 # Simple Role Syntax
 # ==================
