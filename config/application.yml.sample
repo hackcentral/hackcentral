@@ -1,5 +1,6 @@
 # These are variables expected to be set to run HC
 
+devise_secret_key: "secret"
 aws_bucket: "blah"
 aws_access_key_id: "secret"
 aws_secret_access_key: "secret"

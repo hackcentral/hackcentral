@@ -10,6 +10,7 @@ require 'mina/rbenv'  # for rbenv support. (http://rbenv.org)
 #   repository   - Git repo to clone from. (needed by mina/git)
 #   branch       - Branch name to deploy. (needed by mina/git)
 
+set :rails_env, 'production'
 set :domain, '104.236.53.46'
 set :deploy_to, '/home/deploy/hackcentral'
 set :repository, 'git://github.com/hackcentral/hackcentral.git'
@@ -20,7 +21,7 @@ set :branch, 'master'
 
 # Manually create these paths in shared/ (eg: shared/config/database.yml) in your server.
 # They will be linked in the 'deploy:link_shared_paths' step.
-set :shared_paths, ['config/database.yml', 'log']
+set :shared_paths, ['config/database.yml', 'log', 'config/application.yml']
 
 # Optional settings:
 set :user, 'deploy'    # Username in the server to SSH to.
