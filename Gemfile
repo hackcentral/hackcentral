@@ -19,10 +19,7 @@ gem 'bootstrap-sass'
 gem 'font-awesome-sass'
 gem 'devise'
 gem 'doorkeeper'
-gem 'capistrano'
-gem 'capistrano-bundler'
-gem 'capistrano-rails'
-gem 'capistrano-rbenv'
+gem 'mina'
 
 # Environment Dependencies
 group :development, :test do
