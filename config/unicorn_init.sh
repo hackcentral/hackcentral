@@ -5,8 +5,8 @@ set -e
 
 # Feel free to change any of the following variables for your app:
 TIMEOUT=${TIMEOUT-60}
-APP_ROOT=/home/deploy/hackcentral
-PID=$APP_ROOT/home/deploy/hackcentral/pids/unicorn.pid
+APP_ROOT=/home/deploy/hackcentral/current
+PID=$APP_ROOT/home/deploy/hackcentral/current/pids/unicorn.pid
 CMD="$APP_ROOT/bin/unicorn -D -c $APP_ROOT/config/unicorn.rb -E production"
 action="$1"
 set -u
