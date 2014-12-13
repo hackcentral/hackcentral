@@ -1,7 +1,5 @@
 Rails.application.configure do
 
-  config.logger = RemoteSyslogLogger.new('logs2.papertrailapp.com', ENV['papertrail_port'])
-
   # SendGrid Setup
   #ActionMailer::Base.smtp_settings = {
     #:user_name => ENV['sendgrid_username'],
