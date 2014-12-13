@@ -24,7 +24,10 @@ gem 'doorkeeper'
 group :development, :test do
   gem 'sqlite3'
   gem 'thin'
-  gem 'capistrano'
+  gem 'capistrano', '2.11.2'
+  #gem 'capistrano-rbenv'
+  #gem 'capistrano-bundler'
+  #gem 'capistrano-rails'
 end
 
 group :production do
