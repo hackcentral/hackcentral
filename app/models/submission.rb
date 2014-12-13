@@ -2,6 +2,7 @@ class Submission < ActiveRecord::Base
   belongs_to :user
   belongs_to :hackathon
 
+  has_many :likes
   has_many :taggings
   has_many :tags, through: :taggings
 

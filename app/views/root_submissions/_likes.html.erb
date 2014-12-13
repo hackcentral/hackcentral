@@ -1,0 +1,5 @@
+<% if user_signed_in? && current_user.likes?(@submission) %>
+  <%= link_to "Unlike", submission_like_path(@submission), method: :delete %>
+<% else %>
+  <%= link_to "Like", submission_like_path(@submission), method: :post %>
+<% end %>

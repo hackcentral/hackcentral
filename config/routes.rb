@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   resources :profiles
   resources :applications
   resources :submissions, only: :show, controller: :root_submissions do
-    resource :like
+    resource :like, module: :submissions
   end
   resources :hackathons do
     resources :submissions, except: [:show]

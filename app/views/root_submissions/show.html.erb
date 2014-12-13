@@ -46,7 +46,11 @@
           </div>
           <div class="text-center hidden-xs">
             <%= link_to "View Website", (@submission.website).html_safe %>
-            <p>favorite</p>
+
+            <div id="likes">
+              <%= render partial: "likes" %>
+            </div>
+
           </div>
 
         <!-- .Screenshot -->
