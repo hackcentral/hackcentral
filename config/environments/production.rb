@@ -1,6 +1,6 @@
 Rails.application.configure do
 
-  config.logger = RemoteSyslogLogger.new('logs.papertrailapp.com', ENV['papertrail_port'])
+  #config.logger = RemoteSyslogLogger.new('logs.papertrailapp.com', ENV['papertrail_port'])
 
   config.action_mailer.default_url_options = { :host => 'https://hackcentral-staging.herokuapp.com' }
 
