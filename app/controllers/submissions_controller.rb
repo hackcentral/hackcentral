@@ -1,6 +1,7 @@
 class SubmissionsController < ApplicationController
   before_action :set_hackathon, except: [:tag, :show]
-  before_action :set_submission, only: [:show, :edit, :update, :destroy]
+  before_action :set_hackathon_submission, only: [:edit, :update, :destroy]
+  before_action :set_submission, only: [:show]
   #before_action :correct_user, only: [:edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index, :show]
 
@@ -77,8 +78,12 @@ class SubmissionsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_submission
+    def set_hackathon_submission
       @submission = @hackathon.submissions.friendly.find(params[:id])
+    end
+
+    def set_submission
+      @submission = Submission.friendly.find(params[:id])
     end
 
     def set_hackathon
