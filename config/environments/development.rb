@@ -1,5 +1,7 @@
 Rails.application.configure do
 
+  #config.logger = RemoteSyslogLogger.new('logs2.papertrailapp.com', ENV['papertrail_port'])
+
   config.paperclip_defaults = {
     :storage => :s3,
     :s3_credentials => {
