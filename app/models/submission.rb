@@ -5,6 +5,10 @@ class Submission < ActiveRecord::Base
   has_many :taggings
   has_many :tags, through: :taggings
 
+  extend FriendlyId
+
+  friendly_id :title
+
   def self.tagged_with(name)
     Tag.find_by_name!(name).submissions
   end
