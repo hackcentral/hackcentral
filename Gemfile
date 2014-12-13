@@ -24,15 +24,13 @@ gem 'doorkeeper'
 group :development, :test do
   gem 'sqlite3'
   gem 'thin'
-  gem 'mina'
+  gem 'capistrano'
 end
 
 group :production do
   gem 'pg'
   gem 'rails_12factor'
   gem 'unicorn'
-  gem 'thin'
-  gem 'remote_syslog_logger'
 end
 
 # Use ActiveModel has_secure_password
