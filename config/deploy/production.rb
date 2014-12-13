@@ -4,7 +4,7 @@
 # is considered to be the first unless any hosts have the primary
 # property set.  Don't declare `role :all`, it's a meta role.
 
-server == ENV['production_ip'], :web, :app, :db, primary: true
+server == ENV['production_ip'], user: "deployer", :web, :app, :db, primary: true
 
 
 # Extended Server Syntax

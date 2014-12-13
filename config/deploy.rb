@@ -2,7 +2,6 @@
 lock '3.3.4'
 
 set :application, 'hackcentral'
-set :user, "deployer"
 set :deploy_to, "/home/#{user}/apps/#{application}"
 set :deploy_via, :remote_cache
 set :use_sudo, false
