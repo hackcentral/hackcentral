@@ -1,24 +1,9 @@
-# Set the working application directory
-# working_directory '/path/to/your/app'
-working_directory '/home/deploy/hackcentral/current'
+root = "/home/deployer/apps/hackcentral/current"
+working_directory root
+pid "#{root}/tmp/pids/unicorn.pid"
+stderr_path "#{root}/log/unicorn.log"
+stdout_path "#{root}/log/unicorn.log"
 
-# Unicorn PID file location
-# pid '/path/to/pids/unicorn.pid'
-pid '/home/deploy/hackcentral/current/pids/unicorn.pid'
-
-# Path to logs
-# stderr_path '/path/to/log/unicorn.log'
-# stdout_path '/path/to/log/unicorn.log'
-stderr_path '/home/deploy/hackcentral/current/log/unicorn.log'
-stdout_path '/home/deploy/hackcentral/current/log/unicorn.log'
-
-# Unicorn socket
-# listen '/tmp/unicorn.[application name].sock'
-listen '/tmp/unicorn.current.sock'
-
-# Number of processes
-# worker_processes 4
-worker_processes 2
-
-# Time-out
+listen "/tmp/unicorn.hackcentral.sock"
+worker_processes 3
 timeout 30
