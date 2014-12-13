@@ -19,9 +19,9 @@ gem 'bootstrap-sass'
 gem 'font-awesome-sass'
 gem 'devise'
 gem 'doorkeeper'
+gem 'friendly_id'
 
 # Environment Dependencies
-
 group :development, :test do
   gem 'thin'
   gem 'sqlite3'
