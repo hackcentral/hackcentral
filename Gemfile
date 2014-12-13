@@ -32,7 +32,7 @@ group :production do
   gem 'rails_12factor'
   gem 'unicorn'
   gem 'actionmailer', :require => 'action_mailer'
-  gem 'remote_syslog_logger'
+  gem 'remote_syslog_logger', :require => 'remote_syslog_logger'
 end
 
 # Use ActiveModel has_secure_password
