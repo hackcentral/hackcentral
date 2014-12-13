@@ -1,4 +1,5 @@
 class Admin::DashboardsController < ApplicationController
+  before_action :is_admin, only: [:index]
   before_action :is_mlh, only: [:mlh, :sanction, :unsanction]
   before_action :authenticate_user!
 
@@ -23,6 +24,16 @@ class Admin::DashboardsController < ApplicationController
     end
 
   private
+    def is_admin
+      if user_signed_in?
+          if current_user.admin == false
+            redirect_to root_path, notice: "Not authorized"
+          else
+          end
+      else
+      end
+    end
+
     def is_mlh
       if user_signed_in?
           if current_user.mlh == false
@@ -32,4 +43,5 @@ class Admin::DashboardsController < ApplicationController
       else
       end
     end
+
 end

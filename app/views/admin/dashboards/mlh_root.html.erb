@@ -5,8 +5,7 @@
     <tr>
       <th>Name</th>
       <th>Sanctioning Status</th>
-      <th>Sanction</th>
-      <th>Unsanction</th>
+      <th>Action</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -23,25 +22,25 @@
           <% end %>
         </td>
         <td>
-          <div class="form-group">
-            <%= button_to "Sanction",
-              :controller => 'admin/dashboards',
-              :action => "mlh_sanction",
-              :hackathon_id => hackathon.id,
-              :method => :post
-            %>
-          </div>
-        </td>
-
-        <td>
-          <div class="form-group">
-            <%= button_to "Unsanction",
-              :controller => 'admin/dashboards',
-              :action => "mlh_unsanction",
-              :hackathon_id => hackathon.id,
-              :method => :post
-            %>
-          </div>
+          <% if hackathon.mlh_sanctioned? %>
+            <div class="form-group">
+              <%= button_to "Unsanction",
+                :controller => 'admin/dashboards',
+                :action => "mlh_unsanction",
+                :hackathon_id => hackathon.id,
+                :method => :post
+              %>
+            </div>
+          <% else %>
+            <div class="form-group">
+              <%= button_to "Sanction",
+                :controller => 'admin/dashboards',
+                :action => "mlh_sanction",
+                :hackathon_id => hackathon.id,
+                :method => :post
+              %>
+            </div>
+          <% end %>
         </td>
         <td><%= link_to 'Show', hackathon %></td>
         <td><%= link_to hackathon.name, root_url(subdomain: hackathon.subdomain) %></td>
