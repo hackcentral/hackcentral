@@ -178,6 +178,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  actionmailer
   aws-sdk
   bootstrap-sass
   capistrano (= 2.11.2)
