@@ -33,6 +33,7 @@ group :production do
   gem 'pg'
   gem 'rails_12factor'
   gem 'actionmailer', :require => 'action_mailer'
+  gem 'friendly_id', :require => 'friendly_id'
 end
 
 # Use ActiveModel has_secure_password
