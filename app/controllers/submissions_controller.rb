@@ -1,8 +1,8 @@
 class SubmissionsController < ApplicationController
-  before_action :set_hackathon, except: :tag
+  before_action :set_hackathon, except: [:tag, :show]
   before_action :set_submission, only: [:show, :edit, :update, :destroy]
   #before_action :correct_user, only: [:edit, :update, :destroy]
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:index, :show]
 
   # GET /submissions
   # GET /submissions.json
@@ -17,6 +17,7 @@ class SubmissionsController < ApplicationController
   # GET /submissions/1
   # GET /submissions/1.json
   def show
+    @hackathon = @submission.hackathon_id
   end
 
   # GET /submissions/new
