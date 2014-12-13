@@ -22,17 +22,16 @@ gem 'doorkeeper'
 
 # Environment Dependencies
 
-gem 'thin', group: [:development, :test, :staging]
-gem 'pg', group: [:staging, :production]
-gem 'rails_12factor', group: [:staging, :production]
-
 group :development, :test do
+  gem 'thin'
   gem 'sqlite3'
   gem 'capistrano', '2.11.2'
 end
 
 group :production do
   gem 'unicorn'
+  gem 'pg'
+  gem 'rails_12factor'
   gem 'actionmailer', :require => 'action_mailer'
 end
 

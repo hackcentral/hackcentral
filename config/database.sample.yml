@@ -10,12 +10,6 @@ test:
   pool: 5
   timeout: 5000
 
-staging:
-  adapter: postgresql
-  database: hackcentral_staging
-  pool: 5
-  timeout: 5000
-
 production:
   adapter: postgresql
   database: hackcentral_production
