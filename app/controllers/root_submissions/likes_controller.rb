@@ -1,4 +1,4 @@
-class Submissions::LikesController < ApplicationController
+class RootSubmissions::LikesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_submission
 
@@ -7,6 +7,7 @@ class Submissions::LikesController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to @submission }
+      format.js {}
     end
   end
 
@@ -15,6 +16,7 @@ class Submissions::LikesController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to @submission }
+      format.js {}
     end
   end
 
