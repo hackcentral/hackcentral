@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   # Scaffolds
   resources :profiles
   resources :applications
-  resources :submissions, only: :show, controller: :root_submissions
+  resources :submissions, only: :show, controller: :root_submissions do
+    resource :like
+  end
   resources :hackathons do
     resources :submissions, except: [:show]
   end
