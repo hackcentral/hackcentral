@@ -2,6 +2,17 @@ Rails.application.configure do
 
   #config.logger = RemoteSyslogLogger.new('logs.papertrailapp.com', ENV['papertrail_port'])
 
+  # SendGrid Setup
+  ActionMailer::Base.smtp_settings = {
+    :user_name => ENV['sendgrid_username'],
+    :password => ENV['sendgrid_password'],
+    :domain => ENV['domain'],
+    :address => 'smtp.sendgrid.net',
+    :port => 587,
+    :authentication => :plain,
+    :enable_starttls_auto => true
+  }
+
   config.action_mailer.default_url_options = { :host => 'https://hackcentral-staging.herokuapp.com' }
 
   config.assets.precompile += %w( .svg .eot .woff .ttf )
