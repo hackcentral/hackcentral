@@ -27,6 +27,12 @@ group :development, :test do
   gem 'capistrano', '2.11.2'
 end
 
+group :staging do
+  gem 'thin'
+  gem 'pg'
+  gem 'rails_12factor'
+end
+
 group :production do
   gem 'pg'
   gem 'rails_12factor'
