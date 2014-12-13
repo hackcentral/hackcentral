@@ -23,6 +23,9 @@
               <h2 class="section-name"><%= submission.title %></h2>
               <p><%= submission.tagline %></p>
               <p><%= submission.user.name if submission.user %></p>
+              <p>
+                <%= link_to 'Show', submission_path(submission), class: "btn btn-lg btn-primary" %>
+              </p>
             </div><!-- .caption -->
           </div><!-- .thumbnail -->
         </div><!-- col-sm-6 col-md-4 -->

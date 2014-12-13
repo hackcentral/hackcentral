@@ -10,12 +10,13 @@ Rails.application.routes.draw do
   # Scaffolds
   resources :profiles
   resources :applications
+  resources :submissions, only: :show, controller: :root_submissions
   resources :hackathons do
-    resources :submissions
+    resources :submissions, except: [:show]
   end
 
   # Submission Tags
-  get 'tags/:tag', to: 'submissions#tag', as: :tag
+  get 'tags/:tag', to: 'root_submissions#tag', as: :tag
 
   # Devise
   devise_for :users, :path => '', :path_names => {:sign_in => 'login', :sign_out => 'logout', :sign_up => 'register'}
