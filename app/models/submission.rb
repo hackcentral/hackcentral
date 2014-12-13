@@ -1,4 +1,9 @@
 class Submission < ActiveRecord::Base
+  if RAILS_ENV="production"
+    require 'friendly_id'
+  else
+  end
+
   belongs_to :user
   belongs_to :hackathon
 

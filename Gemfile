@@ -19,12 +19,7 @@ gem 'bootstrap-sass'
 gem 'font-awesome-sass'
 gem 'devise'
 gem 'doorkeeper'
-
-if RAILS_ENV="production"
-  gem 'friendly_id', :require => 'friendly_id'
-else
-  gem 'friendly_id'
-end
+gem 'friendly_id'
 
 # Environment Dependencies
 group :development, :test do
