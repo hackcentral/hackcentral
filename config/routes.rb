@@ -30,10 +30,11 @@ Rails.application.routes.draw do
     scope module: :v1 do
       get '/user' => "users#show"
       get 'tags/:tag', to: 'submissions#tag', as: :tag
+      resources :submissions, only: [:show]
       resources :profiles
       resources :applications
       resources :hackathons do
-        resources :submissions, except: [:show], controller: :hackathons_submisisons
+        resources :submissions, except: [:show, :tag], controller: :submissions
       end
     end
   end
