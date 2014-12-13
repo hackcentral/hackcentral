@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141213194216) do
+ActiveRecord::Schema.define(version: 20141213210506) do
 
   create_table "applications", force: true do |t|
     t.boolean  "reimbursement_needed"
@@ -63,6 +63,16 @@ ActiveRecord::Schema.define(version: 20141213194216) do
   end
 
   add_index "hackathons", ["subdomain"], name: "index_hackathons_on_subdomain", unique: true
+
+  create_table "likes", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "submission_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "likes", ["submission_id"], name: "index_likes_on_submission_id"
+  add_index "likes", ["user_id"], name: "index_likes_on_user_id"
 
   create_table "oauth_access_grants", force: true do |t|
     t.integer  "resource_owner_id", null: false
