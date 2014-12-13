@@ -1,5 +1,21 @@
+<br />
+<strong>Favorites (<span class="favorites_count"><%= @submission.likes.count %></span>)</strong>
+
 <% if user_signed_in? && current_user.likes?(@submission) %>
-  <%= link_to "Unlike", submission_like_path(@submission), method: :delete, remote: true %>
+<button class="btn btn-primary btn-xs">
+  <i class="fa fa-heart-o"></i>
+  <%= link_to " Unlike", submission_like_path(@submission), method: :delete, remote: true, class: "white" %>
+</button>
+
+
 <% else %>
-  <%= link_to "Like", submission_like_path(@submission), method: :post, remote: true %>
+
+  <i class="fa fa-heart-o"></i><%= link_to "Like", submission_like_path(@submission), method: :post, remote: true %>
+
 <% end %>
+
+<style>
+  .white {
+    color: white;
+  }
+</style>
