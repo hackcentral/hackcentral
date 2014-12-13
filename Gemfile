@@ -19,7 +19,12 @@ gem 'bootstrap-sass'
 gem 'font-awesome-sass'
 gem 'devise'
 gem 'doorkeeper'
-gem 'friendly_id'
+
+if RAILS_ENV="production"
+  gem 'friendly_id', :require => 'friendly_id'
+else
+  gem 'friendly_id'
+end
 
 # Environment Dependencies
 group :development, :test do
@@ -33,7 +38,7 @@ group :production do
   gem 'pg'
   gem 'rails_12factor'
   gem 'actionmailer', :require => 'action_mailer'
-  gem 'friendly_id', :require => 'friendly_id'
+
 end
 
 # Use ActiveModel has_secure_password
