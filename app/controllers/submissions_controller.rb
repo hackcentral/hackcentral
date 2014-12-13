@@ -77,7 +77,7 @@ class SubmissionsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_submission
-      @submission = @hackathon.submissions.find(params[:id])
+      @submission = @hackathon.submissions.friendly.find(params[:id])
     end
 
     def set_hackathon
