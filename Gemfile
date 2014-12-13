@@ -31,6 +31,7 @@ group :production do
   gem 'pg'
   gem 'rails_12factor'
   gem 'unicorn'
+  gem 'thin'
   gem 'remote_syslog_logger'
 end
 
