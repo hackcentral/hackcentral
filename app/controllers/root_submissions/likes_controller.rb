@@ -7,7 +7,6 @@ class RootSubmissions::LikesController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to @submission }
-      format.js {}
     end
   end
 
@@ -16,7 +15,6 @@ class RootSubmissions::LikesController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to @submission }
-      format.js {}
     end
   end
 
