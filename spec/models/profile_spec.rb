@@ -5,8 +5,9 @@ describe Profile do
     FactoryGirl.build(:profile).should be_valid
   end
 
-  it "belongs to a user"
-  it "has many applications"
+  it { should belong_to(:user) }
+
+  it { should have_many(:applications) }
 
   it "is invalid without a name" do
     FactoryGirl.build(:profile, :name => nil).should_not be_valid
