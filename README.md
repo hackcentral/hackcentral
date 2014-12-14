@@ -2,6 +2,7 @@
 
 
 [![Build Status](https://travis-ci.org/hackcentral/hackcentral.svg?branch=master)](https://travis-ci.org/hackcentral/hackcentral)
+[![Coverage Status](https://coveralls.io/repos/hackcentral/hackcentral/badge.png)](https://coveralls.io/r/hackcentral/hackcentral)
 
 
 The best way to organize and run a hackathon.
