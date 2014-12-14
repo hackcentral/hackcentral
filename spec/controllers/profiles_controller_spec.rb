@@ -11,6 +11,7 @@ describe ProfilesController, :type => :controller do
       response.should be_success
     end
   end
+
   describe "GET #show" do
     it "renders the show template and shows a profile" do
       get 'show', id: FactoryGirl.create(:profile)
@@ -18,12 +19,14 @@ describe ProfilesController, :type => :controller do
       flash[:notice].should == "Not authorized to edit this profile"
     end
   end
+
   describe "GET #new" do
     it "renders the new template" do
       get 'new'
       response.should be_success
     end
   end
+
   describe "POST #create" do
     context "with valid attributes" do
       it "creates a new profile" do
@@ -50,5 +53,9 @@ describe ProfilesController, :type => :controller do
         response.should render_template :new
       end
     end
+  end
+
+  describe "PUT #update" do
+    @profile = FactoryGirl.attributes_for(:profile)
   end
 end
