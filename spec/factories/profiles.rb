@@ -2,8 +2,8 @@ require 'faker'
 require 'factory_girl_rails'
 
 FactoryGirl.define do
-
   factory :profile do |f|
+
     f.name { Faker::Name.name }
     f.first_name { Faker::Name.first_name }
     f.last_name { Faker::Name.last_name }
