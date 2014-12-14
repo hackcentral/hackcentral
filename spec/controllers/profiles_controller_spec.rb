@@ -25,5 +25,30 @@ describe ProfilesController, :type => :controller do
     end
   end
   describe "POST #create" do
+    context "with valid attributes" do
+      it "creates a new profile" do
+        expect{
+          post :create, profile: FactoryGirl.attributes_for(:profile)
+        } .to change(Profile, :count).by(1)
+      end
+
+      it "redirects to new profile" do
+        post :create, profile: FactoryGirl.attributes_for(:profile)
+        response.should redirect_to Profile.last
+      end
+    end
+
+    context "with invalid attributes" do
+      it "does not save the profile" do
+        expect{
+          post :create, profile: FactoryGirl.attributes_for(:profile, name: nil)
+        } .to_not change(Profile, :count)
+      end
+
+      it "re-renders the new method" do
+        post :create, profile: FactoryGirl.attributes_for(:profile, name: nil)
+        response.should render_template :new
+      end
+    end
   end
 end
