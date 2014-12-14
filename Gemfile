@@ -26,6 +26,8 @@ group :development, :test do
   gem 'thin'
   gem 'sqlite3'
   gem 'capistrano', '2.11.2'
+  gem 'rspec-rails', '~> 3.0.1'
+  gem 'capybara', '~> 2.3.0'
 end
 
 group :production do
