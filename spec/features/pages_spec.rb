@@ -1,7 +1,7 @@
 require "rails_helper"
 
 feature "Home Page" do
-  scenario "succesfully" do
+  scenario "View" do
     visit root_path
 
     expect(page).to have_css 'h1', text: 'Hack Central'
@@ -9,7 +9,7 @@ feature "Home Page" do
 end
 
 feature "About Page" do
-  scenario "succesfully" do
+  scenario "View" do
     visit pages_about_path
 
     expect(page).to have_css 'h1', text: 'About'
@@ -17,7 +17,7 @@ feature "About Page" do
 end
 
 feature "Contact Page" do
-  scenario "succesfully" do
+  scenario "View" do
     visit pages_contact_path
 
     expect(page).to have_css 'h1', text: 'Contact'
