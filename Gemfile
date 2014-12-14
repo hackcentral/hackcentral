@@ -27,8 +27,13 @@ group :development, :test do
   gem 'sqlite3'
   gem 'capistrano', '2.11.2'
   gem 'rspec-rails'
-  gem 'capybara'
   gem 'factory_girl_rails'
+end
+
+group :test do
+  gem 'faker'
+  gem 'capybara'
+  gem 'guard-rspec'
 end
 
 group :production do
