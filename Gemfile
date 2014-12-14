@@ -34,7 +34,7 @@ group :test do
   gem 'faker'
   gem 'capybara'
   gem 'guard-rspec'
-  gem 'shoulda-matchers'
+  gem 'shoulda'
 end
 
 group :production do
