@@ -1,5 +1,9 @@
 # HackCentral
 
+
+[![Build Status](https://travis-ci.org/hackcentral/hackcentral.svg?branch=master)](https://travis-ci.org/hackcentral/hackcentral)
+
+
 The best way to organize and run a hackathon.
 
 If you're looking for the server setup HackCentral repo, check it out [here](https://github.com/hackcentral/server-stuff).
