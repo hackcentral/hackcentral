@@ -13,7 +13,7 @@ describe ProfilesController, :type => :controller do
   end
 
   describe "GET #show" do
-    it "renders the show template and shows a profile" do
+    it "redirects bc unauthorized" do
       get 'show', id: FactoryGirl.create(:profile)
       response.should redirect_to profiles_path
       flash[:notice].should == "Not authorized to edit this profile"
@@ -55,7 +55,29 @@ describe ProfilesController, :type => :controller do
     end
   end
 
+  describe "GET #edit" do
+    it "redirects bc unauthorized" do
+      get 'edit', id: FactoryGirl.create(:profile)
+      response.should redirect_to profiles_path
+      flash[:notice].should == "Not authorized to edit this profile"
+    end
+  end
+
   describe "PUT #update" do
-    @profile = FactoryGirl.attributes_for(:profile)
+    it "redirects bc unauthorized" do
+      put 'update', id: FactoryGirl.create(:profile)
+      response.should redirect_to profiles_path
+      flash[:notice].should == "Not authorized to edit this profile"
+    end
+  end
+
+  describe "DELETE #destroy" do
+    @profile == FactoryGirl.create(:profile)
+
+    it "redirects bc unauthorized" do
+      delete 'destroy', id: FactoryGirl.create(:profile)
+        response.should redirect_to profiles_path
+        flash[:notice].should == "Not authorized to edit this profile"
+    end
   end
 end
