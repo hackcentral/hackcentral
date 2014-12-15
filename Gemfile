@@ -20,6 +20,7 @@ gem 'font-awesome-sass'
 gem 'devise'
 gem 'doorkeeper'
 gem 'friendly_id'
+gem 'rollbar'
 
 # Environment Dependencies
 group :development, :test do
