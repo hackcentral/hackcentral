@@ -30,10 +30,8 @@ class HackathonsController < ApplicationController
     respond_to do |format|
       if @hackathon.save
         format.html { redirect_to hackathons_path, notice: 'Hackathon was successfully created.' }
-        format.json { render :show, status: :created, location: @hackathon }
       else
         format.html { render :new }
-        format.json { render json: @hackathon.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -44,10 +42,8 @@ class HackathonsController < ApplicationController
     respond_to do |format|
       if @hackathon.update(hackathon_params)
         format.html { redirect_to hackathons_path, notice: 'Hackathon was successfully updated.' }
-        format.json { render :show, status: :ok, location: @hackathon }
       else
         format.html { render :edit }
-        format.json { render json: @hackathon.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -58,7 +54,6 @@ class HackathonsController < ApplicationController
     @hackathon.destroy
     respond_to do |format|
       format.html { redirect_to hackathons_url, notice: 'Hackathon was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 
