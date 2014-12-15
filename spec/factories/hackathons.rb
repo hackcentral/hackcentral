@@ -5,7 +5,7 @@ FactoryGirl.define do
 
   factory :hackathon do |f|
     f.name { Faker::Name.name }
-    f.subdomain { Faker::Commerce.color }
+    f.subdomain "testapps"
     f.about { Faker::Lorem.sentence }
     f.tagline { Faker::Lorem.sentence }
     f.location { Faker::Address.city }
