@@ -35,10 +35,8 @@ class ApplicationsController < ApplicationController
     respond_to do |format|
       if @application.save
         format.html { redirect_to @application, notice: 'Application was successfully created.' }
-        format.json { render :show, status: :created, location: @application }
       else
         format.html { render :new }
-        format.json { render json: @application.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -49,10 +47,8 @@ class ApplicationsController < ApplicationController
     respond_to do |format|
       if @application.update(application_params)
         format.html { redirect_to @application, notice: 'Application was successfully updated.' }
-        format.json { render :show, status: :ok, location: @application }
       else
         format.html { render :edit }
-        format.json { render json: @profile.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -63,7 +59,6 @@ class ApplicationsController < ApplicationController
     @application.destroy
     respond_to do |format|
       format.html { redirect_to applications_url, notice: 'Application was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 
