@@ -33,11 +33,12 @@ group :development, :test do
 end
 
 group :test do
-  gem 'faker'
   gem 'capybara'
+  gem "codeclimate-test-reporter", require: nil
+  gem 'database_cleaner'
+  gem 'faker'
   gem 'guard-rspec'
   gem 'shoulda'
-  gem 'database_cleaner'
 end
 
 group :production do

@@ -55,6 +55,8 @@ GEM
       activesupport (>= 3.0)
     cocaine (0.5.4)
       climate_control (>= 0.0.3, < 1.0)
+    codeclimate-test-reporter (0.4.3)
+      simplecov (>= 0.7.1, < 1.0.0)
     coderay (1.1.0)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -282,6 +284,7 @@ DEPENDENCIES
   bootstrap-sass
   capistrano (= 2.11.2)
   capybara
+  codeclimate-test-reporter
   coffee-rails (~> 4.0.0)
   coveralls
   database_cleaner
