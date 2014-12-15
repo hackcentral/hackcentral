@@ -42,10 +42,8 @@ class SubmissionsController < ApplicationController
     respond_to do |format|
       if @submission.save
         format.html { redirect_to hackathon_submissions_path, notice: 'Submission was successfully created.' }
-        format.json { render :show, status: :created, location: @submission }
       else
         format.html { render :new }
-        format.json { render json: @submission.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -58,10 +56,8 @@ class SubmissionsController < ApplicationController
     respond_to do |format|
       if @submission.update(submission_params)
         format.html { redirect_to hackathon_submission_path, notice: 'Submission was successfully updated.' }
-        format.json { render :show, status: :ok, location: @submission }
       else
         format.html { render :edit }
-        format.json { render json: @submission.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -72,7 +68,6 @@ class SubmissionsController < ApplicationController
     @submission.destroy
     respond_to do |format|
       format.html { redirect_to hackathon_submissions_path, notice: 'Submission was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 
