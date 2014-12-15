@@ -1,0 +1,94 @@
+require 'rails_helper'
+require 'factory_girl'
+
+describe HackathonsController, :type => :controller do
+
+  describe "GET #index" do
+    it "renders the index template" do
+      get 'index'
+      response.should be_success
+    end
+  end
+
+  describe "GET #show" do
+    it "render show template" do
+      get 'show', id: FactoryGirl.create(:hackathon)
+      response.should render_template 'show'
+    end
+  end
+
+  describe "GET #new" do
+    it "renders the new template" do
+      get 'new'
+      response.should be_success
+    end
+  end
+
+  describe "POST #create" do
+    context "with valid attributes" do
+      it "creates a new hackathon" do
+        expect{
+          post :create, hackathon: FactoryGirl.attributes_for(:hackathon)
+        } .to change(Hackathon, :count).by(1)
+      end
+
+      # work on this one
+      #it "redirects to new hackathon" do
+        #post :create, hackathon: FactoryGirl.attributes_for(:hackathon)
+        #response.should redirect_to hackathon_url
+      #end
+    end
+
+    context "with invalid attributes" do
+      it "does not save the hackathon" do
+        expect{
+          post :create, hackathon: FactoryGirl.attributes_for(:hackathon, name: nil)
+        } .to_not change(Hackathon, :count)
+      end
+
+      it "re-renders the new method" do
+        post :create, hackathon: FactoryGirl.attributes_for(:hackathon, name: nil)
+        response.should render_template :new
+      end
+    end
+  end
+
+  describe "GET #edit" do
+    it "render edit template" do
+      get 'edit', id: FactoryGirl.create(:hackathon)
+      response.should render_template 'edit'
+    end
+  end
+
+  describe "PUT #update" do
+    before :each do
+      @hackathon = FactoryGirl.create(:hackathon)
+    end
+
+    context "valid attributes" do
+      #it "located the requested @hackathon" do
+        #put 'update', id: @hackathon, FactoryGirl.attributes_for(:hackathon)
+        #assigns(:hackathon).should eq(@hackathon)
+      #end
+
+      it "changes @hackathon's attributes" do
+        put :update, id: @hackathon, hackathon: FactoryGirl.attributes_for(:hackathon, name: "TestApps")
+        @hackathon.reload
+        @hackathon.name.should eq("TestApps")
+      end
+
+      # work on this one
+      #it "redirects to updated hackathon" do
+        #put :update, id: @hackathon, hackathon: FactoryGirl.attributes_for(:hackathon)
+        #response.should redirect_to hackathon_path(@hackathon)
+      #end
+    end
+
+    context "invalid attributes" do
+    end
+
+  end
+
+  describe "DELETE #destroy" do
+  end
+end

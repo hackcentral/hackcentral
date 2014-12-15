@@ -31,6 +31,7 @@ describe ApplicationsController, :type => :controller do
       #controller.params[:hackathon_id].should_not be_nil
       #controller.params[:hackathon_id].should eql { Faker::Number.number(4) }
       #response.should render_template 'new'
+      # http://stackoverflow.com/questions/13710889/how-do-i-pass-a-params-parameter-into-an-rspec-controller-test
     end
   end
 
