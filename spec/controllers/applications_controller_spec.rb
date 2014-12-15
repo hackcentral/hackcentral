@@ -13,10 +13,20 @@ describe ApplicationsController, :type => :controller do
   end
 
   describe "GET #show" do
-    it "redirects bc unauthorized" do
-      get 'show', id: FactoryGirl.create(:application)
-      response.should redirect_to applications_path
-      flash[:notice].should == "Not authorized to edit this application"
+
+    before(:each) do
+      @application = FactoryGirl.create(:application)
+    end
+
+    it "runs through the correct_user method" do
+      if @application.user_id == @current_user
+        get 'show', id: @application, application: FactoryGirl.attributes_for(:application)
+        response.should render_template 'show'
+      else
+        get 'show', id: FactoryGirl.create(:application, user_id: nil)
+        response.should redirect_to applications_path
+        flash[:notice].should == "Not authorized to edit this application"
+      end
     end
   end
 
@@ -48,37 +58,71 @@ describe ApplicationsController, :type => :controller do
         response.should redirect_to Application.last
       end
     end
+  end
 
-    context "with invalid attributes" do
-      it "does not save the profile" do
-        expect{
-          post :create, application: FactoryGirl.attributes_for(:application, reimbursement_needed: nil)
-        } .to_not change(Profile, :count)
+  describe "GET #edit" do
+    before(:each) do
+      @application = FactoryGirl.create(:application)
+    end
+
+    it "runs through the correct_user method" do
+      if @application.user_id == @current_user
+        get 'edit', id: @application, application: FactoryGirl.attributes_for(:application)
+        response.should render_template 'show'
+      else
+        get 'edit', id: FactoryGirl.create(:application, user_id: nil)
+        response.should redirect_to applications_path
+        flash[:notice].should == "Not authorized to edit this application"
       end
     end
   end
 
-  describe "GET #edit" do
-    it "redirects bc unauthorized" do
-      get 'edit', id: FactoryGirl.create(:application)
-      response.should redirect_to applications_path
-      flash[:notice].should == "Not authorized to edit this application"
-    end
-  end
-
   describe "PUT #update" do
-    it "redirects bc unauthorized" do
-      put 'update', id: FactoryGirl.create(:application)
-      response.should redirect_to applications_path
-      flash[:notice].should == "Not authorized to edit this application"
+    before :each do
+      @application = FactoryGirl.create(:application)
+    end
+
+    context "valid attributes" do
+      it "located the requested @hackathon" do
+        put :update, id: @application, application: FactoryGirl.attributes_for(:application)
+        assigns(:application).should eq(@application)
+      end
+
+      it "changes @application's attributes" do
+        put :update, id: @application, application: FactoryGirl.attributes_for(:application, reimbursement_needed: true)
+        @application.reload
+        @application.reimbursement_needed.should eq(true)
+      end
+
+      it "redirects to updated application" do
+        put :update, id: @application, application: FactoryGirl.attributes_for(:application)
+        response.should redirect_to application_url
+      end
+    end
+
+    context "invalid attributes" do
+      it "located the requested @application" do
+        put :update, id: @application, application: FactoryGirl.attributes_for(:application)
+        assigns(:application).should eq(@application)
+      end
     end
   end
 
   describe "DELETE #destroy" do
-    it "redirects bc unauthorized" do
-      delete 'destroy', id: FactoryGirl.create(:application)
-        response.should redirect_to applications_path
-        flash[:notice].should == "Not authorized to edit this application"
+
+    before :each do
+      @application = FactoryGirl.create(:application)
+    end
+
+    it "deletes the application" do
+      expect{
+        delete :destroy, id: @application
+      }.to change(Application,:count).by(-1)
+    end
+
+    it "redirects to applications#index" do
+      delete :destroy, id: @application
+      response.should redirect_to applications_path
     end
   end
 end
