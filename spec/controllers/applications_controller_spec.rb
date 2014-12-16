@@ -105,6 +105,17 @@ describe ApplicationsController, :type => :controller do
         put :update, id: @application, application: FactoryGirl.attributes_for(:application)
         assigns(:application).should eq(@application)
       end
+
+      it "does not change @application's attributes" do
+        put :update, id: @application, application: FactoryGirl.attributes_for(:application, reimbursement_needed: "a")
+        @application.reload
+        @application.reimbursement_needed.should_not eq("a")
+      end
+
+      #it "re-renders the edit method" do
+        #put :update, id: @application, application: FactoryGirl.attributes_for(:application, profile_id: nil)
+        #response.should render_template 'edit'
+      #end
     end
   end
 
