@@ -13,5 +13,6 @@ FactoryGirl.define do
     f.website { Faker::Internet.domain_name }
     f.github { Faker::Name.first_name }
     f.dietary_needs { Faker::Lorem.sentence }
+    f.user_id "1"
   end
 end

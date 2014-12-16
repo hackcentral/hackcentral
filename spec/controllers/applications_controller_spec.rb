@@ -47,7 +47,7 @@ describe ApplicationsController, :type => :controller do
 
   describe "POST #create" do
     context "with valid attributes" do
-      it "creates a new profile" do
+      it "creates a new application" do
         expect{
           post :create, application: FactoryGirl.attributes_for(:application)
         } .to change(Application, :count).by(1)
@@ -83,7 +83,7 @@ describe ApplicationsController, :type => :controller do
     end
 
     context "valid attributes" do
-      it "located the requested @hackathon" do
+      it "located the requested @application" do
         put :update, id: @application, application: FactoryGirl.attributes_for(:application)
         assigns(:application).should eq(@application)
       end
