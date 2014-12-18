@@ -5,7 +5,7 @@ module Api
       respond_to :json
 
       def index
-        respond_with current_user.applications
+        respond_with Application.where(user_id: current_user).all
       end
 
       def show

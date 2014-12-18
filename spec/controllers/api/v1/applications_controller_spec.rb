@@ -27,4 +27,18 @@ describe Api::V1::ApplicationsController do
       expect(response.code).to eq "401"
     end
   end
+
+  context "with access token" do
+    it 'GET #index' do
+      @oauth_application = FactoryGirl.build(:oauth_application)
+      @user = FactoryGirl.build(:user)
+      @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => @user.id)
+      
+      get 'index', :format => :json, :access_token => @token.token
+      response.status.should eq(200)
+    end
+  end
 end
+
+
+#expect(response.body).to eq({ errors: errors }.to_json)
