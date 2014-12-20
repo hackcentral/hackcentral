@@ -50,6 +50,8 @@ describe Api::V1::ProfilesController do
 
         if @profile.user_id == @current_user
           get 'show', id: @profile, profile: FactoryGirl.attributes_for(:profile), :format => :json, :access_token => @token.token
+
+          response.content_type.should eq(:json)
           response.status.should eq(200)
           assigns(:profile).should eq(@profile)
         else
@@ -102,7 +104,7 @@ describe Api::V1::ProfilesController do
         end
 
         it "sends a 200 if updated profile" do
-          put :update, id: @profile, profile: FactoryGirl.attributes_for(:application), :format => :json, :access_token => @token.token
+          put :update, id: @profile, profile: FactoryGirl.attributes_for(:profile), :format => :json, :access_token => @token.token
           response.status.should eq(200)
         end
       end
@@ -114,7 +116,13 @@ describe Api::V1::ProfilesController do
         end
 
         it "does not change @profile's attributes" do
-          put :update, id: @profile, profile: FactoryGirl.attributes_for(:application, name: nil), :format => :json, :access_token => @token.token
+          put :update, id: @profile, profile: FactoryGirl.attributes_for(:profile, name: nil), :format => :json, :access_token => @token.token
+          @profile.reload
+          @profile.name.should_not eq(nil)
+        end
+
+        it "makes sure only correct user can update" do
+          put :update, id: @profile, profile: FactoryGirl.attributes_for(:profile, user_id: "2"), :format => :json, :access_token => @token.token
           @profile.reload
           @profile.name.should_not eq(nil)
         end

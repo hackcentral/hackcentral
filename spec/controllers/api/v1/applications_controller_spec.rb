@@ -50,6 +50,8 @@ describe Api::V1::ApplicationsController do
 
         if @application.user_id == @current_user
           get 'show', id: @application, application: FactoryGirl.attributes_for(:application), :format => :json, :access_token => @token.token
+
+          response.content_type.should eq(:json)
           response.status.should eq(200)
           assigns(:application).should eq(@application)
         else
@@ -117,6 +119,12 @@ describe Api::V1::ApplicationsController do
           put :update, id: @application, application: FactoryGirl.attributes_for(:application, reimbursement_needed: "a"), :format => :json, :access_token => @token.token
           @application.reload
           @application.reimbursement_needed.should_not eq("a")
+        end
+
+        it "makes sure only correct user can update" do
+          put :update, id: @application, application: FactoryGirl.attributes_for(:application, user_id: "2", reimbursement_needed: "true"), :format => :json, :access_token => @token.token
+          @application.reload
+          @application.reimbursement_needed.should_not eq("true")
         end
       end
     end
