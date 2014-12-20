@@ -2,6 +2,7 @@ module Api
   module V1
     class HackathonsController < ApplicationController
       doorkeeper_for :all
+      before_action :set_hackathon, only: [:show, :edit, :update, :destroy]
 
       def index
         @hackathons = Hackathon.all
@@ -12,8 +13,6 @@ module Api
       end
 
       def show
-        @hackathon = Hackathon.find(params[:id])
-
         respond_to do |format|
           format.json { render :json => @hackathon }
         end
@@ -32,8 +31,6 @@ module Api
       end
 
       def update
-        @hackathon = Hackathon.find(params[:id])
-
         respond_to do |format|
           if @hackathon.update(hackathon_params)
             format.json { render :json => @hackathon, status: :ok }
@@ -44,7 +41,6 @@ module Api
       end
 
       def destroy
-        @hackathon = Hackathon.find(params[:id])
         @hackathon.destroy
 
         respond_to do |format|
@@ -53,6 +49,10 @@ module Api
       end
 
       private
+        def set_hackathon
+          @hackathon = Hackathon.find(params[:id])
+        end
+
         def hackathon_params
           params.require(:hackathon).permit(:name, :subdomain, :about, :tagline, :location, :logo, :header, :start, :end, :hs_hackers_allowed, :mlh_sanctioned)
         end

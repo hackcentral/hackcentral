@@ -2,6 +2,7 @@ module Api
   module V1
     class ApplicationsController < ApplicationController
       doorkeeper_for :all
+      before_action :set_application, only: [:show, :update, :destroy]
 
       def index
         # respond_with @applications = Application.where(user_id: current_user.id).all
@@ -13,8 +14,6 @@ module Api
       end
 
       def show
-        @application = Application.find(params[:id])
-
         respond_to do |format|
           format.json { render :json => @application }
         end
@@ -33,8 +32,6 @@ module Api
       end
 
       def update
-        @application = Application.find(params[:id])
-
         respond_to do |format|
           if @application.update(application_params)
             format.json { render :json => @application, status: :ok }
@@ -45,7 +42,6 @@ module Api
       end
 
       def destroy
-        @application = Application.find(params[:id])
         @application.destroy
 
         respond_to do |format|
@@ -54,6 +50,10 @@ module Api
       end
 
       private
+        def set_application
+          @application = Application.find(params[:id])
+        end
+
         def application_params
           params.require(:application).permit(:reimbursement_needed, :accepted, :user_id, :profile_id, :hackathon_id)
         end

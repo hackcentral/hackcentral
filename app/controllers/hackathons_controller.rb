@@ -1,5 +1,5 @@
 class HackathonsController < ApplicationController
-  before_action :set_hackathon, only: [:show, :edit, :update, :destroy]
+  before_action :set_hackathon, only: [:show, :update, :destroy]
 
   # GET /hackathons
   # GET /hackathons.json
