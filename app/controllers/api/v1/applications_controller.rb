@@ -24,7 +24,7 @@ module Api
         @application = Application.create!(application_params.merge(user_id: current_user)) #Application.new(application_params)
 
         respond_to do |format|
-          if @application.save
+          if @application.save(application_params)
             format.json { render :json => @application, status: :created }
           else
             format.json { render :json => @application.errors, status: :unprocessable_entity }

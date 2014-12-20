@@ -29,40 +29,54 @@ describe Api::V1::ApplicationsController do
   end
 
   context "with access token" do
-    it 'GET #index' do
-      @oauth_application = FactoryGirl.build(:oauth_application)
-      @user = FactoryGirl.build(:user)
-      @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => @user.id)
+    describe 'GET #index' do
+      it "should show all of user's applications" do
+        @oauth_application = FactoryGirl.build(:oauth_application)
+        @user = FactoryGirl.build(:user)
+        @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => @user.id)
 
-      get 'index', :format => :json, :access_token => @token.token
-      response.status.should eq(200)
-    end
-
-    it 'GET #show' do
-      @oauth_application = FactoryGirl.build(:oauth_application)
-      @user = FactoryGirl.build(:user)
-      @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => @user.id)
-
-      @application = FactoryGirl.create(:application)
-
-      if @application.user_id == @current_user
-        get 'show', id: @application, application: FactoryGirl.attributes_for(:application), :format => :json, :access_token => @token.token
-        response.status.should eq(200) #response.should render_template 'show'
-      else
-        get 'show', id: FactoryGirl.create(:application, user_id: nil)
-        response.status.should eq(401)
+        get 'index', :format => :json, :access_token => @token.token
+        response.status.should eq(200)
       end
     end
 
-    it 'POST #create' do
-      @oauth_application = FactoryGirl.build(:oauth_application)
-      @user = FactoryGirl.build(:user)
-      @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => @user.id)
+    describe 'GET #show' do
+      it "should show the application" do
+        @oauth_application = FactoryGirl.build(:oauth_application)
+        @user = FactoryGirl.build(:user)
+        @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => @user.id)
 
-      expect{
-        post :create, application: FactoryGirl.attributes_for(:application, :user_id => @user.id), :format => :json, :access_token => @token.token
-      } .to change(Application, :count).by(1)
+        @application = FactoryGirl.create(:application)
 
+        if @application.user_id == @current_user
+          get 'show', id: @application, application: FactoryGirl.attributes_for(:application), :format => :json, :access_token => @token.token
+          response.status.should eq(200) #response.should render_template 'show'
+        else
+          get 'show', id: FactoryGirl.create(:application, user_id: nil)
+          response.status.should eq(401)
+        end
+      end
+    end
+
+    describe 'POST #create' do
+      before :each do
+        @oauth_application = FactoryGirl.build(:oauth_application)
+        @user = FactoryGirl.build(:user)
+        @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => @user.id)
+      end
+
+      context "with valid attributes" do
+        it "creates a new application" do
+          expect{
+            post :create, application: FactoryGirl.attributes_for(:application, :user_id => @user.id), :format => :json, :access_token => @token.token
+          } .to change(Application, :count).by(1)
+        end
+
+        it "creates a new application, making sure response is #201" do
+          post :create, application: FactoryGirl.attributes_for(:application, :user_id => @user.id), :format => :json, :access_token => @token.token
+          response.status.should eq(201)
+        end
+      end
     end
 
     describe "PUT #update" do
