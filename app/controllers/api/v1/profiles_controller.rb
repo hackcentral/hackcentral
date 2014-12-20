@@ -2,27 +2,72 @@ module Api
   module V1
     class ProfilesController < ApplicationController
       doorkeeper_for :all
-      respond_to :json
+      before_action :set_profile, only: [:show, :update, :destroy]
+      before_action :correct_user, only: [:show, :edit, :update, :destroy]
 
       def index
-        respond_with current_user.profiles
+        @profiles = Profile.where(user_id: current_user).all
+
+        respond_to do |format|
+          format.json { render :json => @profiles }
+        end
       end
 
       def show
-        respond_with current_user.profile(params[:profile])
+        respond_to do |format|
+          format.json { render :json => @profile }
+        end
       end
 
       def create
-        respond_with current_user.profiles.create(params[:profile])
+        @profile = Profile.create!(profile_params.merge(user_id: current_user)) #Application.new(application_params)
+
+        respond_to do |format|
+          if @profile.save(profile_params)
+            format.json { render :json => @profile, status: :created }
+          else
+            format.json { render :json => @profile.errors, status: :unprocessable_entity }
+          end
+        end
       end
 
       def update
-        respond_with current_user.profiles.update(params[:profile])
+        respond_to do |format|
+          if @profile.update(profile_params)
+            format.json { render :json => @profile, status: :ok }
+          else
+            format.json { render json: @profile.errors, status: :unprocessable_entity }
+          end
+        end
       end
 
       def destroy
-        respond_with current_user.profiles.destroy(params[:profile])
+        @profile.destroy
+
+        respond_to do |format|
+          format.json { head :no_content }
+        end
       end
+
+      private
+        def set_profile
+          @profile = Profile.find(params[:id])
+        end
+
+        def correct_user
+          @profile = Profile.find(params[:id])
+
+          if @profile.user_id == current_user
+          else
+            respond_to do |format|
+              format.json { render status: 401 }
+            end
+          end
+        end
+
+        def profile_params
+          params.require(:profile).permit(:name, :first_name, :last_name, :email, :school_grad, :bio, :website, :github, :dietary_needs, :resume, :user_id)
+        end
     end
   end
 end

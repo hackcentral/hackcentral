@@ -3,6 +3,7 @@ module Api
     class ApplicationsController < ApplicationController
       doorkeeper_for :all
       before_action :set_application, only: [:show, :update, :destroy]
+      before_action :correct_user, only: [:show, :edit, :update, :destroy]
 
       def index
         # respond_with @applications = Application.where(user_id: current_user.id).all
@@ -52,6 +53,17 @@ module Api
       private
         def set_application
           @application = Application.find(params[:id])
+        end
+
+        def correct_user
+          @application = Application.find(params[:id])
+
+          if @application.user_id == current_user
+          else
+            respond_to do |format|
+              format.json { render status: 401 }
+            end
+          end
         end
 
         def application_params
