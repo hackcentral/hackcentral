@@ -51,6 +51,19 @@ describe ProfilesController, :type => :controller do
         response.should redirect_to Profile.last
       end
     end
+
+    context "with invalid attributes" do
+      it "does not save the profile" do
+        expect{
+          post :create, profile: FactoryGirl.attributes_for(:profile, name: nil)
+        } .to_not change(Profile, :count)
+      end
+
+      it "re-renders the new method" do
+        post :create, profile: FactoryGirl.attributes_for(:profile, name: nil)
+        response.should render_template :new
+      end
+    end
   end
 
   describe "GET #edit" do
