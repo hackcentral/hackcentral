@@ -50,7 +50,8 @@ describe Api::V1::ApplicationsController do
 
         if @application.user_id == @current_user
           get 'show', id: @application, application: FactoryGirl.attributes_for(:application), :format => :json, :access_token => @token.token
-          response.status.should eq(200) #response.should render_template 'show'
+          response.status.should eq(200)
+          assigns(:application).should eq(@application)
         else
           get 'show', id: FactoryGirl.create(:application, user_id: nil)
           response.status.should eq(401)

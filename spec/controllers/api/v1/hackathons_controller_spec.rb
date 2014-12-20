@@ -47,7 +47,8 @@ describe Api::V1::HackathonsController do
         @hackathon = FactoryGirl.create(:hackathon)
 
         get 'show', id: @hackathon, hackathon: FactoryGirl.attributes_for(:hackathon), :format => :json, :access_token => @token.token
-        response.status.should eq(200) #response.should render_template 'show'
+        response.status.should eq(200)
+        assigns(:hackathon).should eq(@hackathon)
       end
     end
 
