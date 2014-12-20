@@ -2,27 +2,60 @@ module Api
   module V1
     class HackathonsController < ApplicationController
       doorkeeper_for :all
-      respond_to :json
 
       def index
-        respond_with Hackathon.all
+        @hackathons = Hackathon.all
+
+        respond_to do |format|
+          format.json { render :json => @hackathons }
+        end
       end
 
       def show
-        respond_with Hackathon.find(params[:id])
+        @hackathon = Hackathon.find(params[:id])
+
+        respond_to do |format|
+          format.json { render :json => @hackathon }
+        end
       end
 
       def create
-        respond_with current_user.hackathons.create(params[:hackathon])
+        @hackathon = Hackathon.create!(hackathon_params) #Application.new(application_params)
+
+        respond_to do |format|
+          if @hackathon.save(hackathon_params)
+            format.json { render :json => @hackathon, status: :created }
+          else
+            format.json { render :json => @hackathon.errors, status: :unprocessable_entity }
+          end
+        end
       end
 
       def update
-        respond_with current_user.hackathons.update(params[:hackathon])
+        @hackathon = Hackathon.find(params[:id])
+
+        respond_to do |format|
+          if @hackathon.update(hackathon_params)
+            format.json { render :json => @hackathon, status: :ok }
+          else
+            format.json { render json: @hackathon.errors, status: :unprocessable_entity }
+          end
+        end
       end
 
       def destroy
-        respond_with current_user.hackathons.destroy(params[:hackathon])
+        @hackathon = Hackathon.find(params[:id])
+        @hackathon.destroy
+
+        respond_to do |format|
+          format.json { head :no_content }
+        end
       end
+
+      private
+        def hackathon_params
+          params.require(:hackathon).permit(:name, :subdomain, :about, :tagline, :location, :logo, :header, :start, :end, :hs_hackers_allowed, :mlh_sanctioned)
+        end
     end
   end
 end
