@@ -38,6 +38,9 @@ describe ApplicationsController, :type => :controller do
     end
 
     it "renders new template" do
+      get :new, :hackathon_id => Faker::Number.number(4)
+      #get 'new', controller.params[:hackathon_id] => Faker::Number.number(4)
+      response.should render_template 'new'
       #controller.params[:hackathon_id].should_not be_nil
       #controller.params[:hackathon_id].should eql { Faker::Number.number(4) }
       #response.should render_template 'new'
