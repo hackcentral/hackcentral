@@ -33,12 +33,99 @@ describe Api::V1::ApplicationsController do
       @oauth_application = FactoryGirl.build(:oauth_application)
       @user = FactoryGirl.build(:user)
       @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => @user.id)
-      
+
       get 'index', :format => :json, :access_token => @token.token
       response.status.should eq(200)
     end
+
+    it 'GET #show' do
+      @oauth_application = FactoryGirl.build(:oauth_application)
+      @user = FactoryGirl.build(:user)
+      @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => @user.id)
+
+      @application = FactoryGirl.create(:application)
+
+      if @application.user_id == @current_user
+        get 'show', id: @application, application: FactoryGirl.attributes_for(:application), :format => :json, :access_token => @token.token
+        response.status.should eq(200) #response.should render_template 'show'
+      else
+        get 'show', id: FactoryGirl.create(:application, user_id: nil)
+        response.status.should eq(401)
+      end
+    end
+
+    it 'POST #create' do
+      @oauth_application = FactoryGirl.build(:oauth_application)
+      @user = FactoryGirl.build(:user)
+      @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => @user.id)
+
+      expect{
+        post :create, application: FactoryGirl.attributes_for(:application, :user_id => @user.id), :format => :json, :access_token => @token.token
+      } .to change(Application, :count).by(1)
+
+    end
+
+    describe "PUT #update" do
+      before :each do
+        @oauth_application = FactoryGirl.build(:oauth_application)
+        @user = FactoryGirl.build(:user)
+        @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => @user.id)
+
+        @application = FactoryGirl.create(:application, :user_id => @user.id)
+      end
+
+      context "valid attributes" do
+        it "located the requested @application" do
+          put :update, id: @application, application: FactoryGirl.attributes_for(:application), :format => :json, :access_token => @token.token
+          assigns(:application).should eq(@application)
+        end
+
+        it "changes @application's attributes" do
+          put :update, id: @application, application: FactoryGirl.attributes_for(:application, reimbursement_needed: true), :format => :json, :access_token => @token.token
+          @application.reload
+          @application.reimbursement_needed.should eq(true)
+        end
+
+        it "sends a 200 if updated application" do
+          put :update, id: @application, application: FactoryGirl.attributes_for(:application), :format => :json, :access_token => @token.token
+          response.status.should eq(200)
+        end
+      end
+
+      context "invalid attributes" do
+        it "located the requested @application" do
+          put :update, id: @application, application: FactoryGirl.attributes_for(:application), :format => :json, :access_token => @token.token
+          assigns(:application).should eq(@application)
+        end
+
+        it "does not change @application's attributes" do
+          put :update, id: @application, application: FactoryGirl.attributes_for(:application, reimbursement_needed: "a"), :format => :json, :access_token => @token.token
+          @application.reload
+          @application.reimbursement_needed.should_not eq("a")
+        end
+      end
+    end
+
+    describe "DELETE #destroy" do
+
+      before :each do
+        @oauth_application = FactoryGirl.build(:oauth_application)
+        @user = FactoryGirl.build(:user)
+        @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => @user.id)
+
+        @application = FactoryGirl.create(:application, :user_id => @user.id)
+      end
+
+      it "deletes the application" do
+        expect{
+          delete :destroy, id: @application, :format => :json, :access_token => @token.token
+        }.to change(Application,:count).by(-1)
+      end
+
+      it "redirects to applications#index" do
+        delete :destroy, id: @application, :format => :json, :access_token => @token.token
+        response.status.should eq(204)
+      end
+    end
   end
 end
-
-
-#expect(response.body).to eq({ errors: errors }.to_json)
