@@ -8,7 +8,7 @@ class SubmissionsController < ApplicationController
   # GET /submissions
   # GET /submissions.json
   def index
-      @submissions = @hackathon.submissions.all #Submission.all
+      @submissions = @hackathon.submissions.all.paginate(:page => params[:page], :per_page => 25) #Submission.all
   end
 
   def tag
