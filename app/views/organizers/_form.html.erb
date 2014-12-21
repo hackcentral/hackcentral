@@ -12,10 +12,10 @@
   <% end %>
 
   <div class="form-group">
-    <%= f.label :user_username %><br />
-    <%= f.text_field :user_username %>
+    <%= f.collection_select :user_id, User.order(:username), :id, :username, {multiple: false} %>
   </div>
-  <div class="actions">
+
+  <div class="form-group">
     <%= f.submit %>
   </div>
 <% end %>
