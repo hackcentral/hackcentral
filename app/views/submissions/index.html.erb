@@ -38,7 +38,7 @@
 
           <% end %>
 
-          <%= will_paginate @submissions %>
+          <%= will_paginate @submissions, renderer: BootstrapPagination::Rails %>
 
         </div><!-- row -->
       </div><!-- .col-md-9 -->

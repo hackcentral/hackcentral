@@ -22,7 +22,7 @@ gem 'doorkeeper'
 gem 'friendly_id'
 gem 'rollbar'
 gem 'local_time'
-gem 'will_paginate'
+gem 'will_paginate', '~> 3.0.5'
 gem 'will_paginate-bootstrap'
 
 # Environment Dependencies
