@@ -19,6 +19,11 @@
       </div>
 
       <div class="form-group">
+        <%= f.label :bio %>
+        <%= f.text_area :bio, class: "form-control", :autofocus => true %>
+      </div>
+
+      <div class="form-group">
         <%= f.label :password %> <i>(leave blank if you don't want to change it)</i>
         <%= f.password_field :password, class: "form-control", :autocomplete => "off" %>
       </div>

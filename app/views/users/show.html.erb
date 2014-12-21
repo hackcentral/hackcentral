@@ -3,8 +3,9 @@
     <div class="center">
       <!-- profilepic --><h1><%= @user.name %></h1>
       <hr>
-      <!-- bio --> <p>Bio</p>
+      <p><%= @user.bio %></p>
     </div><!-- .center -->
+
     <ul class="nav nav-pills">
       <li role="presentation" class="active"><a href="#">Home</a></li>
       <% if @user.applications.where(accepted: true).any? %>
@@ -36,7 +37,7 @@
     <% end %>
 
     <div class="hacks" id="hacks">
-      <h2 class="center">Hacks</h2>
+      <h2 class="center">Projects</h2>
       <% @submissions.each do |submission| %>
 
         <div class="col-sm-6 col-md-4">
@@ -56,40 +57,3 @@
     </div><!-- .hacks -->
   </div><!-- .container -->
 </div><!-- .jumbotron -->
-
-<h1>
-
-
-<div class="row text-center" id="score-board-container">
-<div class="col-xs-12 col-centered">
-<table id="score-board">
-<tbody><tr class="values">
-<td class="value large">
-5
-</td>
-<td class="value large">
-0
-</td>
-<td class="value">
-</td>
-<td class="value">
-<a href="https://github.com/maclover7"><i class="fa fa-github-square fa-2x"></i>
-</a></td>
-</tr>
-<tr class="keys">
-<td class="key hackathons">
-Hackathons
-</td>
-<td class="key hacks">
-Hacks
-</td>
-<td class="key skills">
-Skills
-</td>
-<td class="key contact">
-Contact
-</td>
-</tr>
-</tbody></table>
-</div>
-</div>
