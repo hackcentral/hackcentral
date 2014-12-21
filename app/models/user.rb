@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   has_many :applications
   has_many :submissions
   has_many :likes
+  has_many :organizers
   has_many :oauth_applications, class_name: 'Doorkeeper::Application', as: :owner
 
   def likes?(submission)
