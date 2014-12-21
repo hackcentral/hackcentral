@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141221150954) do
+ActiveRecord::Schema.define(version: 20141221171343) do
 
   create_table "applications", force: true do |t|
     t.boolean  "reimbursement_needed"
@@ -200,10 +200,12 @@ ActiveRecord::Schema.define(version: 20141221150954) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.text     "bio"
+    t.string   "username"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["username"], name: "index_users_on_username", unique: true
 
 end
