@@ -55,7 +55,7 @@ class SubmissionsController < ApplicationController
 
     respond_to do |format|
       if @submission.update(submission_params)
-        format.html { redirect_to hackathon_submission_path, notice: 'Submission was successfully updated.' }
+        format.html { redirect_to hackathon_submissions_path, notice: 'Submission was successfully updated.' }
       else
         format.html { render :edit }
       end
