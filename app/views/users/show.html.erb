@@ -7,9 +7,34 @@
     </div><!-- .center -->
     <ul class="nav nav-pills">
       <li role="presentation" class="active"><a href="#">Home</a></li>
-      <li role="presentation"><a href="#hackathons">Hackathons</a></li>
+      <% if @user.applications.where(accepted: true).any? %>
+        <li role="presentation"><a href="#hackathons">Hackathons</a></li>
+      <% end %>
       <li role="presentation"><a href="#hacks">Projects</a></li>
     </ul>
+
+    <% if @user.applications.where(accepted: true).any? %>
+      <div class="hackathons" id="hackathons">
+        <h2 class="center">Hackathons</h2>
+        <% @applications.each do |application| %>
+
+          <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+              <img data-src="holder.js/300x300" alt="...">
+              <div class="caption">
+                <h2 class="section-name"><%= application.hackathon.name %></h2>
+                <p><%= application.hackathon.tagline %></p>
+                <p>
+                  <%= link_to 'About', hackathon_path(application.hackathon), class: "btn btn-lg btn-primary" %>
+                </p>
+              </div><!-- .caption -->
+            </div><!-- .thumbnail -->
+          </div><!-- col-sm-6 col-md-4 -->
+
+        <% end %>
+      </div><!-- .hackathons -->
+    <% end %>
+
     <div class="hacks" id="hacks">
       <h2 class="center">Hacks</h2>
       <% @submissions.each do |submission| %>
