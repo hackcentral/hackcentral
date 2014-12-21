@@ -22,6 +22,8 @@ gem 'doorkeeper'
 gem 'friendly_id'
 gem 'rollbar'
 gem 'local_time'
+gem 'will_paginate'
+gem 'will_paginate-bootstrap'
 
 # Environment Dependencies
 group :development, :test do
