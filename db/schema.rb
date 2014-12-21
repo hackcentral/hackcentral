@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141221142256) do
+ActiveRecord::Schema.define(version: 20141221150954) do
 
   create_table "applications", force: true do |t|
     t.boolean  "reimbursement_needed"
@@ -115,6 +115,16 @@ ActiveRecord::Schema.define(version: 20141221142256) do
 
   add_index "oauth_applications", ["owner_id", "owner_type"], name: "index_oauth_applications_on_owner_id_and_owner_type"
   add_index "oauth_applications", ["uid"], name: "index_oauth_applications_on_uid", unique: true
+
+  create_table "organizers", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "hackathon_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "organizers", ["hackathon_id"], name: "index_organizers_on_hackathon_id"
+  add_index "organizers", ["user_id"], name: "index_organizers_on_user_id"
 
   create_table "profiles", force: true do |t|
     t.string   "name"
