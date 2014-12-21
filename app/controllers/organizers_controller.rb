@@ -39,6 +39,6 @@ class OrganizersController < ApplicationController
     end
 
     def organizer_params
-      params.require(:organizer).permit(:user_id, :hackathon_id)
+      params.require(:organizer).permit(:user_username, :user_id, :hackathon_id)
     end
 end

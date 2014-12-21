@@ -11,13 +11,9 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.number_field :user_id %>
-  </div>
-  <div class="field">
-    <%= f.label :hackathon_id %><br>
-    <%= f.number_field :hackathon_id %>
+  <div class="form-group">
+    <%= f.label :user_username %><br />
+    <%= f.text_field :user_username %>
   </div>
   <div class="actions">
     <%= f.submit %>

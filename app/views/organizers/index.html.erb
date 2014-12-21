@@ -14,9 +14,7 @@
       <tr>
         <td><%= organizer.user_id %></td>
         <td><%= organizer.hackathon_id %></td>
-        <td><%= link_to 'Show', organizer %></td>
-        <td><%= link_to 'Edit', edit_organizer_path(organizer) %></td>
-        <td><%= link_to 'Destroy', organizer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Destroy', hackathon_organizer_path(@hackathon, organizer), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
