@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-  resources :organizers
-
   # Root
   root to: 'pages#home'
 
@@ -17,6 +15,7 @@ Rails.application.routes.draw do
   end
   resources :hackathons do
     resources :submissions, except: [:show, :tag]
+    resources :organizers, except: [:show]
   end
 
   # Submission Tags

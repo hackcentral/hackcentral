@@ -1,40 +1,39 @@
 class OrganizersController < ApplicationController
-  before_action :set_organizer, only: [:show, :edit, :update, :destroy]
+  before_action :set_organizer, only: [:destroy]
+  before_action :set_hackathon
 
   def index
-    @organizers = Organizer.all
-    respond_with(@organizers)
-  end
-
-  def show
-    respond_with(@organizer)
+    @organizers = Organizer.where(hackathon_id: @hackathon).all
   end
 
   def new
     @organizer = Organizer.new
-    respond_with(@organizer)
-  end
-
-  def edit
   end
 
   def create
-    @organizer = Organizer.new(organizer_params)
-    @organizer.save
-    respond_with(@organizer)
-  end
+    @organizer = @hackathon.organizers.build(organizer_params)
 
-  def update
-    @organizer.update(organizer_params)
-    respond_with(@organizer)
+    respond_to do |format|
+      if @organizer.save
+        format.html { redirect_to hackathon_organizers_path, notice: 'Organizer was successfully created.' }
+      else
+        format.html { render :new }
+      end
+    end
   end
 
   def destroy
     @organizer.destroy
-    respond_with(@organizer)
+    respond_to do |format|
+      format.html { redirect_to hackathon_organizers_url, notice: 'Organizer was successfully destroyed.' }
+    end
   end
 
   private
+    def set_hackathon
+      @hackathon = Hackathon.find(params[:hackathon_id])
+    end
+
     def set_organizer
       @organizer = Organizer.find(params[:id])
     end
