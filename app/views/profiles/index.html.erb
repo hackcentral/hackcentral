@@ -23,7 +23,7 @@
       <% @profiles.each do |profile| %>
         <tr>
           <td><%= profile.name %></td>
-          <td><%= application.updated_at %></td>
+          <td><%= local_time_ago(profile.updated_at) %></td>
           <td>
             <div class="btn-group">
               <button type="button" class="btn btn-default"><%= link_to 'Show', profile %></button>
