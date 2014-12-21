@@ -15,4 +15,5 @@
 //= require bootstrap
 //= require turbolinks
 //= require local_time
+//= require chosen-jquery
 //= require_tree .
