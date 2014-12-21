@@ -1,9 +1,11 @@
 require 'faker'
 require 'factory_girl_rails'
 
-FactoryGirl.define do  factory :organizer do
-    user_id 1
-hackathon_id 1
+FactoryGirl.define do
+
+  factory :organizer do
+    user_id "1"
+    hackathon_id "1"
   end
 
 

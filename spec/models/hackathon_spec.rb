@@ -1,9 +1,13 @@
 require "rails_helper"
 
-describe Profile do
+describe Hackathon do
   it "has a valid factory" do
     FactoryGirl.build(:hackathon).should be_valid
   end
+
+  it { should have_many(:applications) }
+  it { should have_many(:submissions) }
+  it { should have_many(:organizers) }
 
   it "is invalid without a name" do
     FactoryGirl.build(:hackathon, :name => nil).should_not be_valid
