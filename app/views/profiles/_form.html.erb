@@ -1,57 +1,59 @@
-<%= form_for @profile, html: { multipart: true } do |f| %>
-  <% if @profile.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
+<div class="panel-body">
+  <%= form_for @profile, html: { multipart: true } do |f| %>
+    <% if @profile.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
 
-      <ul>
-      <% @profile.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+        <ul>
+        <% @profile.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= f.label :name %><br>
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :first_name %><br>
+      <%= f.text_field :first_name, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :last_name %><br>
+      <%= f.text_field :last_name, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :email %><br>
+      <%= f.text_field :email, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :school_grad %><br>
+      <%= f.text_field :school_grad, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :bio %><br>
+      <%= f.text_area :bio %>
+    </div>
+    <div class="form-group">
+      <%= f.label :website %><br>
+      <%= f.text_field :website %>
+    </div>
+    <div class="form-group">
+      <%= f.label :github %><br>
+      <%= f.text_field :github %>
+    </div>
+    <div class="form-group">
+      <%= f.label :dietary_needs %><br>
+      <%= f.text_area :dietary_needs %>
+    </div>
+    <div class="form-group">
+      <%= f.label :resume %><br>
+      <%= f.file_field :resume %>
+    </div>
+    <div class="form-group">
+      <%= f.submit "Submit", :class => "btn btn-primary" %>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :first_name %><br>
-    <%= f.text_field :first_name %>
-  </div>
-  <div class="field">
-    <%= f.label :last_name %><br>
-    <%= f.text_field :last_name %>
-  </div>
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.text_field :email %>
-  </div>
-  <div class="field">
-    <%= f.label :school_grad %><br>
-    <%= f.text_field :school_grad %>
-  </div>
-  <div class="field">
-    <%= f.label :bio %><br>
-    <%= f.text_area :bio %>
-  </div>
-  <div class="field">
-    <%= f.label :website %><br>
-    <%= f.text_field :website %>
-  </div>
-  <div class="field">
-    <%= f.label :github %><br>
-    <%= f.text_field :github %>
-  </div>
-  <div class="field">
-    <%= f.label :dietary_needs %><br>
-    <%= f.text_area :dietary_needs %>
-  </div>
-  <div class="field">
-    <%= f.label :resume %><br>
-    <%= f.file_field :resume %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>
