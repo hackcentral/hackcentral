@@ -21,6 +21,7 @@ gem 'devise'
 gem 'doorkeeper'
 gem 'friendly_id'
 gem 'rollbar'
+gem 'local_time'
 
 # Environment Dependencies
 group :development, :test do
