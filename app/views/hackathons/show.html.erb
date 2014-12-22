@@ -145,9 +145,14 @@
 
           <h3 class="section-title"><strong>Organizers</strong></h3>
             <p>coming soon</p>
-          <h3 class="section-title"><strong>Manage</strong></h3>
-            <%= link_to 'Edit', edit_hackathon_path(@hackathon), class: "btn btn-md btn-primary" %>
-            <%= link_to 'Back', hackathons_path, class: "btn btn-md btn-primary" %>
+          <% if user_signed_in? %>
+            <% if current_user.organizers.where(hackathon_id: @hackathon) %>
+              <h3 class="section-title"><strong>Manage</strong></h3>
+              <%= link_to 'Dashboard', admin_hackathon_path(@hackathon), class: "btn btn-md btn-primary" %>
+              <%= link_to 'Edit', admin_edit_hackathon_path(@hackathon), class: "btn btn-md btn-primary" %>
+            <% else %>
+            <% end %>
+          <% end %>
         </div><!-- .well -->
       </div><!-- .col-md-4 -->
     </div><!-- .row -->

@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   resources :submissions, only: :show do
     resource :like, module: :submissions
   end
-  resources :hackathons do
+  resources :hackathons, except: [:edit] do
     resources :submissions, except: [:show, :tag]
     resources :organizers, except: [:show]
   end
@@ -43,14 +43,15 @@ Rails.application.routes.draw do
     end
   end
 
-  # Admin Root
+  # Root Admin
     get "/admin" => "admin/dashboards#index"
-  # Admin MLH
+  # MLH Admin
     get "/admin/mlh" => "admin/dashboards#mlh_root"
     post "/admin/mlh/sanction/:hackathon_id" => "admin/dashboards#mlh_sanction"
     post "/admin/mlh/unsanction/:hackathon_id" => "admin/dashboards#mlh_unsanction"
-  # Admin Organizers
-    get "/admin/hackathons/:hackathon_id/" => "admin/hackathons#index", as: :hackathon_id
+  # Organizer Admin
+    get "/admin/hackathons/:hackathon_id/" => "admin/hackathons#index", as: :admin_hackathon
+    get "/admin/hackathons/:hackathon_id/edit" => "hackathons#edit", as: :admin_edit_hackathon
 
   # Subdomain routing
     #get '/' => 'hackathons#show', :constraints => { :sub domain => /.+/ }

@@ -52,12 +52,12 @@ describe HackathonsController, :type => :controller do
     end
   end
 
-  describe "GET #edit" do
-    it "render edit template" do
-      get 'edit', id: FactoryGirl.create(:hackathon)
-      response.should render_template 'edit'
-    end
-  end
+  #describe "GET #edit" do
+    #it "render edit template" do
+      #get 'edit', id: FactoryGirl.create(:hackathon)
+      #response.should render_template 'edit'
+    #end
+  #end
 
   describe "PUT #update" do
     before :each do

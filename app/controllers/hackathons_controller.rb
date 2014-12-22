@@ -1,5 +1,7 @@
 class HackathonsController < ApplicationController
-  before_action :set_hackathon, only: [:show, :update, :destroy]
+  before_action :set_root_hackathon, only: [:show, :destroy]
+  before_action :set_admin_hackathon, only: [:edit, :update]
+  before_action :is_organizer, only: [:edit, :update, :destroy]
 
   # GET /hackathons
   # GET /hackathons.json
@@ -65,8 +67,22 @@ class HackathonsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_hackathon
+    def set_root_hackathon
       @hackathon = Hackathon.find(params[:id])
+    end
+
+    def set_admin_hackathon
+      @hackathon = Hackathon.find_by(params[:hackathon_id])
+    end
+
+    def is_organizer
+      if user_signed_in?
+        if current_user.organizers.where(hackathon_id: @hackathon)
+        else
+          redirect_to root_path, notice: "Not authorized" if @organizer.nil?
+        end
+      else
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

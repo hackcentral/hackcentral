@@ -14,9 +14,12 @@ class Admin::HackathonsController < ApplicationController
     end
 
     def is_organizer
-      if current_user.organizers.where(hackathon_id: @hackathon)
+      if user_signed_in?
+        if current_user.organizers.where(hackathon_id: @hackathon)
+        else
+          redirect_to root_path, notice: "Not authorized" if @organizer.nil?
+        end
       else
-        redirect_to root_path, notice: "Not authorized" if @organizer.nil?
       end
     end
 end

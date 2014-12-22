@@ -58,7 +58,7 @@
         <td><%= hackathon.end %></td>
         <td><%= link_to 'Show', hackathon %></td>
         <td><%= link_to hackathon.name, root_url(subdomain: hackathon.subdomain) %></td>
-        <td><%= link_to 'Edit', edit_hackathon_path(hackathon) %></td>
+
         <td><%= link_to 'Destroy', hackathon, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
