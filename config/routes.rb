@@ -52,6 +52,9 @@ Rails.application.routes.draw do
   # Organizer Admin
     get "/admin/hackathons/:hackathon_id/" => "admin/hackathons#index", as: :admin_hackathon
     get "/admin/hackathons/:hackathon_id/edit" => "hackathons#edit", as: :admin_edit_hackathon
+    get "/admin/hackathons/:hackathon_id/tickets" => "admin/hackathons#checkin_index", as: :admin_tickets_hackathon
+    post "/admin/hackathons/:hackathon_id/:application_id/checkin" => "admin/hackathons#checkin"
+    post "/admin/hackathons/:hackathon_id/:application_id/uncheckin" => "admin/hackathons#uncheckin"
 
   # Subdomain routing
     #get '/' => 'hackathons#show', :constraints => { :sub domain => /.+/ }

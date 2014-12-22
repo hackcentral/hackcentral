@@ -8,6 +8,25 @@ class Admin::HackathonsController < ApplicationController
       @hackathon = Hackathon.find_by(params[:id])
     end
 
+  # Checkin Index
+    def checkin_index
+      @applications = Application.where(hackathon_id: @hackathon, accepted: true).all
+    end
+
+  # Checkin Yes
+    def checkin
+      @application = Application.find(params[:application_id])
+      @application.update_attribute :checked_in, true
+      redirect_to admin_tickets_hackathon_path(@application.hackathon), notice: "Checkin complete!"
+    end
+
+  # Checkin No
+    def uncheckin
+      @application = Application.find(params[:application_id])
+      @application.update_attribute :checked_in, false
+      redirect_to admin_tickets_hackathon_path(@application.hackathon), notice: "Un-checkin complete!"
+    end
+
   private
     def set_hackathon
       @hackathon = Hackathon.find_by(params[:hackathon_id])
