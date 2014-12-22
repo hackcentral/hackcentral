@@ -1,6 +1,25 @@
 <div class="jumbotron">
   <div class="container">
     <h1>Hi!</h1>
-    <h2>You are an admin!</h2>
+    <h2>Welcome to the HackCentral central admin dashboard page.</h2>
+    <h2>Your permissions will determine what dashboard links appear below.</h2>
+
+    <hr>
+
+    <h2>My admin dashboards:</h2>
+
+    <ul>
+      <% if current_user.mlh? %>
+        <li><h3><%= link_to "MLH Sanctioning", admin_mlh_path %></h3></li>
+      <% end %>
+
+      <% if current_user.organizers.any? %>
+        <% @organizers.each do |organizer| %>
+        <li><h3><%= link_to "#{organizer.hackathon.name} Dashboard", hackathon_id_path(organizer.hackathon) %></h3></li>
+        <% end %>
+        <li><h3>You are an organizer!</h3></li>
+      <% end %>
+    </ul>
+
   </div>
 </div>

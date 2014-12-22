@@ -5,7 +5,9 @@ class Admin::DashboardsController < ApplicationController
 
   # Admin Root
     def index
+      @organizers = current_user.organizers.all
     end
+
   # Admin MLH
     def mlh_root
       @hackathons = Hackathon.all

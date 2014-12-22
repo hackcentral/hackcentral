@@ -12,9 +12,8 @@
   <tbody>
     <% @organizers.each do |organizer| %>
       <tr>
-        <td><%= organizer.user_id %></td>
-        <td><%= organizer.hackathon_id %></td>
-        <td><%= link_to 'Destroy', hackathon_organizer_path(@hackathon, organizer), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= organizer.user.name %></td>
+        <td><%= link_to 'Destroy', hackathon_organizer_path(@hackathon, organizer), class: 'btn btn-primary', method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -22,4 +21,4 @@
 
 <br>
 
-<%= link_to 'New Organizer', new_hackathon_organizer_path %>
+<%= link_to 'New Organizer', new_hackathon_organizer_path, class: 'btn btn-primary'  %>

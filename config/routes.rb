@@ -49,6 +49,8 @@ Rails.application.routes.draw do
     get "/admin/mlh" => "admin/dashboards#mlh_root"
     post "/admin/mlh/sanction/:hackathon_id" => "admin/dashboards#mlh_sanction"
     post "/admin/mlh/unsanction/:hackathon_id" => "admin/dashboards#mlh_unsanction"
+  # Admin Organizers
+    get "/admin/hackathons/:hackathon_id/" => "admin/hackathons#index", as: :hackathon_id
 
   # Subdomain routing
     #get '/' => 'hackathons#show', :constraints => { :sub domain => /.+/ }
