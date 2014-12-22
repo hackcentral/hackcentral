@@ -1,0 +1,48 @@
+<div class="jumbotron">
+  <div class="container">
+    <div class="page-header">
+      <h1 class="center"><%= @application.profile.first_name %> <%= @application.profile.last_name %></h1>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <% if @application.reimbursement_needed? %>
+          <span class="label label-warning">Reimbursement Needed</span>
+        <% else %>
+        <% end %>
+
+        <% if @application.accepted? %>
+          <span class="label label-success">Accepted</span>
+        <% else %>
+        <% end %>
+
+        <p><%= "Graduating in "@application.profile.school_grad %></p>
+
+      </div>
+      <div class="col-md-6">
+      </div>
+    </div>
+    <div class="center">
+      <h4>
+        <% if @application.accepted? %>
+          <div class="form-group">
+            <%= button_to "Unaccept",
+              :controller => 'admin/hackathons',
+              :action => "application_unaccept",
+              :application_id => @application.id,
+              :method => :post
+            %>
+          </div>
+        <% else %>
+          <div class="form-group">
+            <%= button_to "Accept",
+              :controller => 'admin/hackathons',
+              :action => "application_accept",
+              :application_id => @application.id,
+              :method => :post
+            %>
+        <% end %>
+      </h4>
+    </div>
+    </div>
+  </div>
+</div>

@@ -11,7 +11,7 @@
     <ul>
       <% if current_user.organizers.any? %>
         <% @organizers.each do |organizer| %>
-        <li><h3><%= link_to "#{organizer.hackathon.name} Dashboard", hackathon_id_path(organizer.hackathon) %></h3></li>
+        <li><h3><%= link_to "#{organizer.hackathon.name} Dashboard", admin_hackathon_path(organizer.hackathon) %></h3></li>
         <% end %>
       <% end %>
     </ul>
