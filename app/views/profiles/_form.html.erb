@@ -17,40 +17,24 @@
       <%= f.text_field :name, class: "form-control" %>
     </div>
     <div class="form-group">
-      <%= f.label :first_name %><br>
-      <%= f.text_field :first_name, class: "form-control" %>
-    </div>
-    <div class="form-group">
-      <%= f.label :last_name %><br>
-      <%= f.text_field :last_name, class: "form-control" %>
-    </div>
-    <div class="form-group">
-      <%= f.label :email %><br>
-      <%= f.text_field :email, class: "form-control" %>
-    </div>
-    <div class="form-group">
       <%= f.label :school_grad %><br>
       <%= f.text_field :school_grad, class: "form-control" %>
     </div>
     <div class="form-group">
-      <%= f.label :bio %><br>
-      <%= f.text_area :bio %>
-    </div>
-    <div class="form-group">
       <%= f.label :website %><br>
-      <%= f.text_field :website %>
+      <%= f.text_field :website, placeholder: "https://mlh.io", class: "form-control" %>
     </div>
     <div class="form-group">
       <%= f.label :github %><br>
-      <%= f.text_field :github %>
+      <%= f.text_field :github, placeholder: "https://github.com/jonsmith123", class: "form-control" %>
     </div>
     <div class="form-group">
       <%= f.label :dietary_needs %><br>
-      <%= f.text_area :dietary_needs %>
+      <%= f.text_area :dietary_needs, placeholder: "No gluten, no dairy...", class: "form-control" %>
     </div>
     <div class="form-group">
       <%= f.label :resume %><br>
-      <%= f.file_field :resume %>
+      <%= f.file_field :resume, class: "form-control" %>
     </div>
     <div class="form-group">
       <%= f.submit "Submit", :class => "btn btn-primary" %>

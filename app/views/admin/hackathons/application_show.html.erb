@@ -2,7 +2,7 @@
   <div class="container">
     <div class="page-header">
       <h1 class="center"><%= @application.user.name if @application.user %></h1>
-    </div>
+    </div><!-- .page-header -->
     <div class="row">
       <div class="col-md-9">
 
@@ -22,7 +22,7 @@
           <p><b>Resume:</b><%= link_to "Resume", @application.profile.resume.url %></p>
         <% end %>
 
-      </div>
+      </div><!-- .col-md-9 -->
       <div class="col-md-3">
 
         <% if @application.reimbursement_needed? %>
@@ -35,8 +35,8 @@
         <% else %>
         <% end %>
 
-      </div>
-    </div>
+      </div><!-- .col-md-3 -->
+    </div><!-- .row -->
     <div class="center">
       <h2>
         <% if @application.accepted? %>
@@ -58,7 +58,6 @@
             %>
         <% end %>
       </h2>
-    </div>
-    </div>
-  </div>
-</div>
+    </div><!-- .center -->
+  </div><!-- .container -->
+</div><!-- .jumbotron -->

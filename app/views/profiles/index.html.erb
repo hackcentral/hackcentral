@@ -25,11 +25,11 @@
           <td><%= profile.name %></td>
           <td><%= local_time_ago(profile.updated_at) %></td>
           <td>
-            <div class="btn-group">
-              <button type="button" class="btn btn-default"><%= link_to 'Show', profile %></button>
-              <button type="button" class="btn btn-default"><%= link_to 'Edit', edit_profile_path(profile) %></button>
-              <button type="button" class="btn btn-default"><%= link_to 'Destroy', profile, method: :delete, data: { confirm: 'Are you sure?' } %></button>
-            </div>
+            <!--<div class="btn-group">-->
+              <%= link_to 'Show', profile, class: 'btn btn-default' %>
+              <%= link_to 'Edit', edit_profile_path(profile), class: 'btn btn-default' %>
+              <%= link_to 'Destroy', profile, class: 'btn btn-default', method: :delete, data: { confirm: 'Are you sure?' } %></button>
+            <!--</div>-->
           </td>
         </tr>
       <% end %>

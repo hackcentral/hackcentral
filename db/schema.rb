@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141222015812) do
+ActiveRecord::Schema.define(version: 20141223001532) do
 
   create_table "applications", force: true do |t|
     t.boolean  "reimbursement_needed"
@@ -129,11 +129,7 @@ ActiveRecord::Schema.define(version: 20141222015812) do
 
   create_table "profiles", force: true do |t|
     t.string   "name"
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "email"
     t.string   "school_grad"
-    t.text     "bio"
     t.string   "website"
     t.string   "github"
     t.datetime "created_at"
