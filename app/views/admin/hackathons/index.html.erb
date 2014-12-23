@@ -1,6 +1,15 @@
 <div class="jumbotron">
   <div class="container">
     <h1><%= @hackathon.name %></h1>
-    <h2>Welcome back to the war room!</h2>
+    <h2><i class="fa fa-tachometer"></i> Welcome back to the war room!</h2>
+
+    <br>
+
+    <ul>
+      <li><h3><%= link_to "Organizers", organizers_path %></h3></li>
+      <li><h3><%= link_to "Decision Desk", admin_applications_hackathon_path(@hackathon) %></h3></li>
+      <li><h3><%= link_to "Check in", admin_tickets_hackathon_path(@hackathon) %></h3></li>
+    </ul>
+
   </div>
 </div>

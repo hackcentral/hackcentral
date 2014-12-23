@@ -113,13 +113,13 @@ describe ProfilesController, :type => :controller do
       end
 
       it "does not change @profile's attributes" do
-        put :update, id: @profile, profile: FactoryGirl.attributes_for(:profile, first_name: nil)
+        put :update, id: @profile, profile: FactoryGirl.attributes_for(:profile, name: nil)
         @profile.reload
-        @profile.first_name.should_not eq("Carl")
+        @profile.name.should_not eq("Carl")
       end
 
       it "re-renders the edit method" do
-        put :update, id: @profile, profile: FactoryGirl.attributes_for(:profile, name: "Default", first_name: nil)
+        put :update, id: @profile, profile: FactoryGirl.attributes_for(:profile, name: "Default", name: nil)
         response.should render_template 'edit'
       end
     end

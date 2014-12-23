@@ -8,9 +8,5 @@ class Profile < ActiveRecord::Base
   validates_attachment_content_type :resume, :content_type => "application/pdf"
 
   validates :name, presence: true
-  validates :first_name, presence: true
-  validates :last_name, presence: true
-  validates :email, presence: true
   validates :school_grad, presence: true
-  validates :bio, presence: true
 end

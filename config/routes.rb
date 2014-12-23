@@ -15,7 +15,6 @@ Rails.application.routes.draw do
   end
   resources :hackathons, except: [:edit] do
     resources :submissions, except: [:show, :tag]
-    resources :organizers, except: [:show]
   end
 
   # Submission Tags
@@ -52,6 +51,10 @@ Rails.application.routes.draw do
   # Organizer Admin
     get "/admin/hackathons/:hackathon_id/" => "admin/hackathons#index", as: :admin_hackathon
     get "/admin/hackathons/:hackathon_id/edit" => "hackathons#edit", as: :admin_edit_hackathon
+
+    scope '/admin/hackathons/:hackathon_id/' do
+      resources :organizers, except: [:show, :edit, :update]
+    end
 
     get "/admin/hackathons/:hackathon_id/applications" => "admin/hackathons#application_index", as: :admin_applications_hackathon
     get "/admin/hackathons/:hackathon_id/applications/:application_id/" => "admin/hackathons#application_show"
