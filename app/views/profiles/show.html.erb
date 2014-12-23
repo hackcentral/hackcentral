@@ -45,10 +45,10 @@
   <%= @profile.dietary_needs %>
 </p>
 
-<p>
-  <strong>Resume:</strong>
-  <%= link_to 'Resume', @profile.resume.url%>
-</p>
+<% if @profile.resume.url == "/resumes/original/missing.png" %>
+<% else %>
+  <%= link_to "Resume", @profile.resume.url %>
+<% end %>
 
 <%= link_to 'Edit', edit_profile_path(@profile) %> |
 <%= link_to 'Back', profiles_path %>

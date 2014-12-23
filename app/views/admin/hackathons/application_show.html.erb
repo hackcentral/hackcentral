@@ -1,28 +1,44 @@
 <div class="jumbotron">
   <div class="container">
     <div class="page-header">
-      <h1 class="center"><%= @application.profile.first_name %> <%= @application.profile.last_name %></h1>
+      <h1 class="center"><%= @application.user.name if @application.user %></h1>
     </div>
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-9">
+
+        <p><b>Graduating in:</b> <%= @application.profile.school_grad %></p>
+
+        <p><b>Website:</b> <%= link_to @application.profile.website %></p>
+
+        <p><b>GitHub:</b> <%= link_to @application.profile.github %></p>
+
+        <% if @application.profile.dietary_needs == nil %>
+        <% else %>
+          <p><b>Dietary Needs:</b> <%= @application.profile.dietary_needs %></p>
+        <% end %>
+
+        <% if @application.profile.resume.url == "/resumes/original/missing.png" %>
+        <% else %>
+          <p><b>Resume:</b><%= link_to "Resume", @application.profile.resume.url %></p>
+        <% end %>
+
+      </div>
+      <div class="col-md-3">
+
         <% if @application.reimbursement_needed? %>
-          <span class="label label-warning">Reimbursement Needed</span>
+          <h2><span class="label label-warning">Reimbursement Needed</span></h2>
         <% else %>
         <% end %>
 
         <% if @application.accepted? %>
-          <span class="label label-success">Accepted</span>
+          <h2><span class="label label-success">Accepted</span></h2>
         <% else %>
         <% end %>
 
-        <p><%= "Graduating in "@application.profile.school_grad %></p>
-
-      </div>
-      <div class="col-md-6">
       </div>
     </div>
     <div class="center">
-      <h4>
+      <h2>
         <% if @application.accepted? %>
           <div class="form-group">
             <%= button_to "Unaccept",
@@ -41,7 +57,7 @@
               :method => :post
             %>
         <% end %>
-      </h4>
+      </h2>
     </div>
     </div>
   </div>

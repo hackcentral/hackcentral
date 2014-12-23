@@ -1,35 +1,38 @@
-<h1>Applications</h1>
+<div class="jumbotron">
+  <div class="container">
+    <h1>Decision Desk</h1>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Reimbursement Needed</th>
-      <th>Accepted</th>
-      <th>View</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Reimbursement Needed</th>
+          <th>Accepted</th>
+          <th>View</th>
+        </tr>
+      </thead>
 
-  <tbody>
-    <% @applications.each do |application| %>
-      <tr>
-        <td><%= application.user_id %></td>
-        <td>
-          <% if application.reimbursement_needed? %>
-            <span class="label label-warning">Yes</span>
-          <% else %>
-            <span class="label label-default">No</span>
-          <% end %>
-        <td>
-          <% if application.accepted? %>
-            <span class="label label-success">Yes</span>
-          <% else %>
-            <span class="label label-default">No</span>
-          <% end %>
-        </td>
-        <td><%= link_to "View", "/admin/hackathons/#{application.hackathon_id}/applications/#{application.id}"%></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+      <tbody>
+        <% @applications.each do |application| %>
+          <tr>
+            <td><%= application.user.name if application.user %></td>
+            <td>
+              <% if application.reimbursement_needed? %>
+                <span class="label label-warning">Yes</span>
+              <% else %>
+                <span class="label label-default">No</span>
+              <% end %>
+            <td>
+              <% if application.accepted? %>
+                <span class="label label-success">Yes</span>
+              <% else %>
+                <span class="label label-default">No</span>
+              <% end %>
+            </td>
+            <td><%= link_to "View", "/admin/hackathons/#{application.hackathon_id}/applications/#{application.id}"%></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
