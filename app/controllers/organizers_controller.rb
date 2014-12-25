@@ -1,6 +1,7 @@
 class OrganizersController < ApplicationController
   before_action :set_organizer, only: [:destroy]
   before_action :set_hackathon
+  before_action :is_organizer
 
   def index
     @organizers = Organizer.where(hackathon_id: @hackathon).all
@@ -36,6 +37,20 @@ class OrganizersController < ApplicationController
 
     def set_organizer
       @organizer = Organizer.find(params[:id])
+    end
+
+    def set_hackathon
+      @hackathon = Hackathon.find_by(params[:hackathon_id])
+    end
+
+    def is_organizer
+      if user_signed_in?
+        if current_user.organizers.where(hackathon_id: @hackathon).any?
+        else
+          redirect_to root_path, notice: "Not authorized" if @organizer.nil?
+        end
+      else
+      end
     end
 
     def organizer_params
