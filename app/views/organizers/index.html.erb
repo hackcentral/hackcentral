@@ -1,26 +1,40 @@
-<h1>Listing organizers</h1>
-<div class="row">
-  <div class="col-md-5">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>User</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
+<div class="jumbotron">
+  <div class="container">
 
-      <tbody>
-        <% @organizers.each do |organizer| %>
-          <tr>
-            <td><%= organizer.user.name %></td>
-            <td><%= link_to 'Destroy', organizer_path(@hackathon, organizer), class: 'btn btn-primary', method: :delete, data: { confirm: 'Are you sure?' } %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
-</div>
+    <h1 class="center">Organizers</h1>
 
-<br>
+    <%= render "admin/dashboards/nav" %>
 
-<%= link_to 'New Organizer', new_organizer_path, class: 'btn btn-primary'  %>
+    <hr>
+
+    <br>
+    <div class="row">
+      <div class="col-md-6">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @organizers.each do |organizer| %>
+              <tr>
+                <td><%= organizer.user.name %></td>
+                <td><%= link_to 'Destroy', organizer_path(@hackathon, organizer), class: 'btn btn-primary', method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div><!-- .col-md-6 -->
+
+      <div class="col-md-6">
+        <div class="center">
+          <%= link_to 'New Organizer', new_organizer_path, class: 'btn btn-lg btn-primary' %>
+        </div><!-- .center -->
+      </div><!-- .col-md-6 -->
+    </div><!-- .row -->
+
+  </div><!-- .container -->
+</div><!-- .jumbotron -->

@@ -1,6 +1,30 @@
 <div class="jumbotron">
   <div class="container">
-    <h1>Decision Desk</h1>
+
+    <h1 class="center">Decision Desk</h1>
+
+    <%= render "admin/dashboards/nav" %>
+
+    <hr>
+
+    <% if params[:accepted] == nil %>
+      <p><%= link_to "View all accepted applications", admin_applications_hackathon_path(@hackathon, accepted: 't') %></p>
+      <p><%= link_to "View all denied applications", admin_applications_hackathon_path(@hackathon, accepted: 'f') %></p>
+    <% end %>
+
+    <% if params[:accepted] == 't' %>
+      <p>You are viewing all accepted applications.</p>
+      <p><%= link_to "View all applications", admin_applications_hackathon_path(@hackathon) %></p>
+      <p><%= link_to "View all denied applications", admin_applications_hackathon_path(@hackathon, accepted: 'f') %></p>
+    <% end %>
+
+    <% if params[:accepted] == 'f' %>
+      <p>You are viewing all denied applications.</p>
+      <p><%= link_to "View all applications", admin_applications_hackathon_path(@hackathon) %></p>
+      <p><%= link_to "View all accepted applications", admin_applications_hackathon_path(@hackathon, accepted: 't') %></p>
+    <% end %>
+
+    <br>
 
     <table class="table">
       <thead>

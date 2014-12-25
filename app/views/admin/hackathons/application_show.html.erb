@@ -4,6 +4,13 @@
       <h1 class="center"><%= @application.user.name if @application.user %></h1>
     </div><!-- .page-header -->
     <div class="row">
+
+      <div class="center">
+        <%= render "admin/dashboards/nav" %>
+      </div><!-- .center -->
+
+      <hr>
+
       <div class="col-md-9">
 
         <p><b>Graduating in:</b> <%= @application.profile.school_grad %></p>
@@ -23,6 +30,7 @@
         <% end %>
 
       </div><!-- .col-md-9 -->
+      
       <div class="col-md-3">
 
         <% if @application.reimbursement_needed? %>

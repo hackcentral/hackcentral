@@ -7,16 +7,22 @@
 
     <div class="row">
       <div class="col-md-6">
-        <ul>
+
+        <ul class="nav nav-pills nav-stacked" style="max-width: 300px;">
           <% if @hackathon.organizers.any? %>
-            <li><h3><%= link_to "Organizers", organizers_path %></h3></li>
+            <li role="presentation"><%= link_to "Organizers", organizers_path, class: 'btn btn-primary' %></li>
           <% end %>
-          <li><h3><%= link_to "Decision Desk", admin_applications_hackathon_path(@hackathon) %></h3></li>
-          <li><h3><%= link_to "Check in", admin_tickets_hackathon_path(@hackathon) %></h3></li>
+          <li role="presentation"><%= link_to "Decision Desk", admin_applications_hackathon_path(@hackathon), class: 'btn btn-primary' %></li>
+          <li role="presentation"><%= link_to "Check in", admin_tickets_hackathon_path(@hackathon), class: 'btn btn-primary' %></li>
         </ul>
-      </div>
+
+      </div><!-- .col-md-6 -->
+
       <div class="col-md-6">
         <% if @hackathon.organizers.any? %>
+
+          <h3 class="center">Organizers</h3>
+
           <table class="table">
             <thead>
               <tr>
@@ -35,7 +41,7 @@
             </tbody>
           </table>
         <% end %>
-      </div><!-- .col-md-3 -->
+      </div><!-- .col-md-6 -->
     </div><!-- .row -->
   </div><!-- .container -->
 </div><!-- .jumbotron -->
