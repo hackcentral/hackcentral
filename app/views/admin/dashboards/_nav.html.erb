@@ -1,5 +1,5 @@
 <ul class="nav nav-pills" >
-  <li role="presentation" class="active"><%= link_to "Admin", admin_path %></li>
+  <li role="presentation" class="active"><%= link_to " #{@hackathon.name} Home", admin_hackathon_path(@hackathon) %></li>
 
   <% if @hackathon.organizers.any? %>
     <li role="presentation"><%= link_to "Organizers", organizers_path(@hackathon) %></li>
