@@ -1,21 +1,23 @@
-<%= form_for @organizer do |f| %>
-  <% if @organizer.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@organizer.errors.count, "error") %> prohibited this organizer from being saved:</h2>
+<div class="panel panel-body">
+  <%= form_for [@hackathon, @organizer] do |f| %>
+    <% if @organizer.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@organizer.errors.count, "error") %> prohibited this organizer from being saved:</h2>
 
-      <ul>
-      <% @organizer.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+        <ul>
+        <% @organizer.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= f.collection_select :user_id, User.order(:username), :id, :username, {multiple: false} %>
+    </div>
+    <br>
+    <div class="form-group">
+      <%= f.submit "Submit", :class => "btn btn-primary" %>
     </div>
   <% end %>
-
-  <div class="form-group">
-    <%= f.collection_select :user_id, User.order(:username), :id, :username, {multiple: false} %>
-  </div>
-
-  <div class="form-group">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>

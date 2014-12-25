@@ -50,10 +50,11 @@ Rails.application.routes.draw do
     post "/admin/mlh/unsanction/:hackathon_id" => "admin/dashboards#mlh_unsanction"
   # Organizer Admin
     get "/admin/hackathons/:hackathon_id/" => "admin/hackathons#index", as: :admin_hackathon
-    get "/admin/hackathons/:hackathon_id/edit" => "hackathons#edit", as: :admin_edit_hackathon
 
-    scope '/admin/hackathons/:hackathon_id/' do
-      resources :organizers, except: [:show, :edit, :update]
+    scope '/admin' do
+      resources :hackathons, only: [:edit] do
+        resources :organizers, except: [:show, :edit, :update]
+      end
     end
 
     get "/admin/hackathons/:hackathon_id/applications" => "admin/hackathons#application_index", as: :admin_applications_hackathon

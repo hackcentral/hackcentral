@@ -2,7 +2,7 @@
   <li role="presentation" class="active"><%= link_to " #{@hackathon.name} Home", admin_hackathon_path(@hackathon) %></li>
 
   <% if @hackathon.organizers.any? %>
-    <li role="presentation"><%= link_to "Organizers", organizers_path(@hackathon) %></li>
+    <li role="presentation"><%= link_to "Organizers", hackathon_organizers_path(@hackathon) %></li>
   <% end %>
 
   <li role="presentation"><%= link_to "Decision Desk", admin_applications_hackathon_path(@hackathon) %></li>

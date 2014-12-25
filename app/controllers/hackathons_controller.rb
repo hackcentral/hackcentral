@@ -1,6 +1,5 @@
 class HackathonsController < ApplicationController
-  before_action :set_root_hackathon, only: [:show, :destroy]
-  before_action :set_admin_hackathon, only: [:edit, :update]
+  before_action :set_hackathon, only: [:show, :destroy, :edit, :update]
   before_action :is_organizer, only: [:edit, :update, :destroy]
 
   # GET /hackathons
@@ -67,12 +66,8 @@ class HackathonsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_root_hackathon
+    def set_hackathon
       @hackathon = Hackathon.find(params[:id])
-    end
-
-    def set_admin_hackathon
-      @hackathon = Hackathon.find_by(params[:hackathon_id])
     end
 
     def is_organizer

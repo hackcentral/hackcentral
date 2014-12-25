@@ -10,7 +10,7 @@
 
         <ul class="nav nav-pills nav-stacked" style="max-width: 300px;">
           <% if @hackathon.organizers.any? %>
-            <li role="presentation"><%= link_to "Organizers", organizers_path, class: 'btn btn-primary' %></li>
+            <li role="presentation"><%= link_to "Organizers", hackathon_organizers_path, class: 'btn btn-primary' %></li>
           <% end %>
           <li role="presentation"><%= link_to "Decision Desk", admin_applications_hackathon_path(@hackathon), class: 'btn btn-primary' %></li>
           <li role="presentation"><%= link_to "Check in", admin_tickets_hackathon_path(@hackathon), class: 'btn btn-primary' %></li>
@@ -35,7 +35,7 @@
               <% @organizers.each do |organizer| %>
                 <tr>
                   <td><%= organizer.user.name %></td>
-                  <td><%= link_to 'Destroy', organizer_path(@hackathon, organizer), class: 'btn btn-primary', method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                  <td><%= link_to 'Destroy', hackathon_organizer_path(@hackathon, organizer), class: 'btn btn-primary', method: :delete, data: { confirm: 'Are you sure?' } %></td>
                 </tr>
               <% end %>
             </tbody>
