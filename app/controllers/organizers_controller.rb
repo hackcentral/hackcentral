@@ -15,7 +15,7 @@ class OrganizersController < ApplicationController
 
     respond_to do |format|
       if @organizer.save
-        format.html { redirect_to organizers_path, notice: 'Organizer was successfully created.' }
+        format.html { redirect_to admin_hackathon_path(@organizer.hackathon_id), notice: 'Organizer was successfully created.' }
       else
         format.html { render :new }
       end
@@ -25,7 +25,7 @@ class OrganizersController < ApplicationController
   def destroy
     @organizer.destroy
     respond_to do |format|
-      format.html { redirect_to organizers_url, notice: 'Organizer was successfully destroyed.' }
+      format.html { redirect_to admin_hackathon_url, notice: 'Organizer was successfully destroyed.' }
     end
   end
 

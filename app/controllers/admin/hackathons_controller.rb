@@ -6,6 +6,7 @@ class Admin::HackathonsController < ApplicationController
   # Root
     def index
       @hackathon = Hackathon.find_by(params[:id])
+      @organizers = Organizer.where(hackathon_id: @hackathon).all
     end
 
   # Check in
@@ -25,7 +26,17 @@ class Admin::HackathonsController < ApplicationController
 
   # Applications
     def application_index
-      @applications = Application.where(hackathon_id: @hackathon).all
+      if params[:accepted] == 't'
+        @applications = Application.where(hackathon_id: @hackathon, accepted: true).all
+      end
+
+      if params[:accepted] == 'f'
+        @applications = Application.where(hackathon_id: @hackathon, accepted: false).all
+      end
+
+      if params[:accepted] == nil
+        @applications = Application.where(hackathon_id: @hackathon).all
+      end
     end
     def application_show
       @application = Application.find(params[:application_id])

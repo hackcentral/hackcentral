@@ -1,15 +1,41 @@
 <div class="jumbotron">
   <div class="container">
-    <h1><%= @hackathon.name %></h1>
-    <h2><i class="fa fa-tachometer"></i> Welcome back to the war room!</h2>
+    <h1 class="center"><i class="fa fa-tachometer"></i> <%= @hackathon.name %> War Room</h1>
+    <h2> Welcome back!</h2>
 
     <br>
 
-    <ul>
-      <li><h3><%= link_to "Organizers", organizers_path %></h3></li>
-      <li><h3><%= link_to "Decision Desk", admin_applications_hackathon_path(@hackathon) %></h3></li>
-      <li><h3><%= link_to "Check in", admin_tickets_hackathon_path(@hackathon) %></h3></li>
-    </ul>
+    <div class="row">
+      <div class="col-md-6">
+        <ul>
+          <% if @hackathon.organizers.any? %>
+            <li><h3><%= link_to "Organizers", organizers_path %></h3></li>
+          <% end %>
+          <li><h3><%= link_to "Decision Desk", admin_applications_hackathon_path(@hackathon) %></h3></li>
+          <li><h3><%= link_to "Check in", admin_tickets_hackathon_path(@hackathon) %></h3></li>
+        </ul>
+      </div>
+      <div class="col-md-6">
+        <% if @hackathon.organizers.any? %>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
 
-  </div>
-</div>
+            <tbody>
+              <% @organizers.each do |organizer| %>
+                <tr>
+                  <td><%= organizer.user.name %></td>
+                  <td><%= link_to 'Destroy', organizer_path(@hackathon, organizer), class: 'btn btn-primary', method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% end %>
+      </div><!-- .col-md-3 -->
+    </div><!-- .row -->
+  </div><!-- .container -->
+</div><!-- .jumbotron -->
