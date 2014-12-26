@@ -10,6 +10,10 @@ The best way to organize and run a hackathon.
 
 If you're looking for the server setup HackCentral repo, check it out [here](https://github.com/hackcentral/server-stuff).
 
+## Contributing
+
+It's awesome you want to contribute! Check out the [issue tracker](https://github.com/hackcentral/hackcentral/issues) for things that need to be worked on.
+
 ## API
 
 (documentation coming soon)
