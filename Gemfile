@@ -28,7 +28,6 @@ gem 'chosen-rails'
 
 # Environment Dependencies
 group :development, :test do
-  gem 'thin'
   gem 'sqlite3'
   gem 'capistrano', '2.11.2'
   gem 'rspec-rails'

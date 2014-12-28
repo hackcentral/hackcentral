@@ -1,6 +1,7 @@
 class HackathonsController < ApplicationController
-  before_action :set_hackathon, only: [:show, :destroy, :edit, :update]
+  before_action :set_hackathon, only: [:destroy, :edit, :update]
   before_action :is_organizer, only: [:edit, :update, :destroy]
+  #before_action :current_hackathon, only: [:show]
 
   # GET /hackathons
   # GET /hackathons.json
@@ -11,7 +12,7 @@ class HackathonsController < ApplicationController
   # GET /hackathons/1
   # GET /hackathons/1.json
   def show
-    #@hackathon = Hackathon.find_by_subdomain!(request.subdomain)
+    @hackathon = Hackathon.find_by_subdomain!(request.subdomain)
   end
 
   # GET /hackathons/new

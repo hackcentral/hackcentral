@@ -3,12 +3,6 @@
   <%= image_tag @hackathon.header.url(:medium) %>
 </p>
 
-
-
-
-
-
-
 <style>
   .page-header .subheader {
     text-align :center;
@@ -146,10 +140,10 @@
           <h3 class="section-title"><strong>Organizers</strong></h3>
             <p>coming soon</p>
           <% if user_signed_in? %>
-            <% if current_user.organizers.where(hackathon_id: @hackathon) %>
+            <% if current_user.organizers.where(hackathon_id: @hackathon).any? %>
               <h3 class="section-title"><strong>Manage</strong></h3>
               <%= link_to 'Dashboard', admin_hackathon_path(@hackathon), class: "btn btn-md btn-primary" %>
-              <%= link_to 'Edit', admin_edit_hackathon_path(@hackathon), class: "btn btn-md btn-primary" %>
+              <%= link_to 'Edit', edit_hackathon_path(@hackathon), class: "btn btn-md btn-primary" %>
             <% else %>
             <% end %>
           <% end %>
