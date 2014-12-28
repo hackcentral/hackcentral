@@ -1,9 +1,20 @@
-<h1>HackathonExtras#participants</h1>
-<p>Find me in app/views/hackathon_extras/participants.html.erb</p>
+<!--<style>
+.container .jumbotron {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+</style>-->
 
-<ul>
-  <% @applications.each do |application| %>
-    <li>
-      <p><%= link_to "#{application.user.name}", root_url(user_path(application.user)) %>
-    </li>
-  <% end %>
+<div class="jumbotron">
+  <div class="container">
+    <h1>Participants</h1>
+
+    <ul>
+      <% @applications.each do |application| %>
+        <p><%= link_to "#{application.user.name}", user_url(application.user, :subdomain => false) %> | <%= application.user.submissions.count %> projects</p>
+        <hr>
+      <% end %>
+    </ul>
+
+  </div><!-- .container -->
+</div><!-- .jumbotron -->
