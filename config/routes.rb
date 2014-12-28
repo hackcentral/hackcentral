@@ -14,7 +14,9 @@ Rails.application.routes.draw do
 
   # Subdomain Routing
   constraints(SubdomainPresent) do
-    get '/' => 'hackathons#show', as: :hackathon#, :constraints => { :subdomain => /.+/ } #get '/' => 'hackathons#index'#, via: :get#, :constraints => { :subdomain => /.+/ }, via: :get
+    get '/' => 'hackathons#show', as: :hackathon #, :constraints => { :subdomain => /.+/ } #get '/' => 'hackathons#index'#, via: :get#, :constraints => { :subdomain => /.+/ }, via: :get
+    get '/participants' => 'hackathon_extras#participants', as: :hackathon_participants
+    get '/rules' => 'hackathon_extras#rules', as: :hackathon_rules
   end
 
   # Normal Routing

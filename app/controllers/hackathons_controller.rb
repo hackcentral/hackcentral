@@ -12,7 +12,7 @@ class HackathonsController < ApplicationController
   # GET /hackathons/1
   # GET /hackathons/1.json
   def show
-    @hackathon = Hackathon.find_by_subdomain!(request.subdomain)
+    @hackathon = current_hackathon#Hackathon.find_by_subdomain!(request.subdomain)
   end
 
   # GET /hackathons/new
@@ -69,6 +69,10 @@ class HackathonsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_hackathon
       @hackathon = Hackathon.find(params[:id])
+    end
+
+    def current_hackathon
+      @current_hackathon ||= Hackathon.find_by_subdomain!(request.subdomain)
     end
 
     def is_organizer

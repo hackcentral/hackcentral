@@ -1,0 +1,9 @@
+<h1>HackathonExtras#participants</h1>
+<p>Find me in app/views/hackathon_extras/participants.html.erb</p>
+
+<ul>
+  <% @applications.each do |application| %>
+    <li>
+      <p><%= link_to "#{application.user.name}", root_url(user_path(application.user)) %>
+    </li>
+  <% end %>
