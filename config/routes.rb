@@ -22,33 +22,33 @@ Rails.application.routes.draw do
   # Normal Routing
   constraints(SubdomainBlank) do
     # Root
-    root to: 'pages#home'
+      root to: 'pages#home'
 
     # Static Pages
-    get 'pages/about' => "pages#about"
-    get 'pages/contact' => "pages#contact"
+      get 'pages/about' => "pages#about"
+      get 'pages/contact' => "pages#contact"
 
     # Scaffolds
-    resources :profiles
-    resources :applications
-    resources :submissions, only: :show do
-      resource :like, module: :submissions
-    end
-    resources :hackathons, except: [:edit, :show] do
-      resources :submissions, except: [:show, :tag]
-    end
+      resources :profiles
+      resources :applications
+      resources :submissions, only: :show do
+        resource :like, module: :submissions
+      end
+      resources :hackathons, except: [:edit, :show] do
+        resources :submissions, except: [:show, :tag]
+      end
 
     # Submission Tags
-    get 'tags/:tag', to: 'submissions#tag', as: :tag
+      get 'tags/:tag', to: 'submissions#tag', as: :tag
 
     # Devise
-    devise_for :users, :path => '', :path_names => {:sign_in => 'login', :sign_out => 'logout', :sign_up => 'register'}
-    resources :users, only: [:show]
+      devise_for :users, :path => '', :path_names => {:sign_in => 'login', :sign_out => 'logout', :sign_up => 'register'}
+      resources :users, only: [:show]
 
     # API
-    use_doorkeeper do
-      controllers :applications => 'oauth/applications'
-    end
+      use_doorkeeper do
+        controllers :applications => 'oauth/applications'
+      end
 
     namespace :api, defaults: {format: 'json'} do
       scope module: :v1 do
