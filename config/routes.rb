@@ -93,7 +93,7 @@ Rails.application.routes.draw do
 
 
           resources :hackathons, only: [:edit] do
-            resources :organizers, except: [:show, :edit, :update]
+            resources :organizers, except: [:show, :edit, :update], controller: 'organizers'
           end
       end
 
