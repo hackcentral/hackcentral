@@ -32,15 +32,11 @@ class OrganizersController < ApplicationController
 
   private
     def set_hackathon
-      @hackathon = Hackathon.find(params[:hackathon_id])
+      @hackathon = Hackathon.find(params[:id])
     end
 
     def set_organizer
       @organizer = Organizer.find(params[:id])
-    end
-
-    def set_hackathon
-      @hackathon = Hackathon.find_by(params[:hackathon_id])
     end
 
     def is_organizer

@@ -1,12 +1,11 @@
 class Admin::HackathonsController < ApplicationController
-  before_action :set_hackathon
+  before_action :set_hackathon, except: [:checkin, :uncheckin, :application_accept, :application_unaccept]
   before_action :is_organizer
   before_action :authenticate_user!
 
   # Root
     def index
-      @hackathon = Hackathon.find_by(params[:id])
-      @organizers = Organizer.where(hackathon_id: @hackathon).all
+      @organizers = Organizer.all
     end
 
   # Check in
@@ -35,7 +34,7 @@ class Admin::HackathonsController < ApplicationController
       end
 
       if params[:accepted] == nil
-        @applications = Application.where(hackathon_id: @hackathon).all
+        @applications = Application.where(hackathon_id: Hackathon.find_by(params[:hackathon_id])).all
       end
     end
     def application_show
@@ -54,11 +53,12 @@ class Admin::HackathonsController < ApplicationController
 
   private
     def set_hackathon
-      @hackathon = Hackathon.find_by(params[:hackathon_id])
+      @hackathon = Hackathon.find_by(params[:id])
     end
 
     def is_organizer
       if user_signed_in?
+        @hackathon = Hackathon.find_by(params[:id])
         if current_user.organizers.where(hackathon_id: @hackathon).any?
         else
           redirect_to root_path, notice: "Not authorized" if @organizer.nil?

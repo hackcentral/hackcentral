@@ -64,18 +64,37 @@ Rails.application.routes.draw do
     end
 
     # Root Admin
-      get "/admin" => "admin/dashboards#index"
+      #get "/admin" => "admin/dashboards#index"
     # MLH Admin
-      get "/admin/mlh" => "admin/dashboards#mlh_root"
-      post "/admin/mlh/sanction/:hackathon_id" => "admin/dashboards#mlh_sanction"
-      post "/admin/mlh/unsanction/:hackathon_id" => "admin/dashboards#mlh_unsanction"
+      #get "/admin/mlh" => "admin/dashboards#mlh_root"
+      #post "/admin/mlh/sanction/:hackathon_id" => "admin/dashboards#mlh_sanction"
+      #post "/admin/mlh/unsanction/:hackathon_id" => "admin/dashboards#mlh_unsanction"
     # Organizer Admin
-      get "/admin/hackathons/:hackathon_id/" => "admin/hackathons#index", as: :admin_hackathon
+      #get "/admin/hackathons/:hackathon_id/" => "admin/hackathons#index", as: :admin_hackathon
 
-      scope '/admin' do
-        resources :hackathons, only: [:edit] do
-          resources :organizers, except: [:show, :edit, :update]
-        end
+      namespace :admin do
+        # Root Admin
+          get '', to: 'dashboards#index', as: '/'
+        # MLH Admin
+          get "/mlh" => "dashboards#mlh_root"
+          post "/mlh/sanction/:id" => "dashboards#mlh_sanction"
+          post "/mlh/unsanction/:id" => "dashboards#mlh_unsanction"
+        # Organizer Admin
+          get "/hackathons/:id" => "hackathons#index", as: :hackathon
+
+          get "/hackathons/:id/applications" => "hackathons#application_index", as: :hackathon_applications# , controller: 'hackathons', action: 'application_index', as: :hackathon_applications
+          get "/hackathons/:id/applications/:application_id/" => "hackathons#application_show", as: :hackathon_application
+          post "/hackathons/:id/applications/:application_id/accept" => "hackathons#application_accept"
+          post "/hackathons/:id/applications/:application_id/unaccept" => "hackathons#application_unaccept"
+
+          get "/hackathons/:hackathon_id/tickets" => "hackathons#checkin_index", as: :hackathon_tickets
+          post "/hackathons/:hackathon_id/:application_id/checkin" => "hackathons#checkin"
+          post "/hackathons/:hackathon_id/:application_id/uncheckin" => "hackathons#uncheckin"
+
+
+          resources :hackathons, only: [:edit] do
+            resources :organizers, except: [:show, :edit, :update]
+          end
       end
 
       get "/admin/hackathons/:hackathon_id/applications" => "admin/hackathons#application_index", as: :admin_applications_hackathon
