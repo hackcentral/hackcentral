@@ -5,6 +5,8 @@ describe Hackathon do
     FactoryGirl.build(:hackathon).should be_valid
   end
 
+  it { should belong_to(:user) }
+
   it { should have_many(:applications) }
   it { should have_many(:submissions) }
   it { should have_many(:organizers) }
