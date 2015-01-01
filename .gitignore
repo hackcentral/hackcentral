@@ -21,7 +21,7 @@
 /config/initializers/rollbar.rb
 
 # Ignore .DS_Store files
-/.DS_Store
+.DS_Store
 /bin
 
 # Ignore Coveralls
