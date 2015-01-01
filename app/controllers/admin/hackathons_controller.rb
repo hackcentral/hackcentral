@@ -1,5 +1,5 @@
 class Admin::HackathonsController < ApplicationController
-  before_action :set_hackathon, except: [:checkin, :uncheckin, :application_accept, :application_unaccept]
+  before_action :set_hackathon
   before_action :is_organizer
   before_action :authenticate_user!
 
@@ -15,12 +15,12 @@ class Admin::HackathonsController < ApplicationController
     def checkin
       @application = Application.find(params[:application_id])
       @application.update_attribute :checked_in, true
-      redirect_to admin_tickets_hackathon_path(@application.hackathon), notice: "Checkin complete!"
+      redirect_to admin_hackathon_tickets_path(@application.hackathon), notice: "Checkin complete!"
     end
     def uncheckin
       @application = Application.find(params[:application_id])
       @application.update_attribute :checked_in, false
-      redirect_to admin_tickets_hackathon_path(@application.hackathon), notice: "Un-checkin complete!"
+      redirect_to admin_hackathon_tickets_path(@application.hackathon), notice: "Un-checkin complete!"
     end
 
   # Applications
@@ -43,12 +43,12 @@ class Admin::HackathonsController < ApplicationController
     def application_accept
       @application = Application.find(params[:application_id])
       @application.update_attribute :accepted, true
-      redirect_to admin_applications_hackathon_path(@application.hackathon), notice: "Acceptance complete!"
+      redirect_to admin_hackathon_applications_path(@hackathon), notice: "Acceptance complete!"
     end
     def application_unaccept
       @application = Application.find(params[:application_id])
       @application.update_attribute :accepted, false
-      redirect_to admin_applications_hackathon_path(@application.hackathon), notice: "Unacceptance complete!"
+      redirect_to admin_hackathon_applications_path(@hackathon), notice: "Unacceptance complete!"
     end
 
   private

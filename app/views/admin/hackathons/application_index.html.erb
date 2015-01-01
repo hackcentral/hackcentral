@@ -53,7 +53,7 @@
                 <span class="label label-default">No</span>
               <% end %>
             </td>
-            <td><%= link_to "View", "/admin/hackathons/#{application.hackathon_id}/applications/#{application.id}"%></td>
+            <td><%= link_to "View", admin_hackathon_application_path(@hackathon, application) %></td>
           </tr>
         <% end %>
       </tbody>

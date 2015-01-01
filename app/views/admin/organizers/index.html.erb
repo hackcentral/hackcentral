@@ -22,7 +22,7 @@
             <% @organizers.each do |organizer| %>
               <tr>
                 <td><%= organizer.user.name %></td>
-                <td><%= link_to 'Destroy', hackathon_organizer_path(@hackathon, organizer), class: 'btn btn-primary', method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                <td><%= link_to 'Destroy', admin_hackathon_organizer_path(@hackathon, organizer), class: 'btn btn-primary', method: :delete, data: { confirm: 'Are you sure?' } %></td>
               </tr>
             <% end %>
           </tbody>
