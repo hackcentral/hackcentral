@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141228234423) do
+ActiveRecord::Schema.define(version: 20150101172456) do
 
   create_table "applications", force: true do |t|
     t.boolean  "reimbursement_needed"
@@ -61,9 +61,11 @@ ActiveRecord::Schema.define(version: 20141228234423) do
     t.boolean  "hs_hackers_allowed",  default: false
     t.boolean  "mlh_sanctioned",      default: false
     t.string   "subdomain"
+    t.integer  "user_id"
   end
 
   add_index "hackathons", ["subdomain"], name: "index_hackathons_on_subdomain", unique: true
+  add_index "hackathons", ["user_id"], name: "index_hackathons_on_user_id"
 
   create_table "likes", force: true do |t|
     t.integer  "user_id"
