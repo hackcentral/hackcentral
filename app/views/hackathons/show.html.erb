@@ -123,7 +123,7 @@
           <% end %>
 
           <h3 class="section-title"><strong>Register</strong></h3>
-            <p><%= link_to "Signup for this hackathon!", new_application_path(:hackathon_id => @hackathon.id), class: "btn btn-lg btn-primary" %><p>
+            <p><%= link_to "Signup for this hackathon!", new_application_url(:hackathon_id => @hackathon.id, :subdomain => false), class: "btn btn-lg btn-primary" %><p>
 
           <br />
 
@@ -142,8 +142,8 @@
           <% if user_signed_in? %>
             <% if current_user.organizers.where(hackathon_id: @hackathon).any? %>
               <h3 class="section-title"><strong>Manage</strong></h3>
-              <%= link_to 'Dashboard', admin_hackathon_path(@hackathon), class: "btn btn-md btn-primary" %>
-              <%= link_to 'Edit', edit_hackathon_path(@hackathon), class: "btn btn-md btn-primary" %>
+              <%= link_to 'Dashboard', admin_hackathon_url(@hackathon, :subdomain => false), class: "btn btn-md btn-primary" %>
+              <%= link_to 'Edit', edit_hackathon_url(@hackathon, :subdomain => false), class: "btn btn-md btn-primary" %>
             <% else %>
             <% end %>
           <% end %>

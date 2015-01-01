@@ -9,19 +9,10 @@ class ApplicationController < ActionController::Base
   protected
     def self.matches?(request)
       request.subdomain.present? && request.subdomain != 'www'
-      #def current_hackathon
-      #  @current_hackathon == Hackathon.find_by_subdomain!(request.subdomain)
-      #end
       def current_hackathon
         @current_hackathon ||= Hackathon.find_by_subdomain!(request.subdomain)
       end
     end
-
-    #if self.matches?(request) && request.subdomain.present? && request.subdomain != "www"
-      #def load_hackathon_subdomain
-          #@current_hackathon = Hackathon.find_by_subdomain!(request.subdomain)
-      #end
-    #end
 
     def configure_permitted_parameters
       devise_parameter_sanitizer.for(:sign_up) << :name

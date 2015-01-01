@@ -17,8 +17,8 @@
               <p><%= hackathon.start.strftime("%b %d, %Y") %>
               <p><%= hackathon.location %><p>
               <p>
-                <%= link_to 'More', hackathon, :class => "btn btn-primary", :role => "button" %>
-                <%= link_to 'Signup', new_application_path(:hackathon_id => hackathon.id), :class => "btn btn-default", :role => "button" %>
+                <%= link_to hackathon.name, root_url(:subdomain => hackathon.subdomain), class: 'btn btn-primary' %>
+                <%= link_to 'Signup', new_application_url(:hackathon_id => hackathon.id), :class => "btn btn-default", :role => "button" %>
               </p>
             </div> <!-- ./caption -->
           </div> <!-- ./thumbnail -->
