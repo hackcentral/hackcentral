@@ -1,6 +1,7 @@
 class HackathonsController < ApplicationController
   before_action :set_hackathon, only: [:destroy, :edit, :update]
   before_action :is_organizer, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!
   #before_action :current_hackathon, only: [:show]
 
   # GET /hackathons
@@ -17,7 +18,7 @@ class HackathonsController < ApplicationController
 
   # GET /hackathons/new
   def new
-    @hackathon = Hackathon.new
+    @hackathon = current_user.hackathons.build #Hackathon.new
   end
 
   # GET /hackathons/1/edit
@@ -27,7 +28,7 @@ class HackathonsController < ApplicationController
   # POST /hackathons
   # POST /hackathons.json
   def create
-    @hackathon = Hackathon.new(hackathon_params)
+    @hackathon = current_user.hackathons.build(hackathon_params) #Hackathon.new(hackathon_params)
 
     respond_to do |format|
       if @hackathon.save
@@ -77,9 +78,12 @@ class HackathonsController < ApplicationController
 
     def is_organizer
       if user_signed_in?
+        if @hackathon = current_user.hackathons.find_by(id: params[:id])
+          else redirect_to root_path, notice: "Not authorized" if @hackathon.nil?
+        end
+
         if current_user.organizers.where(hackathon_id: @hackathon)
-        else
-          redirect_to root_path, notice: "Not authorized" if @organizer.nil?
+          else redirect_to root_path, notice: "Not authorized" if @organizer.nil?
         end
       else
       end

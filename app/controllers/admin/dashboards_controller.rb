@@ -5,6 +5,7 @@ class Admin::DashboardsController < ApplicationController
 
   # Admin Root
     def index
+      @hackathons = Hackathon.where(user_id: current_user).all
       @organizers = current_user.organizers.all
     end
 
