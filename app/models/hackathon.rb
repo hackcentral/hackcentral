@@ -1,5 +1,7 @@
 class Hackathon < ActiveRecord::Base
 
+  belongs_to :user
+
   has_many :applications
   has_many :submissions
   has_many :organizers
