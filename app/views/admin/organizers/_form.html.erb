@@ -1,5 +1,5 @@
 <div class="panel panel-body">
-  <%= form_for [@hackathon, @organizer] do |f| %>
+  <%= form_for [:admin, @hackathon, @organizer] do |f| %>
     <% if @organizer.errors.any? %>
       <div id="error_explanation">
         <h2><%= pluralize(@organizer.errors.count, "error") %> prohibited this organizer from being saved:</h2>

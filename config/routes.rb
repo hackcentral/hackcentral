@@ -63,15 +63,6 @@ Rails.application.routes.draw do
       end
     end
 
-    # Root Admin
-      #get "/admin" => "admin/dashboards#index"
-    # MLH Admin
-      #get "/admin/mlh" => "admin/dashboards#mlh_root"
-      #post "/admin/mlh/sanction/:hackathon_id" => "admin/dashboards#mlh_sanction"
-      #post "/admin/mlh/unsanction/:hackathon_id" => "admin/dashboards#mlh_unsanction"
-    # Organizer Admin
-      #get "/admin/hackathons/:hackathon_id/" => "admin/hackathons#index", as: :admin_hackathon
-
       namespace :admin do
         # Root Admin
           get '', to: 'dashboards#index', as: '/'
@@ -87,24 +78,24 @@ Rails.application.routes.draw do
           post "/hackathons/:id/applications/:application_id/accept" => "hackathons#application_accept"
           post "/hackathons/:id/applications/:application_id/unaccept" => "hackathons#application_unaccept"
 
-          get "/hackathons/:hackathon_id/tickets" => "hackathons#checkin_index", as: :hackathon_tickets
-          post "/hackathons/:hackathon_id/:application_id/checkin" => "hackathons#checkin"
-          post "/hackathons/:hackathon_id/:application_id/uncheckin" => "hackathons#uncheckin"
+          get "/hackathons/:id/tickets" => "hackathons#checkin_index", as: :hackathon_tickets
+          post "/hackathons/:id/:application_id/checkin" => "hackathons#checkin"
+          post "/hackathons/:id/:application_id/uncheckin" => "hackathons#uncheckin"
 
 
           resources :hackathons, only: [:edit] do
-            resources :organizers, except: [:show, :edit, :update], controller: 'organizers'
+            resources :organizers, except: [:show, :edit, :update]
           end
       end
 
-      get "/admin/hackathons/:hackathon_id/applications" => "admin/hackathons#application_index", as: :admin_applications_hackathon
-      get "/admin/hackathons/:hackathon_id/applications/:application_id/" => "admin/hackathons#application_show"
-      post "/admin/hackathons/:hackathon_id/applications/:application_id/accept" => "admin/hackathons#application_accept"
-      post "/admin/hackathons/:hackathon_id/applications/:application_id/unaccept" => "admin/hackathons#application_unaccept"
+#      get "/admin/hackathons/:hackathon_id/applications" => "admin/hackathons#application_index", as: :admin_applications_hackathon
+#      get "/admin/hackathons/:hackathon_id/applications/:application_id/" => "admin/hackathons#application_show"
+#      post "/admin/hackathons/:hackathon_id/applications/:application_id/accept" => "admin/hackathons#application_accept"
+#      post "/admin/hackathons/:hackathon_id/applications/:application_id/unaccept" => "admin/hackathons#application_unaccept"
 
-      get "/admin/hackathons/:hackathon_id/tickets" => "admin/hackathons#checkin_index", as: :admin_tickets_hackathon
-      post "/admin/hackathons/:hackathon_id/:application_id/checkin" => "admin/hackathons#checkin"
-      post "/admin/hackathons/:hackathon_id/:application_id/uncheckin" => "admin/hackathons#uncheckin"
+#      get "/admin/hackathons/:hackathon_id/tickets" => "admin/hackathons#checkin_index", as: :admin_tickets_hackathon
+#      post "/admin/hackathons/:hackathon_id/:application_id/checkin" => "admin/hackathons#checkin"
+#      post "/admin/hackathons/:hackathon_id/:application_id/uncheckin" => "admin/hackathons#uncheckin"
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

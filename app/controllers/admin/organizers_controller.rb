@@ -8,7 +8,7 @@ class Admin::OrganizersController < ApplicationController
   end
 
   def new
-    @organizer = Organizer.new
+    @organizer = @hackathon.organizers.build
   end
 
   def create
@@ -16,7 +16,7 @@ class Admin::OrganizersController < ApplicationController
 
     respond_to do |format|
       if @organizer.save
-        format.html { redirect_to admin_hackathon_path(@organizer.hackathon_id), notice: 'Organizer was successfully created.' }
+        format.html { redirect_to admin_hackathon_organizers_path(@organizer.hackathon_id), notice: 'Organizer was successfully created.' }
       else
         format.html { render :new }
       end
