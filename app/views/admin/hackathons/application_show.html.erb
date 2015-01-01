@@ -15,9 +15,9 @@
 
         <p><b>Graduating in:</b> <%= @application.profile.school_grad %></p>
 
-        <p><b>Website:</b> <%= link_to @application.profile.website %></p>
+        <p><b>Website:</b> <%= link_to "#{@application.profile.website}", @application.profile.website %></p>
 
-        <p><b>GitHub:</b> <%= link_to @application.profile.github %></p>
+        <p><b>GitHub:</b> <%= link_to "#{@application.profile.github}", @application.profile.github %></p>
 
         <% if @application.profile.dietary_needs == nil %>
         <% else %>
@@ -30,7 +30,7 @@
         <% end %>
 
       </div><!-- .col-md-9 -->
-      
+
       <div class="col-md-3">
 
         <% if @application.reimbursement_needed? %>
