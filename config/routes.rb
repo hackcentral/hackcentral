@@ -83,7 +83,7 @@ Rails.application.routes.draw do
           post "/hackathons/:id/:application_id/uncheckin" => "hackathons#uncheckin"
 
 
-          resources :hackathons, only: [:edit], controller: 'hackathons' do
+          resources :hackathons, except: [:index, :show], controller: 'hackathons' do
             resources :organizers, except: [:show, :edit, :update]
           end
       end

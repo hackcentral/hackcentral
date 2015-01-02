@@ -8,6 +8,31 @@ class Admin::HackathonsController < ApplicationController
       @organizers = Organizer.all
     end
 
+  # Editing
+    def edit
+    end
+
+    # PATCH/PUT /hackathons/1
+    # PATCH/PUT /hackathons/1.json
+    def update
+      respond_to do |format|
+        if @hackathon.update(hackathon_params)
+          format.html { redirect_to admin_hackathon_path(@hackathon), notice: 'Hackathon was successfully updated.' }
+        else
+          format.html { render :edit }
+        end
+      end
+    end
+
+    # DELETE /hackathons/1
+    # DELETE /hackathons/1.json
+    def destroy
+      @hackathon.destroy
+      respond_to do |format|
+        format.html { redirect_to root_url, notice: 'Hackathon was successfully destroyed.' }
+      end
+    end
+
   # Check in
     def checkin_index
       @applications = Application.where(hackathon_id: @hackathon, accepted: true).all
@@ -67,5 +92,9 @@ class Admin::HackathonsController < ApplicationController
         end
       else
       end
+    end
+
+    def hackathon_params
+      params.require(:hackathon).permit(:name, :subdomain, :about, :tagline, :location, :logo, :header, :start, :end, :hs_hackers_allowed, :mlh_sanctioned, :user_id)
     end
 end

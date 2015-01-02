@@ -1,0 +1,14 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="panel-title">
+      <h1>Editing hackathon</h1>
+    </div>
+  </div>
+
+  <%= render 'form' %>
+
+  <div class="panel-footer">
+    <%= link_to 'Show', root_url(subdomain: @hackathon.subdomain) %> |
+    <%= link_to 'Back', admin_hackathon_path(@hackathon) %>
+  </div>
+</div>
