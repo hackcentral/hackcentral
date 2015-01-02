@@ -1,3 +1,60 @@
 // Place all the styles related to the hackathons controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.hackathon .page-header {
+    text-align:center;
+    background-color:#444;
+    padding:40px
+    }
+.hackathon .page-header .page-title {
+    margin-bottom:0;
+    padding-bottom:0;
+    color:white;
+    font-weright:bold
+    }
+.hackathon .page-header .hackathon-image {
+    display:inline-block;
+    background-color:white
+    }
+.hackathon .page-header .hackathon-image .hackathon-image-border {
+    margin:3px;
+    border:solid 1px #ccc
+    }
+.hackathon .page-header .hackathon-image img {
+    max-height:100px;
+    margin:2px
+    }
+.hackathon address{
+    margin:5px auto
+    }
+.hackathon .page-header {
+    /* background-image: url('https://hackerleague.org/assets/bg_images/dormroom-4150b77b691a9f2fff82a41fc51bd927.jpg');*/
+    background-image: url('<%= image_tag @hackathon.header.url %>');
+    background-size: cover;
+    color: #ffffff;
+    text-align: center;
+    }
+.hackathon .page-header .small {
+    color: #ffffff;
+    }
+.hackathon .page-header .hackathon-image {
+    background-color: white;
+    }
+.hackathon .page-header .hackathon-image .hackathon-image-border {
+    margin: 3px;
+    border: solid 1px #ccc;
+    }
+.hackathon .page-header .hackathon-image img {
+    margin: 2px;
+    }
+.hackathon .page-header .page-title {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    color: white;
+    font-weight: bold;
+    }
+.hackathon .page-header .small {
+    color: #ffffff;
+    }

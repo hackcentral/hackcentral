@@ -1,93 +1,25 @@
-<p>
-  <strong>Header:</strong>
-
-</p>
-
-<style>
-  .page-header .subheader {
-    text-align :center;
-  }
-
-  .banner.major {
-    background: #b0ff71;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
-    position: absolute;
-    top: 30px;
-    right: -15px;
-    padding: 4px 40px;
-    color: #234e00;
-    font-weight: bold;
-    text-shadow: 0 1px 0 #8bbe62;
-    font-size: 10px;
-    -webkit-box-shadow: 0 4px 0 0 rgba(0, 0, 0, 0.25);
-    box-shadow: 0 4px 0 0 rgba(0, 0, 0, 0.25);
-  }
-</style>
-<style>
-  .jumbotron .container .page-header {
-    background-image: url(<%= image_tag @hackathon.header.url(:medium) %>);
-    background-size: cover;
-    color: #ffffff;
-  }
-
-  .jumbotron .container .page-header .small {
-    color: #ffffff;
-  }
-
-  .jumbotron .container .page-header .hackathon-image .hackathon-image-border {
-    margin: 3px;
-    border: solid 1px #ccc;
-  }
-
-  .jumbotron .container .page-header .page-title{
-    margin-bottom: 0;
-    padding-bottom: 0;
-    color: white;
-  }
-</style>
-
-
 <div class="jumbotron">
   <div class="container">
 
-    <div class="page-header">
-      <div class="sub-header">
-        <div class="hackathon-image">
-          <div class="hackathon-image-border">
-            <img alt="Logo for hackru-fall-2014" src="https://s3.amazonaws.com/hackerleague-production/organizations/logos/5433fa959f00352c14000006/medium.png?1412693198">
-          </div><!-- .hackathon-image-border -->
-        </div><!-- .hackathon-image -->
-        <h2 class="page-title">
-          HackRU Fall 2014
-
-          <div class="small">
-            Oct 11th-12th, 2014
-            in New Brunswick, NJ
+    <div class='hackathon'>
+      <div class='page-header'>
+        <div class='sub-header'>
+          <div class='hackathon-image'>
+            <div class='hackathon-image-border'>
+              <%= image_tag @hackathon.logo.url(:small) %>
+              <!--<img alt="Logo for hackru-fall-2014" src="https://s3.amazonaws.com/hackerleague-production/organizations/logos/5433fa959f00352c14000006/medium.png?1412693198" />-->
+            </div>
           </div>
-        </h2>
-      </div><!-- .sub-header -->
-    </div><!-- .page-header -->
+          <h2 class='page-title'>
+            <%= @hackathon.name %>
+            <div class='small'><br>
+              <%= @hackathon.tagline %>
+            </div>
+          </h2>
+        </div>
+      </div>
+    </div>
 
-
-    <!-- Name and Tagline -->
-    <div class="row">
-      <div class="page-header">
-        <div class="sub-header">
-          <div class="center">
-            <h2 class="page-title">
-              <%= image_tag @hackathon.logo.url(:small) %>  <%= @hackathon.name %>
-            </h2>
-            <br />
-            <h2 class="page-title">
-              <div class="small"><%= @hackathon.tagline %></div>
-            </h2>
-          </div><!-- .center -->
-        </div><!-- .sub-header -->
-      </div><!-- .page-header -->
-    </div><!-- .row -->
-    <!-- .Name and Tagline -->
 
     <div class="row">
       <div class="col-md-8">
