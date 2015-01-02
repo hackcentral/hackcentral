@@ -40,7 +40,6 @@ group :test do
   gem "codeclimate-test-reporter", require: nil
   gem 'database_cleaner'
   gem 'faker'
-  gem 'guard-rspec'
   gem 'shoulda'
 end
 
@@ -48,7 +47,6 @@ group :production do
   gem 'unicorn'
   gem 'pg'
   gem 'rails_12factor'
-  gem 'actionmailer', :require => 'action_mailer'
 
 end
 
