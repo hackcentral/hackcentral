@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   before_filter :configure_permitted_parameters, if: :devise_controller?
   helper_method :current_hackathon
 
-  protected
+  private
     def self.matches?(request)
       request.subdomain.present? && request.subdomain != 'www'
       def current_hackathon

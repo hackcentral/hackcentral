@@ -39,10 +39,10 @@ class Admin::DashboardsController < ApplicationController
 
     def is_mlh
       if user_signed_in?
-          if current_user.mlh == false
-            redirect_to root_path, notice: "Not authorized"
-          else
-          end
+        if current_user.mlh == false
+          redirect_to root_path, notice: "Not authorized"
+        else
+        end
       else
       end
     end
