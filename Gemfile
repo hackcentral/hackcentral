@@ -18,7 +18,7 @@ gem 'figaro'
 gem 'bootstrap-sass'
 gem 'font-awesome-sass'
 gem 'devise'
-gem 'doorkeeper'
+gem 'doorkeeper', "1.4.1"
 gem 'friendly_id'
 gem 'rollbar'
 gem 'local_time'

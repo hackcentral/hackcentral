@@ -8,8 +8,8 @@ class SubmissionsController < ApplicationController
   # GET /submissions
   # GET /submissions.json
   def index
-    #@submissions = Submission.where(:hackathon_id => @hackathon).paginate(:page => params[:page], :per_page => 30) #Submission.all
-    @submissions = Submission.where(:hackathon_id => @hackathon).paginate(:page => params[:page]).order('id DESC')
+      #@submissions = Submission.where(:hackathon_id => @hackathon).paginate(:page => params[:page], :per_page => 30) #Submission.all
+      @submissions = Submission.where(:hackathon_id => @hackathon).paginate(:page => params[:page]).order('id DESC')
   end
 
   def tag
