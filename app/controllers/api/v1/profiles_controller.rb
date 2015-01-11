@@ -1,7 +1,7 @@
 module Api
   module V1
     class ProfilesController < ApplicationController
-      doorkeeper_for :all
+      before_action :doorkeeper_authorize!
       before_action :set_profile, only: [:show, :update, :destroy]
       before_action :correct_user, only: [:show, :edit, :update, :destroy]
 

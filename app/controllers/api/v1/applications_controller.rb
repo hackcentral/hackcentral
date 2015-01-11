@@ -1,7 +1,7 @@
 module Api
   module V1
     class ApplicationsController < ApplicationController
-      doorkeeper_for :all
+      before_action :doorkeeper_authorize!
       before_action :set_application, only: [:show, :update, :destroy]
       before_action :correct_user, only: [:show, :edit, :update, :destroy]
 

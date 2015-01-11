@@ -1,7 +1,7 @@
 module Api
   module V1
     class HackathonsController < ApplicationController
-      doorkeeper_for :all
+      before_action :doorkeeper_authorize!
       before_action :set_hackathon, only: [:show, :edit, :update, :destroy]
 
       def index
