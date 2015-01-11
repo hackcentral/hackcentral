@@ -16,4 +16,5 @@
 //= require turbolinks
 //= require local_time
 //= require chosen-jquery
+//= require scaffold
 //= require_tree .

@@ -24,7 +24,7 @@ gem 'rollbar'
 gem 'local_time'
 gem 'will_paginate', '~> 3.0.5'
 gem 'will_paginate-bootstrap'
-gem 'chosen-rails'
+gem 'chosen-rails', '1.3.0'
 
 # Environment Dependencies
 group :development, :test do
