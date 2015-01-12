@@ -18,11 +18,16 @@ describe ApplicationsController, :type => :controller do
       @application = FactoryGirl.create(:application)
     end
 
-    it "runs through the correct_user method" do
+    it "shows application if correct_user" do
       if @application.user_id == @current_user
         get 'show', id: @application, application: FactoryGirl.attributes_for(:application)
         response.should render_template 'show'
       else
+      end
+    end
+
+    it "will redirect if not correct_user" do
+      if @application.user_id != @current_user
         get 'show', id: FactoryGirl.create(:application, user_id: nil)
         response.should redirect_to applications_path
         flash[:notice].should == "Not authorized to edit this application"
@@ -68,11 +73,16 @@ describe ApplicationsController, :type => :controller do
       @application = FactoryGirl.create(:application)
     end
 
-    it "runs through the correct_user method" do
+    it "shows application if correct_user" do
       if @application.user_id == @current_user
         get 'edit', id: @application, application: FactoryGirl.attributes_for(:application)
-        response.should render_template 'show'
+        response.should render_template 'edit'
       else
+      end
+    end
+
+    it "will redirect if not correct_user" do
+      if @application.user_id != @current_user
         get 'edit', id: FactoryGirl.create(:application, user_id: nil)
         response.should redirect_to applications_path
         flash[:notice].should == "Not authorized to edit this application"
