@@ -22,8 +22,8 @@ class HackathonsController < ApplicationController
   end
 
   # GET /hackathons/1/edit
-  def edit
-  end
+#  def edit
+#  end
 
   # POST /hackathons
   # POST /hackathons.json
@@ -39,32 +39,26 @@ class HackathonsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /hackathons/1
-  # PATCH/PUT /hackathons/1.json
-  def update
-    respond_to do |format|
-      if @hackathon.update(hackathon_params)
-        format.html { redirect_to hackathons_path, notice: 'Hackathon was successfully updated.' }
-      else
-        format.html { render :edit }
-      end
-    end
-  end
+#  # PATCH/PUT /hackathons/1
+#  # PATCH/PUT /hackathons/1.json
+#  def update
+#    respond_to do |format|
+#      if @hackathon.update(hackathon_params)
+#        format.html { redirect_to hackathons_path, notice: 'Hackathon was successfully updated.' }
+#      else
+#        format.html { render :edit }
+#      end
+#    end
+#  end
 
   # DELETE /hackathons/1
   # DELETE /hackathons/1.json
-  def destroy
-    @hackathon.destroy
-    respond_to do |format|
-      format.html { redirect_to hackathons_url, notice: 'Hackathon was successfully destroyed.' }
-    end
-  end
-
-  # /admin/hackathons/1/checkin
-  def checkin
-    #@hackathon = Hackathon.all
-    #@hackathon = Hackathon.applications.where(accepted: true).all
-  end
+#  def destroy
+#    @hackathon.destroy
+#    respond_to do |format|
+#      format.html { redirect_to hackathons_url, notice: 'Hackathon was successfully destroyed.' }
+#    end
+#  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

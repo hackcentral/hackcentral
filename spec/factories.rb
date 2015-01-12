@@ -25,6 +25,7 @@ FactoryGirl.define do
     f.location { Faker::Address.city }
     f.start { Faker::Date.backward(14) }
     f.end { Faker::Date.backward(14) }
+    f.user_id "1"
   end
 
   factory :like do |f|
