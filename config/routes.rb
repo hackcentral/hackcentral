@@ -34,7 +34,7 @@ Rails.application.routes.draw do
       resources :submissions, only: :show do
         resource :like, module: :submissions
       end
-      resources :hackathons, except: [:edit, :show] do
+      resources :hackathons, only: [:index, :show, :new, :create] do
         resources :submissions, except: [:show, :tag]
       end
 
