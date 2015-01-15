@@ -1,12 +1,10 @@
 class Submission < ActiveRecord::Base
-  if RAILS_ENV="production"
-    require 'friendly_id'
-  else
-  end
 
   belongs_to :user
   belongs_to :hackathon
 
+  has_many :team_members
+    accepts_nested_attributes_for :team_members
   has_many :likes
   has_many :taggings
   has_many :tags, through: :taggings

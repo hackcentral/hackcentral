@@ -18,29 +18,6 @@ RSpec.describe TeamMembersController, :type => :controller do
   # TeamMembersController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
-  describe "GET index" do
-    it "assigns all team_members as @team_members" do
-      team_member = TeamMember.create! valid_attributes
-      get :index, {}, valid_session
-      expect(assigns(:team_members)).to eq([team_member])
-    end
-  end
-
-  describe "GET show" do
-    it "assigns the requested team_member as @team_member" do
-      team_member = TeamMember.create! valid_attributes
-      get :show, {:id => team_member.to_param}, valid_session
-      expect(assigns(:team_member)).to eq(team_member)
-    end
-  end
-
-  describe "GET new" do
-    it "assigns a new team_member as @team_member" do
-      get :new, {}, valid_session
-      expect(assigns(:team_member)).to be_a_new(TeamMember)
-    end
-  end
-
   describe "GET edit" do
     it "assigns the requested team_member as @team_member" do
       team_member = TeamMember.create! valid_attributes

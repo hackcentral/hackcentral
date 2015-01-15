@@ -12,8 +12,6 @@ end
 
 Rails.application.routes.draw do
 
-  resources :team_members
-
   # Subdomain Routing
   constraints(SubdomainPresent) do
     get '/' => 'hackathons#show', as: :hackathon #, :constraints => { :subdomain => /.+/ } #get '/' => 'hackathons#index'#, via: :get#, :constraints => { :subdomain => /.+/ }, via: :get
