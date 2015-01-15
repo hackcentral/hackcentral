@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150111144739) do
+ActiveRecord::Schema.define(version: 20150115225458) do
 
   create_table "applications", force: :cascade do |t|
     t.boolean  "reimbursement_needed"
@@ -179,6 +179,16 @@ ActiveRecord::Schema.define(version: 20150111144739) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "team_members", force: :cascade do |t|
+    t.integer  "submission_id"
+    t.integer  "user_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "team_members", ["submission_id"], name: "index_team_members_on_submission_id"
+  add_index "team_members", ["user_id"], name: "index_team_members_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "",    null: false
