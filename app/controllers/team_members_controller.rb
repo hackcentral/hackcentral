@@ -1,4 +1,4 @@
-class TeamMembersController < ApplicationController
+##class TeamMembersController < ApplicationController
 #  before_action :set_team_member, only: [:show, :edit, :update, :destroy]
 
 #  respond_to :html
@@ -27,12 +27,12 @@ class TeamMembersController < ApplicationController
 #    respond_with(@team_member)
 #  end
 
-  private
+##  private
 #   def set_team_member
 #      @team_member = TeamMember.find(params[:id])
 #    end
 
-    def team_member_params
-      params.require(:team_member).permit(:submission_id, :user_id)
-    end
-end
+##    def team_member_params
+##      params.require(:team_member).permit(:submission_id, :user_id)
+##    end
+##end

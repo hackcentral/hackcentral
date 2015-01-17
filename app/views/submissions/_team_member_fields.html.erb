@@ -1,0 +1,11 @@
+<fieldset>
+  <%= f.label "User id" %>
+  <div class="form-group">
+    <%= f.collection_select :user_id, User.order(:email), :id, :email, {multiple: false} %>
+  </div>
+
+  <%= f.hidden_field :_destroy %>
+  <%= link_to "remove", '#', class: "remove_fields" %>
+  <hr>
+
+</fieldset>

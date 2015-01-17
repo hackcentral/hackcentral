@@ -4,7 +4,7 @@ class Submission < ActiveRecord::Base
   belongs_to :hackathon
 
   has_many :team_members
-    accepts_nested_attributes_for :team_members
+    accepts_nested_attributes_for :team_members, :reject_if => :all_blank, :allow_destroy => true
   has_many :likes
   has_many :taggings
   has_many :tags, through: :taggings
