@@ -1,34 +1,25 @@
-<style>
-  .table {
-    padding: 50px;
-  }
-</style>
+<header class="page-header">
+  <h1>Your authorized applications</h1>
+</header>
 
-<div class="panel panel-default">
-  <!-- Default panel contents -->
-  <div class="panel-heading">Authorized applications</div>
-
-  <div class="panel-body">
-
-    <!-- Table -->
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Authorized at</th>
-          <th colspan="3"></th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% @applications.each do |application| %>
-          <tr>
-            <td><%= application.name %></td>
-            <td><%= application.created_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
-            <td><%= render 'delete_form', application: application %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
-</div>
+<main role="main">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Application</th>
+      <th>Created At</th>
+      <th></th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @applications.each do |application| %>
+      <tr>
+        <td><%= application.name %></td>
+        <td><%= application.created_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
+        <td><%= render 'delete_form', application: application %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</main>

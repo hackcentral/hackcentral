@@ -1,15 +1,7 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <div class="panel-title">
-      <h1>An error has occurred</h1>
-    </div>
-  </div>
-
-  <div class="panel-body">
-    <h4><%= @pre_auth.error_response.body[:error_description] %></h4>
-  </div>
-
-  <div class="panel-footer">
-    <%= link_to 'Back', main_app.root_path %>
-  </div>
+<div class="page-header">
+  <h1>An error has occurred</h1>
 </div>
+
+<main role="main">
+  <pre><%= @pre_auth.error_response.body[:error_description] %></pre>
+</main>

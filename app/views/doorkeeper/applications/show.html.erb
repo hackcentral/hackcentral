@@ -1,47 +1,38 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h1><%= @application.name %></h1>
+<div class="page-header">
+  <h1>Application: <%= @application.name %></h1>
+</div>
+
+<div class="row">
+  <div class="col-md-8">
+    <h4>Application Id:</h4>
+
+    <p><code id="application_id"><%= @application.uid %></code></p>
+
+    <h4>Secret:</h4>
+
+    <p><code id="secret"><%= @application.secret %></code></p>
+
+    <h4>Callback urls:</h4>
+
+    <table>
+      <% @application.redirect_uri.split.each do |uri| %>
+        <tr>
+          <td>
+            <code><%= uri %></code>
+          </td>
+          <td>
+            <%= link_to 'Authorize', oauth_authorization_path(client_id: @application.uid, redirect_uri: uri, response_type: 'code'), class: 'btn btn-success', target: '_blank' %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
   </div>
 
-  <div class="panel-body">
-    <div class="row">
-      <div class="col-md-8">
-        <h4>Application Id:</h4>
-          <p>
-            <code id="application_id">
-              <%= @application.uid %>
-            </code>
-          </p>
+  <div class="col-md-4">
+    <h3>Actions</h3>
 
-        <h4>Secret:</h4>
-          <p>
-            <code id="secret">
-              <%= @application.secret %>
-            </code>
-          </p>
+    <p><%= link_to 'Edit', edit_oauth_application_path(@application), class: 'btn btn-primary' %></p>
 
-        <h4>Callback URL:</h4>
-          <p>
-            <code id="callback-url">
-              <%= @application.redirect_uri %>
-            </code>
-
-            <%= link_to 'Authorize', oauth_authorization_path(client_id: @application.uid, redirect_uri: @application.redirect_uri, response_type: 'code'), class: 'btn btn-success', target: '_blank' %>
-          </p>
-      </div>
-      <div class="col-md-4">
-        <h3>Actions</h3>
-
-        <p><%= link_to 'Edit', edit_oauth_application_path(@application), class: 'btn btn-primary' %></p>
-
-        <p><%= render 'delete_form', application: @application, submit_btn_css: 'btn btn-primary' %></p>
-
-      </div>
-    </div>
+    <p><%= render 'delete_form', application: @application, submit_btn_css: 'btn btn-danger' %></p>
   </div>
-
-  <div class="panel-footer">
-    <%= link_to 'Back', oauth_applications_path %>
-  </div>
-
 </div>
