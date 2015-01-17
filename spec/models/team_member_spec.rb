@@ -7,4 +7,5 @@ RSpec.describe TeamMember do
 
   it { should belong_to(:submission) }
   it { should belong_to(:user) }
+
 end

@@ -6,6 +6,7 @@ describe User do
   end
 
   it { should have_many(:hackathons) }
+  it { should have_many(:organizers) }
   it { should have_many(:profiles) }
   it { should have_many(:applications) }
   it { should have_many(:submissions) }
