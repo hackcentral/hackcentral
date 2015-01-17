@@ -36,7 +36,6 @@ class ApplicationsController < ApplicationController
       if @application.save
         format.html { redirect_to @application, notice: 'Application was successfully created.' }
       else
-        format.html { render :new }
       end
     end
   end
@@ -48,7 +47,6 @@ class ApplicationsController < ApplicationController
       if @application.update(application_params)
         format.html { redirect_to @application, notice: 'Application was successfully updated.' }
       else
-        format.html { render :edit }
       end
     end
   end
