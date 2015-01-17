@@ -75,9 +75,16 @@ describe Api::V1::ProfilesController do
           } .to change(Profile, :count).by(1)
         end
 
-        it "creates a new application, making sure response is #201" do
+        it "creates a new application, making sure response is 201" do
           post :create, profile: FactoryGirl.attributes_for(:profile, :user_id => @user.id), :format => :json, :access_token => @token.token
           response.status.should eq(201)
+        end
+      end
+
+      context "with invalid attributes" do
+        it "returns 422" do
+          #post :create, profile: FactoryGirl.attributes_for(:profile, :user_id => @user.id, name: nil), :format => :json, :access_token => @token.token
+          #response.status.should eq(422)
         end
       end
     end

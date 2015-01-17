@@ -47,7 +47,7 @@ Rails.application.routes.draw do
 
     # API
       use_doorkeeper do
-        #controllers :applications => 'oauth/applications'
+        controllers :applications => 'oauth/applications'
       end
 
     namespace :api, defaults: {format: 'json'} do
