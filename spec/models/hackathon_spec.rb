@@ -32,4 +32,5 @@ describe Hackathon do
   it "is invalid without a end" do
     FactoryGirl.build(:hackathon, :end => nil).should_not be_valid
   end
+
 end
