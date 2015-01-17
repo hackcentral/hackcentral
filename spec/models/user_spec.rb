@@ -9,6 +9,7 @@ describe User do
   it { should have_many(:profiles) }
   it { should have_many(:applications) }
   it { should have_many(:submissions) }
+  it { should have_many(:team_members) }
   it { should have_many(:likes) }
   it { should have_many(:oauth_applications) }
 
