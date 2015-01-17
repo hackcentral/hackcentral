@@ -2,16 +2,6 @@ require 'faker'
 require 'factory_girl_rails'
 
 FactoryGirl.define do
-  factory :team_member do
-    submission_id 1
-    user_id 1
-  end
-
-  factory :organizer do
-    user_id "1"
-    hackathon_id "1"
-  end
-
 
   factory :application do |f|
     f.reimbursement_needed "true"
@@ -58,6 +48,11 @@ FactoryGirl.define do
     owner_id "1"
   end
 
+  factory :organizer do
+    user_id "1"
+    hackathon_id "1"
+  end
+
   factory :profile do |f|
     f.name { Faker::Name.name }
     f.school_grad { Faker::Number.number(4) }
@@ -76,6 +71,11 @@ FactoryGirl.define do
     f.submitted_at { Faker::Date.backward(14) }
     f.user_id { Faker::Number.number(4) }
     f.hackathon_id { Faker::Number.number(4) }
+  end
+
+  factory :team_member do
+    submission_id "1"
+    user_id "1"
   end
 
   factory :user do |f|
