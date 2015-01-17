@@ -1,7 +1,7 @@
 class HackathonsController < ApplicationController
   before_action :set_hackathon, only: [:destroy, :edit, :update]
   before_action :is_organizer, only: [:edit, :update, :destroy]
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:show]
   #before_action :current_hackathon, only: [:show]
 
   # GET /hackathons
