@@ -55,7 +55,8 @@ describe Api::V1::HackathonsController do
     describe 'POST #create' do
       before :each do
         @oauth_application = FactoryGirl.build(:oauth_application)
-        @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id)
+        @user = FactoryGirl.build(:user)
+        @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => @user.id)
       end
 
       context "with valid attributes" do
@@ -68,6 +69,13 @@ describe Api::V1::HackathonsController do
         it "creates a new hackathon, making sure response is #201" do
           post :create, hackathon: FactoryGirl.attributes_for(:hackathon), :format => :json, :access_token => @token.token
           response.status.should eq(201)
+        end
+      end
+
+      context "with invalid attributes" do
+        it "returns 422" do
+          #post :create, hackathon: FactoryGirl.attributes_for(:hackathon, :user_id => @user.id, name: nil), :format => :json, :access_token => @token.token
+          #response.status.should eq(422)
         end
       end
     end

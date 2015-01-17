@@ -119,7 +119,7 @@ describe ProfilesController, :type => :controller do
       end
 
       it "re-renders the edit method" do
-        put :update, id: @profile, profile: FactoryGirl.attributes_for(:profile, name: "Default", name: nil)
+        put :update, id: @profile, profile: FactoryGirl.attributes_for(:profile, name: "Default", school_grad: nil)
         response.should render_template 'edit'
       end
     end

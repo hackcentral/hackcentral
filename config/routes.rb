@@ -51,7 +51,7 @@ Rails.application.routes.draw do
       end
 
     namespace :api, defaults: {format: 'json'} do
-      scope module: :v1 do
+      namespace :v1 do
         get '/user' => "users#show"
         get 'tags/:tag', to: 'submissions#tag', as: :tag
         resources :submissions, only: [:show]
