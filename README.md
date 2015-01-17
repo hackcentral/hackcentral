@@ -2,6 +2,7 @@
 
 
 [![Build Status](https://travis-ci.org/hackcentral/hackcentral.svg?branch=master)](https://travis-ci.org/hackcentral/hackcentral)
+[ ![Codeship Status for hackcentral/hackcentral](https://codeship.com/projects/44c44710-7f36-0132-ec57-766d3855e68b/status?branch=master)](https://codeship.com/projects/57219)
 [![Coverage Status](https://coveralls.io/repos/hackcentral/hackcentral/badge.png)](https://coveralls.io/r/hackcentral/hackcentral)
 [![Dependency Status](https://gemnasium.com/hackcentral/hackcentral.svg)](https://gemnasium.com/hackcentral/hackcentral)
 [![Code Climate](https://codeclimate.com/github/hackcentral/hackcentral/badges/gpa.svg)](https://codeclimate.com/github/hackcentral/hackcentral)
