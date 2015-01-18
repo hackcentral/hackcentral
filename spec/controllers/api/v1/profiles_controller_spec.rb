@@ -82,9 +82,9 @@ describe Api::V1::ProfilesController do
       end
 
       context "with invalid attributes" do
-        it "returns 422" do
+        it "returns 400" do
           #post :create, profile: FactoryGirl.attributes_for(:profile, :user_id => @user.id, name: nil), :format => :json, :access_token => @token.token
-          #response.status.should eq(422)
+          #response.status.should eq(400)
         end
       end
     end

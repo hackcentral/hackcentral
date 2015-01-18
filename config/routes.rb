@@ -1,12 +1,12 @@
 class SubdomainPresent
   def self.matches?(request)
-    request.subdomain.present? && request.subdomain != 'www'
+    request.subdomain.present? && request.subdomain != 'www' && request.subdomain != '2e97584d'
   end
 end
 
 class SubdomainBlank
   def self.matches?(request)
-    request.subdomain.blank? or request.subdomain == 'www'
+    request.subdomain.blank? or request.subdomain == 'www' or request.subdomain == '2e97584d'
   end
 end
 
@@ -52,14 +52,45 @@ Rails.application.routes.draw do
 
     namespace :api, defaults: {format: 'json'} do
       namespace :v1 do
-        get '/user' => "users#show"
-        get 'tags/:tag', to: 'submissions#tag', as: :tag
-        resources :submissions, only: [:show]
-        resources :profiles
-        resources :applications
-        resources :hackathons do
-          resources :submissions, except: [:show, :tag], controller: :submissions
-        end
+        # APPLICATIONS
+          get "applications" => "applications#index"
+          post "applications" => "applications#create"
+          get "applications/:id" => "applications#show"
+          put "applications/:id" => "applications#update"
+          patch "applications/:id" => "applications#update"
+          delete "applications/:id" => "applications#destroy"
+
+        # HACKATHONS
+          get "hackathons" => "hackathons#index"
+          post "hackathons" => "hackathons#create"
+          get "hackathons/:id" => "hackathons#show"
+          put "hackathons/:id" => "hackathons#update"
+          patch "hackathons/:id" => "hackathons#update"
+          delete "hackathons/:id" => "hackathons#destroy"
+
+        # HACKATHONS --> SUBMISSIONS
+          get "hackathons/:hackathon_id/submissions" => "submissions#index"
+          post "hackathons/:hackathon_id/submissions" => "submissions#create"
+          put "hackathons/:hackathon_id/submissions/:id" => "submissions#update"
+          patch "hackathons/:hackathon_id/submissions/:id" => "submissions#update"
+          delete "hackathons/:hackathon_id/submissions/:id" => "submissions#destroy"
+
+        # PROFILES
+          get "/profiles" => "profiles#index"
+          post "profiles" => "profiles#create"
+          get "profiles/:id" => "profiles#show"
+          put "profiles/:id" => "profiles#update"
+          patch "profiles/:id" => "profiles#update"
+          delete "profiles/:id" => "profiles#destroy"
+
+        # SUBMISSIONS
+          get "submissions/:id" => "submissions#show"
+
+        # TAGS
+          get 'tags/:tag', to: 'submissions#tag', as: :tag
+
+        # USER
+          get '/user' => "users#show"
       end
     end
 
