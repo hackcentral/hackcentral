@@ -138,19 +138,26 @@ describe Api::V1::ProfilesController do
       before :each do
         @oauth_application = FactoryGirl.build(:oauth_application)
         @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => user.id)
-
         @profile = FactoryGirl.create(:profile)
       end
 
       it "deletes the profile" do
-        expect{
-          delete :destroy, id: @profile, :format => :json, :access_token => @token.token
-        }.to change(Profile,:count).by(-1)
+        if @profile.user_id == user.id
+          expect{
+            delete :destroy, id: @profile, :format => :json, :access_token => @token.token
+          }.to change(Profile,:count).by(-1)
+        else
+          response.status.should eq(401)
+        end
       end
 
       it "should have no_content" do
-        delete :destroy, id: @profile, :format => :json, :access_token => @token.token
-        response.status.should eq(204)
+        if @profile.user_id == user.id
+          delete :destroy, id: @profile, :format => :json, :access_token => @token.token
+          response.status.should eq(204)
+        else
+          response.status.should eq(401)
+        end
       end
     end
   end
