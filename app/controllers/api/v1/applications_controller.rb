@@ -22,7 +22,8 @@ module Api
       end
 
       def create
-        @application = Application.create!(application_params.merge(user_id: current_user.id, accepted: false, checked_in: false)) #Application.new(application_params)
+        @application = Application.create!(application_params.merge(accepted: false, checked_in: false)) #Application.new(application_params)
+        @application.user_id = current_user.id #user_id: current_user.id,
 
         respond_to do |format|
           if @application.save(application_params)
@@ -57,9 +58,12 @@ module Api
         end
 
         def correct_user
-          respond_to do |format|
-            @application = current_user.applications.find_by(id: params[:id])
-            format.json { render :json => {}, status: 401} if @pin.nil?
+          @application = Application.find(params[:id])
+          if @application.user_id == current_user.id
+          else
+            respond_to do |format|
+              format.json { render :json => {}, status: 401} #if @application.nil?
+            end
           end
         end
 

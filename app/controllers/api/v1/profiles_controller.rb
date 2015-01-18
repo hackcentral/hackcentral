@@ -57,9 +57,12 @@ module Api
         end
 
         def correct_user
-          respond_to do |format|
-            @application = current_user.applications.find_by(id: params[:id])
-            format.json { render :json => {}, status: 401} if @pin.nil?
+          @profile = Profile.find(params[:id])
+          if @profile.user_id == current_user.id
+          else
+            respond_to do |format|
+              format.json { render :json => {}, status: 401} #if @application.nil?
+            end
           end
         end
 

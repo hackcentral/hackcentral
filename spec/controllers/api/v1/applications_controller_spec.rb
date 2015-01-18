@@ -1,6 +1,10 @@
 require "rails_helper"
 
 describe Api::V1::ApplicationsController do
+
+  let!(:user) { create(:user) }
+  before { controller.stub(:current_user).and_return user }
+
   context "no access token" do
     it 'returns a 401 when users are not authenticated' do
       get :index
@@ -32,8 +36,7 @@ describe Api::V1::ApplicationsController do
     describe 'GET #index' do
       it "should show all of user's applications" do
         @oauth_application = FactoryGirl.build(:oauth_application)
-        @user = FactoryGirl.build(:user)
-        @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => @user.id)
+        @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => user.id)
 
         get 'index', :format => :json, :access_token => @token.token
         response.status.should eq(200)
@@ -43,19 +46,15 @@ describe Api::V1::ApplicationsController do
     describe 'GET #show' do
       it "should show the application" do
         @oauth_application = FactoryGirl.build(:oauth_application)
-        @user = FactoryGirl.build(:user)
-        @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => @user.id)
+        @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => user.id)
 
         @application = FactoryGirl.create(:application)
 
-        if @application.user_id == @current_user
+        if @application.user_id == user.id
           get 'show', id: @application, application: FactoryGirl.attributes_for(:application), :format => :json, :access_token => @token.token
-
-          response.content_type.should eq(:json)
           response.status.should eq(200)
           assigns(:application).should eq(@application)
         else
-          get 'show', id: FactoryGirl.create(:application, user_id: nil)
           response.status.should eq(401)
         end
       end
@@ -64,19 +63,18 @@ describe Api::V1::ApplicationsController do
     describe 'POST #create' do
       before :each do
         @oauth_application = FactoryGirl.build(:oauth_application)
-        @user = FactoryGirl.build(:user)
-        @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => @user.id)
+        @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => user.id)
       end
 
       context "with valid attributes" do
         it "creates a new application" do
           expect{
-            post :create, application: FactoryGirl.attributes_for(:application, :user_id => @user.id), :format => :json, :access_token => @token.token
+            post :create, application: FactoryGirl.attributes_for(:application), :format => :json, :access_token => @token.token
           } .to change(Application, :count).by(1)
         end
 
         it "creates a new application, making sure response is #201" do
-          post :create, application: FactoryGirl.attributes_for(:application, :user_id => @user.id), :format => :json, :access_token => @token.token
+          post :create, application: FactoryGirl.attributes_for(:application), :format => :json, :access_token => @token.token
           response.status.should eq(201)
         end
       end
@@ -85,10 +83,8 @@ describe Api::V1::ApplicationsController do
     describe "PUT #update" do
       before :each do
         @oauth_application = FactoryGirl.build(:oauth_application)
-        @user = FactoryGirl.build(:user)
-        @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => @user.id)
-
-        @application = FactoryGirl.create(:application, :user_id => @user.id)
+        @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => user.id)
+        @application = FactoryGirl.create(:application)
       end
 
       context "valid attributes" do
@@ -103,9 +99,13 @@ describe Api::V1::ApplicationsController do
           @application.reimbursement_needed.should eq(true)
         end
 
-        it "sends a 200 if updated application" do
-          put :update, id: @application, application: FactoryGirl.attributes_for(:application), :format => :json, :access_token => @token.token
-          response.status.should eq(200)
+        it "sends a 200 if updated application if correct_user" do
+          if @application.user_id == user.id
+            put :update, id: @application, application: FactoryGirl.attributes_for(:application), :format => :json, :access_token => @token.token
+            response.status.should eq(200)
+          else
+            response.status.should eq(401)
+          end
         end
       end
 
@@ -133,21 +133,27 @@ describe Api::V1::ApplicationsController do
 
       before :each do
         @oauth_application = FactoryGirl.build(:oauth_application)
-        @user = FactoryGirl.build(:user)
-        @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => @user.id)
-
-        @application = FactoryGirl.create(:application, :user_id => @user.id)
+        @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => user.id)
+        @application = FactoryGirl.create(:application)
       end
 
       it "deletes the application" do
-        expect{
-          delete :destroy, id: @application, :format => :json, :access_token => @token.token
-        }.to change(Application,:count).by(-1)
+        if @application.user_id == user.id
+          expect{
+            delete :destroy, id: @application, :format => :json, :access_token => @token.token
+          }.to change(Application,:count).by(-1)
+        else
+          response.status.should eq(401)
+        end
       end
 
       it "redirects to applications#index" do
-        delete :destroy, id: @application, :format => :json, :access_token => @token.token
-        response.status.should eq(204)
+        if @application.user_id == user.id
+          delete :destroy, id: @application, :format => :json, :access_token => @token.token
+          response.status.should eq(204)
+        else
+          response.status.should eq(401)
+        end
       end
     end
   end

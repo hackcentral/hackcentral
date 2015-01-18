@@ -1,6 +1,10 @@
 require "rails_helper"
 
 describe Api::V1::ProfilesController do
+
+  let!(:user) { create(:user) }
+  before { controller.stub(:current_user).and_return user }
+
   context "no access token" do
     it 'returns a 401 when users are not authenticated' do
       get :index
@@ -32,8 +36,7 @@ describe Api::V1::ProfilesController do
     describe 'GET #index' do
       it "should show all of user's profiles" do
         @oauth_application = FactoryGirl.build(:oauth_application)
-        @user = FactoryGirl.build(:user)
-        @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => @user.id)
+        @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => user.id)
 
         get 'index', :format => :json, :access_token => @token.token
         response.status.should eq(200)
@@ -43,19 +46,16 @@ describe Api::V1::ProfilesController do
     describe 'GET #show' do
       it "should show the profile" do
         @oauth_application = FactoryGirl.build(:oauth_application)
-        @user = FactoryGirl.build(:user)
-        @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => @user.id)
+        @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => user.id)
 
         @profile = FactoryGirl.create(:profile)
 
-        if @profile.user_id == @current_user
+        if @profile.user_id == user.id
           get 'show', id: @profile, profile: FactoryGirl.attributes_for(:profile), :format => :json, :access_token => @token.token
 
-          response.content_type.should eq(:json)
           response.status.should eq(200)
           assigns(:profile).should eq(@profile)
         else
-          get 'show', id: FactoryGirl.create(:profile, user_id: nil)
           response.status.should eq(401)
         end
       end
@@ -64,19 +64,18 @@ describe Api::V1::ProfilesController do
     describe 'POST #create' do
       before :each do
         @oauth_application = FactoryGirl.build(:oauth_application)
-        @user = FactoryGirl.build(:user)
-        @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => @user.id)
+        @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => user.id)
       end
 
       context "with valid attributes" do
         it "creates a new profile" do
           expect{
-            post :create, profile: FactoryGirl.attributes_for(:profile, :user_id => @user.id), :format => :json, :access_token => @token.token
+            post :create, profile: FactoryGirl.attributes_for(:profile), :format => :json, :access_token => @token.token
           } .to change(Profile, :count).by(1)
         end
 
         it "creates a new application, making sure response is 201" do
-          post :create, profile: FactoryGirl.attributes_for(:profile, :user_id => @user.id), :format => :json, :access_token => @token.token
+          post :create, profile: FactoryGirl.attributes_for(:profile), :format => :json, :access_token => @token.token
           response.status.should eq(201)
         end
       end
@@ -92,10 +91,8 @@ describe Api::V1::ProfilesController do
     describe "PUT #update" do
       before :each do
         @oauth_application = FactoryGirl.build(:oauth_application)
-        @user = FactoryGirl.build(:user)
-        @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => @user.id)
-
-        @profile = FactoryGirl.create(:profile, :user_id => @user.id)
+        @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => user.id)
+        @profile = FactoryGirl.create(:profile)
       end
 
       context "valid attributes" do
@@ -140,10 +137,9 @@ describe Api::V1::ProfilesController do
 
       before :each do
         @oauth_application = FactoryGirl.build(:oauth_application)
-        @user = FactoryGirl.build(:user)
-        @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => @user.id)
+        @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => user.id)
 
-        @profile = FactoryGirl.create(:profile, :user_id => @user.id)
+        @profile = FactoryGirl.create(:profile)
       end
 
       it "deletes the profile" do
