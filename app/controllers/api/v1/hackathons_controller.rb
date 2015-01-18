@@ -1,6 +1,7 @@
 module Api
   module V1
     class HackathonsController < ApplicationController
+      protect_from_forgery unless: -> { request.format.json? }
       before_action :doorkeeper_authorize!
       before_action :set_hackathon, only: [:show, :edit, :update, :destroy]
 

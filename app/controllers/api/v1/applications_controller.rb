@@ -1,6 +1,7 @@
 module Api
   module V1
     class ApplicationsController < ApplicationController
+      protect_from_forgery unless: -> { request.format.json? }
       before_action :doorkeeper_authorize!
       before_action :set_application, only: [:show, :update, :destroy]
       before_action :correct_user, only: [:show, :edit, :update, :destroy]
@@ -21,7 +22,7 @@ module Api
       end
 
       def create
-        @application = Application.create!(application_params.merge(user_id: current_user)) #Application.new(application_params)
+        @application = Application.create!(application_params.merge(user_id: current_user, accepted: nil)) #Application.new(application_params)
 
         respond_to do |format|
           if @application.save(application_params)
