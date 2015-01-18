@@ -22,7 +22,7 @@ module Api
       end
 
       def create
-        @profile = Profile.create!(profile_params.merge(user_id: current_user)) #(user_id: current_user)) #Application.new(application_params)
+        @profile = Profile.create!(profile_params.merge(user_id: current_user.id)) #(user_id: current_user)) #Application.new(application_params)
 
         respond_to do |format|
           if @profile.save(profile_params)
@@ -57,14 +57,9 @@ module Api
         end
 
         def correct_user
-          @profile = Profile.find(params[:id])
-
-          if @profile.user_id == current_user #|| warden.authenticate!(:scope => :user) #current_user
-
-          else
-            respond_to do |format|
-              format.json { render status: 401 }
-            end
+          respond_to do |format|
+            @application = current_user.applications.find_by(id: params[:id])
+            format.json { render :json => {}, status: 401} if @pin.nil?
           end
         end
 
