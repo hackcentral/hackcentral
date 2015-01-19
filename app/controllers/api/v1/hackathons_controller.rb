@@ -3,7 +3,7 @@ module Api
     class HackathonsController < ApplicationController
       protect_from_forgery unless: -> { request.format.json? }
       before_action :doorkeeper_authorize!
-      before_action :set_hackathon, only: [:show, :edit, :update, :destroy]
+      before_action :set_hackathon, only: [:show, :update, :destroy]
 
       def index
         @hackathons = Hackathon.all

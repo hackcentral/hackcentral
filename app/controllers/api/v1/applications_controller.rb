@@ -4,7 +4,7 @@ module Api
       protect_from_forgery unless: -> { request.format.json? }
       before_action :doorkeeper_authorize!
       before_action :set_application, only: [:show, :update, :destroy]
-      before_action :correct_user, only: [:show, :edit, :update, :destroy]
+      before_action :correct_user, only: [:show, :update, :destroy]
 
       def index
         # respond_with @applications = Application.where(user_id: current_user.id).all
