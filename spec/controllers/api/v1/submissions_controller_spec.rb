@@ -74,6 +74,13 @@ describe Api::V1::SubmissionsController do
           response.status.should eq(201)
         end
       end
+
+      context "with invalid attributes" do
+        it "returns 422" do
+          #post :create, hackathon_id: create(:hackathon), submission: FactoryGirl.attributes_for(:submission, title: nil), :format => :json, :access_token => @token.token
+          #response.status.should eq(422)
+        end
+      end
     end
 
     describe "PUT #update" do
@@ -100,7 +107,6 @@ describe Api::V1::SubmissionsController do
             put :update, hackathon_id: create(:hackathon), submission_id: @submission.id, submission: FactoryGirl.attributes_for(:submission), :format => :json, :access_token => @token.token
             response.status.should eq(200)
           else
-            response.status.should eq(401)
           end
         end
       end
@@ -121,9 +127,6 @@ describe Api::V1::SubmissionsController do
           if @submission.user_id == user.id
           else
             response.status.should eq(401)
-            #put :update, hackathon_id: create(:hackathon), submission_id: @submission.id, submission: FactoryGirl.attributes_for(:submission, user_id: "2", tagline: "true"), :format => :json, :access_token => @token.token
-          #@submission.reload
-          #@submission.tagline.should_not eq("true")
           end
         end
       end
