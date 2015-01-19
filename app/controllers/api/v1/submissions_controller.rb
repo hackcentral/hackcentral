@@ -21,8 +21,8 @@ module Api
       end
 
       def create
-        @submission = Submission.create!(submission_params)
-        @submission.user_id = current_user.id
+        @submission = Submission.create!(submission_params.merge(user_id: current_user.id, hackathon_id: params[:hackathon_id]))
+        #@submission.user_id = current_user.id
 
         respond_to do |format|
           if @submission.save(submission_params)
@@ -35,7 +35,7 @@ module Api
 
       def update
         respond_to do |format|
-          if @submission.update(submission_params)
+          if @submission.update(submission_params.merge(user_id: current_user.id, hackathon_id: params[:hackathon_id]))
             format.json { render :json => @submission, status: :ok }
           else
             format.json { render :json => {}, status: 422}

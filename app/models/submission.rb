@@ -9,6 +9,9 @@ class Submission < ActiveRecord::Base
   has_many :taggings
   has_many :tags, through: :taggings
 
+  validates :title, presence: true
+  validates :tagline, presence: true
+
   extend FriendlyId
   friendly_id :title, use: :slugged
 
