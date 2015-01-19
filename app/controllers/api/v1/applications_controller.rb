@@ -29,7 +29,7 @@ module Api
           if @application.save(application_params)
             format.json { render :json => @application, status: :created }
           else
-            format.json { render :json => @application.errors, status: :unprocessable_entity }
+            format.json { render :json => {}, status: 422}
           end
         end
       end
@@ -39,7 +39,7 @@ module Api
           if @application.update(application_params.merge(accepted: false, checked_in: false))
             format.json { render :json => @application, status: :ok }
           else
-            format.json { render json: @application.errors, status: :unprocessable_entity }
+            format.json { render :json => {}, status: 422}
           end
         end
       end

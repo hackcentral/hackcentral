@@ -28,7 +28,7 @@ module Api
           if @profile.save(profile_params)
             format.json { render :json => @profile, status: :created }
           else
-            format.json { render status: 422 }
+            format.json { render :json => {}, status: 422}
           end
         end
       end
@@ -38,7 +38,7 @@ module Api
           if @profile.update(profile_params)
             format.json { render :json => @profile, status: :ok }
           else
-            format.json { render json: @profile.errors, status: :unprocessable_entity }
+            format.json { render :json => {}, status: 422}
           end
         end
       end

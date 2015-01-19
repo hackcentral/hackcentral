@@ -1,6 +1,10 @@
 require "rails_helper"
 
 describe Api::V1::HackathonsController do
+
+  let!(:user) { create(:user) }
+  before { controller.stub(:current_user).and_return user }
+
   context "no access token" do
     it 'returns a 401 when users are not authenticated' do
       get :index
@@ -53,8 +57,7 @@ describe Api::V1::HackathonsController do
     describe 'POST #create' do
       before :each do
         @oauth_application = FactoryGirl.build(:oauth_application)
-        @user = FactoryGirl.build(:user)
-        @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => @user.id)
+        @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => user.id)
       end
 
       context "with valid attributes" do
@@ -72,7 +75,7 @@ describe Api::V1::HackathonsController do
 
       context "with invalid attributes" do
         it "returns 422" do
-          #post :create, hackathon: FactoryGirl.attributes_for(:hackathon, :user_id => @user.id, name: nil), :format => :json, :access_token => @token.token
+          #post :create, hackathon: FactoryGirl.attributes_for(:hackathon, name: nil), :format => :json, :access_token => @token.token
           #response.status.should eq(422)
         end
       end
@@ -82,7 +85,6 @@ describe Api::V1::HackathonsController do
       before :each do
         @oauth_application = FactoryGirl.build(:oauth_application)
         @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id)
-
         @hackathon = FactoryGirl.create(:hackathon)
       end
 
@@ -100,7 +102,7 @@ describe Api::V1::HackathonsController do
 
         it "sends a 201 if updated hackathon" do
           put :update, id: @hackathon, hackathon: FactoryGirl.attributes_for(:hackathon), :format => :json, :access_token => @token.token
-          response.status.should eq(201)
+          response.status.should eq(200)
         end
       end
 
@@ -123,7 +125,6 @@ describe Api::V1::HackathonsController do
       before :each do
         @oauth_application = FactoryGirl.build(:oauth_application)
         @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id)
-
         @hackathon = FactoryGirl.create(:hackathon)
       end
 

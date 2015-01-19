@@ -3,7 +3,8 @@ module Api
     class SubmissionsController < ApplicationController
       protect_from_forgery unless: -> { request.format.json? }
       before_action :doorkeeper_authorize!
-      respond_to :json
+      before_action :set_submission, only: [:show, :update, :destroy]
+      before_action :correct_user, only: [:show, :edit, :update, :destroy]
 
       def index
         respond_with Submission.where(hackathon_id: params[:hackathon_id]).all
