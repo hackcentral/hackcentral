@@ -43,11 +43,9 @@ describe Api::V1::HackathonsController do
       it "should show the hackathon" do
         @oauth_application = FactoryGirl.build(:oauth_application)
         @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id)
-
         @hackathon = FactoryGirl.create(:hackathon)
 
         get 'show', id: @hackathon, hackathon: FactoryGirl.attributes_for(:hackathon), :format => :json, :access_token => @token.token
-        response.status.should eq(200)
         assigns(:hackathon).should eq(@hackathon)
       end
     end
@@ -100,9 +98,9 @@ describe Api::V1::HackathonsController do
           @hackathon.subdomain.should eq("TestApps")
         end
 
-        it "sends a 200 if updated hackathon" do
+        it "sends a 201 if updated hackathon" do
           put :update, id: @hackathon, hackathon: FactoryGirl.attributes_for(:hackathon), :format => :json, :access_token => @token.token
-          response.status.should eq(200)
+          response.status.should eq(201)
         end
       end
 

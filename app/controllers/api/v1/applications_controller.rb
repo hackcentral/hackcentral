@@ -36,7 +36,7 @@ module Api
 
       def update
         respond_to do |format|
-          if @application.update(application_params)
+          if @application.update(application_params.merge(accepted: false, checked_in: false))
             format.json { render :json => @application, status: :ok }
           else
             format.json { render json: @application.errors, status: :unprocessable_entity }

@@ -15,16 +15,17 @@ module Api
 
       def show
         respond_to do |format|
-          format.json { render :json => @hackathon }
+          format.json { render :json => @hackathon.to_json(:methods => [:logo_url, :header_url]), status: :created }
+          #format.json { render :json => @hackathon }
         end
       end
 
       def create
-        @hackathon = Hackathon.create!(hackathon_params) #Application.new(application_params)
+        @hackathon = Hackathon.create!(hackathon_params.merge(mlh_sanctioned: false)) #Application.new(application_params)
 
         respond_to do |format|
           if @hackathon.save(hackathon_params)
-            format.json { render :json => @hackathon, status: :created }
+            format.json { render :json => @hackathon.to_json(:methods => [:logo_url, :header_url]), status: :created }
           else
             format.json { render :json => @hackathon.errors, status: :unprocessable_entity }
           end
@@ -33,8 +34,8 @@ module Api
 
       def update
         respond_to do |format|
-          if @hackathon.update(hackathon_params)
-            format.json { render :json => @hackathon, status: :ok }
+          if @hackathon.update(hackathon_params.merge(mlh_sanctioned: false))
+            format.json { render :json => @hackathon.to_json(:methods => [:logo_url, :header_url]), status: :created }
           else
             format.json { render json: @hackathon.errors, status: :unprocessable_entity }
           end
