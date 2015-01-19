@@ -57,11 +57,11 @@ module Api
 
       private
         def set_submission
-          @submission = Submission.find(params[:id])
+          @submission = Submission.find(params[:submission_id])
         end
 
         def correct_user
-          @submission = Submission.find(params[:id])
+          @submission = Submission.find(params[:submission_id])
           if @submission.user_id == current_user.id
           else
             respond_to do |format|

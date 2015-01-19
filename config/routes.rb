@@ -71,9 +71,9 @@ Rails.application.routes.draw do
           # HACKATHONS --> SUBMISSIONS
             get "hackathons/:hackathon_id/submissions" => "submissions#index"
             post "hackathons/:hackathon_id/submissions" => "submissions#create"
-            put "hackathons/:hackathon_id/submissions/:id" => "submissions#update"
-            patch "hackathons/:hackathon_id/submissions/:id" => "submissions#update"
-            delete "hackathons/:hackathon_id/submissions/:id" => "submissions#destroy"
+            put "hackathons/:hackathon_id/submissions/:submission_id" => "submissions#update"
+            patch "hackathons/:hackathon_id/submissions/:submission_id" => "submissions#update"
+            delete "hackathons/:hackathon_id/submissions/:submission_id" => "submissions#destroy"
 
           # PROFILES
             get "/profiles" => "profiles#index"
@@ -84,7 +84,7 @@ Rails.application.routes.draw do
             delete "profiles/:id" => "profiles#destroy"
 
           # SUBMISSIONS
-            get "submissions/:id" => "submissions#show"
+            get "submissions/:submission_id" => "submissions#show"
 
           # TAGS
             get 'tags/:tag', to: 'submissions#tag', as: :tag
