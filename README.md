@@ -14,7 +14,10 @@ If you're looking for the server setup HackCentral repo, check it out [here](htt
 
 ## Contributing
 
-It's awesome you want to contribute! Check out the [issue tracker](https://github.com/hackcentral/hackcentral/issues) for things that need to be worked on.
+It's awesome you want to contribute! You're encouraged to submit pull requests, propose features and discuss issues.
+Check out the [issue tracker](https://github.com/hackcentral/hackcentral/issues) for things that need to be worked on.
+
+See [CONTRIBUTING](CONTRIBUTING.md) to get HackCentral setup on your local machine.
 
 ## API
 
