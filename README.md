@@ -19,6 +19,10 @@ Check out the [issue tracker](https://github.com/hackcentral/hackcentral/issues)
 
 See [CONTRIBUTING](CONTRIBUTING.md) to get HackCentral setup on your local machine.
 
+## License
+
+MIT License. See LICENSE for details.
+
 ## API
 
 (documentation coming soon)
