@@ -11,7 +11,7 @@ Rails.application.configure do
     :enable_starttls_auto => true
   }
 
-  config.action_mailer.default_url_options = { :host => 'http://hackcentral-production.herokuapp.com' }
+  config.action_mailer.default_url_options = { :host => 'http://hackcentral.co' }
 
   config.assets.precompile += %w( .svg .eot .woff .ttf )
 
