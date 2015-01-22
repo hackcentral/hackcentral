@@ -1,5 +1,8 @@
 Rails.application.configure do
 
+  # Subdomain session sharing
+  ActionController::Base.session = { :domain => '.hackcentral.co' }
+
   # SendGrid Setup
   ActionMailer::Base.smtp_settings = {
     :user_name => ENV['sendgrid_username'],
