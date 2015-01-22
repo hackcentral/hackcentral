@@ -14,7 +14,7 @@
             <%= image_tag hackathon.logo.url(:medium) %>
             <div class="caption">
               <h3><b><%= hackathon.name %></b></h3>
-              <p><%= hackathon.start.strftime("%b %d, %Y") %>
+              <p><%= hackathon.start.strftime("%b %d") %>-<%= hackathon.end.strftime("%b %d, %Y") %></p>
               <p><%= hackathon.location %><p>
               <p>
                 <%= link_to hackathon.name, root_url(:subdomain => hackathon.subdomain), class: 'btn btn-primary' %>
