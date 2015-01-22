@@ -2,4 +2,6 @@
 
 Rails.application.config.session_store :cookie_store, key: '_hackcentral_session', domain: '.hackcentral.co'
 
+Rails.application.config.session_store :cookie_store, key: '_hackcentral_session', domain: '.hackcentral-production.herokuapp.com'
+
 Rails.application.config.session_store :cookie_store, key: '_hackcentral_session', domain: '.vcap.me'
