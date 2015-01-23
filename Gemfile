@@ -25,7 +25,7 @@ gem 'will_paginate', '~> 3.0.5'
 gem 'will_paginate-bootstrap'
 gem 'chosen-rails', '1.3.0'
 gem 'bugsnag'
-gem 'keen'
+gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
 
 # Environment Dependencies
 group :development, :test do

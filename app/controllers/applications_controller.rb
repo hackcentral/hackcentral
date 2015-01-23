@@ -18,7 +18,6 @@ class ApplicationsController < ApplicationController
   def new
     if(params.has_key?(:hackathon_id))
       @application = current_user.applications.build(hackathon_id: params[:hackathon_id]) #Application.new
-      Keen.publish("pageviews", { :username => "#{current_user.username}", :render => "applications#new" })
     else
       redirect_to applications_path, notice: 'An application needs to have a hackathon_id.'
     end
@@ -36,7 +35,13 @@ class ApplicationsController < ApplicationController
     respond_to do |format|
       if @application.save
         format.html { redirect_to @application, notice: 'Application was successfully created.' }
-        Keen.publish("pageviews", { :username => "#{current_user.username}", :render => "applications#create" })
+
+        Analytics.track(
+          user_id: "#{@application.user_id}",
+          event: 'Created an application',
+          properties: {
+            hackathon: "#{@application.hackathon_id}",
+            reimbursement_needed: "#{@application.reimbursement_needed}"})
       else
       end
     end
@@ -59,7 +64,6 @@ class ApplicationsController < ApplicationController
     @application.destroy
     respond_to do |format|
       format.html { redirect_to applications_url, notice: 'Application was successfully destroyed.' }
-      Keen.publish("pageviews", { :username => "#{current_user.username}", :render => "applications#destroy" })
     end
   end
 
