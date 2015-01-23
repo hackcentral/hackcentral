@@ -112,7 +112,7 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
     docile (1.1.5)
-    doorkeeper (2.0.1)
+    doorkeeper (2.1.0)
       railties (>= 3.1)
     erubis (2.7.0)
     execjs (2.2.2)
@@ -162,7 +162,7 @@ GEM
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
     netrc (0.10.2)
-    nokogiri (1.6.5)
+    nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     orm_adapter (0.5.0)
     paperclip (4.2.1)
@@ -304,7 +304,7 @@ DEPENDENCIES
   coveralls
   database_cleaner
   devise
-  doorkeeper (= 2.0.1)
+  doorkeeper
   factory_girl_rails
   faker
   figaro

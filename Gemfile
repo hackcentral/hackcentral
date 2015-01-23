@@ -18,7 +18,7 @@ gem 'figaro'
 gem 'bootstrap-sass'
 gem 'font-awesome-sass'
 gem 'devise'
-gem 'doorkeeper', "2.0.1"
+gem 'doorkeeper'
 gem 'friendly_id'
 gem 'local_time'
 gem 'will_paginate', '~> 3.0.5'
