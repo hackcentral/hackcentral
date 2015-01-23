@@ -19,7 +19,7 @@
     <tbody>
       <% @applications.each do |application| %>
         <tr>
-          <td><%= application.hackathon_id %></td>
+          <td><%= link_to "#{application.hackathon.name}", root_url(:subdomain => application.hackathon.subdomain) %></td>
           <td><%= application.reimbursement_needed %></td>
           <td><%= application.accepted %></td>
           <td>
