@@ -40,7 +40,7 @@ class ApplicationsController < ApplicationController
           user_id: "#{@application.user_id}",
           event: 'Created an application',
           properties: {
-            hackathon: "#{@application.hackathon_id}",
+            hackathon_id: "#{@application.hackathon_id}",
             reimbursement_needed: "#{@application.reimbursement_needed}"})
       else
       end
