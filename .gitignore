@@ -18,7 +18,6 @@
 # Ignore application configuration
 /config/application.yml
 /config/database.yml
-/config/initializers/rollbar.rb
 
 # Ignore .DS_Store files
 .DS_Store

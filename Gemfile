@@ -20,7 +20,6 @@ gem 'font-awesome-sass'
 gem 'devise'
 gem 'doorkeeper', "2.0.1"
 gem 'friendly_id'
-gem 'rollbar'
 gem 'local_time'
 gem 'will_paginate', '~> 3.0.5'
 gem 'will_paginate-bootstrap'
