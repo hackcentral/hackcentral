@@ -1,12 +1,12 @@
 class SubdomainPresent
   def self.matches?(request)
-    request.subdomain.present? && request.subdomain != 'www' && request.subdomain != 'developers'
+    request.subdomain.present? && request.subdomain != 'www' && request.subdomain != 'developers' && request.subdomain != 'api'
   end
 end
 
 class SubdomainBlank
   def self.matches?(request)
-    request.subdomain.blank? or request.subdomain == 'www' or request.subdomain == 'developers'
+    request.subdomain.blank? or request.subdomain == 'www' or request.subdomain == 'developers' or request.subdomain == 'api'
   end
 end
 
@@ -50,7 +50,7 @@ Rails.application.routes.draw do
         controllers :applications => 'oauth/applications'
       end
 
-      namespace :api, defaults: {format: 'json'} do
+      namespace :api, path: "", :constraints => {:subdomain => "api"}, defaults: {format: 'json'} do
         namespace :v1 do
           # APPLICATIONS
             get "applications" => "applications#index"
