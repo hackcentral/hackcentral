@@ -28,7 +28,7 @@ Rails.application.configure do
   }
 
   # Force SSL
-  config.force_ssl = true
+  #config.force_ssl = true
 
   # Settings specified here will take precedence over those in config/application.rb.
 
