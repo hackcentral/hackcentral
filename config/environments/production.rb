@@ -11,10 +11,13 @@ Rails.application.configure do
     :enable_starttls_auto => true
   }
 
+  # ActionMailer Domain Setup
   config.action_mailer.default_url_options = { :host => 'http://hackcentral.co' }
 
+  # Compile FontAwesome assets
   config.assets.precompile += %w( .svg .eot .woff .ttf )
 
+  # Paperclip Setup
   config.paperclip_defaults = {
     :storage => :s3,
     :s3_credentials => {
@@ -23,6 +26,9 @@ Rails.application.configure do
       :secret_access_key => ENV['aws_secret_access_key']
     }
   }
+
+  # Force SSL
+  config.force_ssl = true
 
   # Settings specified here will take precedence over those in config/application.rb.
 
