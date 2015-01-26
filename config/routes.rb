@@ -46,10 +46,10 @@ Rails.application.routes.draw do
       resources :users, only: [:show]
 
     # API
-      use_doorkeeper do
-        controllers :applications => 'oauth/applications'
-      end
-
+      # DOORKEEPER
+        use_doorkeeper do
+          controllers :applications => 'oauth/applications'
+        end
       namespace :api, path: "", :constraints => {:subdomain => "api"}, defaults: {format: 'json'} do
         namespace :v1 do
           # APPLICATIONS

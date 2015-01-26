@@ -1,4 +1,4 @@
-class Oauth::ApplicationsController < Doorkeeper::ApplicationsController
+class Api::V1::Oauth::ApplicationsController < Doorkeeper::ApplicationsController
   before_filter :authenticate_user!
 
   respond_to :html
