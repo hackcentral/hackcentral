@@ -117,7 +117,7 @@ Rails.application.routes.draw do
         resources :hackathons, only: [:edit, :update, :destroy], controller: 'hackathons' do
           resources :organizers, only: [:index, :new, :create, :destroy]
         end
-      end
+    end
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
