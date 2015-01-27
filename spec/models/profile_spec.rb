@@ -15,4 +15,9 @@ describe Profile do
   it "is invalid without a school_grad" do
     FactoryGirl.build(:profile, :school_grad => nil).should_not be_valid
   end
+
+  it { should have_attached_file(:resume) }
+  it { should validate_attachment_content_type(:resume).
+    allowing('application/pdf', 'application/pdf').
+    rejecting('image/png', 'image/gif') }
 end
