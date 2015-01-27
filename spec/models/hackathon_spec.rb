@@ -33,4 +33,14 @@ describe Hackathon do
     FactoryGirl.build(:hackathon, :end => nil).should_not be_valid
   end
 
+  it { should have_attached_file(:logo) }
+  it { should validate_attachment_content_type(:logo).
+    allowing('image/png', 'image/gif').
+    rejecting('text/plain', 'text/xml') }
+
+  it { should have_attached_file(:header) }
+  it { should validate_attachment_content_type(:header).
+    allowing('image/png', 'image/gif').
+    rejecting('text/plain', 'text/xml') }
+
 end
