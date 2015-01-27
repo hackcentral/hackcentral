@@ -16,6 +16,7 @@ require 'shoulda/context'
 require 'shoulda/matchers'
 require 'coveralls'
   Coveralls.wear!('rails')
+require 'paperclip/matchers'
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
@@ -28,4 +29,6 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 
   config.extend ControllerMacros, :type => :controller
+
+  config.include Paperclip::Shoulda::Matchers
 end
