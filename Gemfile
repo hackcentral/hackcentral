@@ -27,6 +27,7 @@ gem 'chosen-rails', '1.3.0'
 gem 'bugsnag'
 gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
 gem 'newrelic_rpm'
+gem 'puma'
 
 # Environment Dependencies
 group :development, :test do
