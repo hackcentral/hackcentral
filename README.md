@@ -25,7 +25,9 @@ MIT License. See LICENSE for details.
 
 ## API
 
-(documentation coming soon)
+(documentation is in progress)
+
+[API Documentation](https://developers.hackcentral.co/)
 
 We have an official OmniAuth strategy available as a gem:
 
