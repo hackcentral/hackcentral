@@ -32,7 +32,6 @@ gem 'puma'
 # Environment Dependencies
 group :development, :test do
   gem 'sqlite3'
-  gem 'capistrano', '2.11.2'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'coveralls', require: false
