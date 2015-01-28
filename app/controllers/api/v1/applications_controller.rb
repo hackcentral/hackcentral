@@ -28,8 +28,8 @@ module Api
         respond_to do |format|
           if @application.save(application_params)
             format.json { render :json => @application, status: :created }
-          else
-            format.json { render :json => {}, status: 422}
+          #else
+            #format.json { render :json => {}, status: 422}
           end
         end
       end

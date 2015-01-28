@@ -78,6 +78,14 @@ describe Api::V1::ApplicationsController do
           response.status.should eq(201)
         end
       end
+
+      context "invalid attributes" do
+        it "attempts to create a new application" do
+        end
+
+        it "returns 422" do
+        end
+      end
     end
 
     describe "PUT #update" do
