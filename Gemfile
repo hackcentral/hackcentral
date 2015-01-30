@@ -26,6 +26,8 @@ gem 'will_paginate-bootstrap'
 gem 'chosen-rails', '1.3.0'
 gem 'newrelic_rpm'
 gem 'puma'
+gem 'bugsnag'
+gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
 
 # Environment Dependencies
 group :development, :test do
@@ -33,6 +35,10 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'coveralls', require: false
+
+  gem 'grape'
+  gem 'grape-raketasks'
+  gem 'grape-entity'
 end
 
 group :test do
@@ -46,6 +52,4 @@ end
 group :production do
   gem 'pg'
   gem 'rails_12factor'
-  gem 'bugsnag'
-  gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
 end
