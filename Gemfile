@@ -26,6 +26,8 @@ gem 'will_paginate-bootstrap'
 gem 'chosen-rails', '1.3.0'
 gem 'newrelic_rpm'
 gem 'puma'
+gem 'bugsnag'
+gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
 
 # Environment Dependencies
 group :development, :test do
@@ -50,6 +52,4 @@ end
 group :production do
   gem 'pg'
   gem 'rails_12factor'
-  gem 'bugsnag'
-  gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
 end
