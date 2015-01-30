@@ -35,6 +35,8 @@ group :development, :test do
   gem 'coveralls', require: false
 
   gem 'grape'
+  gem 'grape-raketasks'
+  gem 'grape-entity'
 end
 
 group :test do
