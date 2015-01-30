@@ -33,6 +33,8 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'coveralls', require: false
+
+  gem 'grape'
 end
 
 group :test do
