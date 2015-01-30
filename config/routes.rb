@@ -50,6 +50,11 @@ Rails.application.routes.draw do
         use_doorkeeper do
           controllers :applications => 'oauth/applications'
         end
+
+      scope 'api', path: "", :constraints => {:subdomain => "api"}, defaults: {format: 'json'} do
+        mount HC => '/'
+      end
+
       namespace :api, path: "", :constraints => {:subdomain => "api"}, defaults: {format: 'json'} do
         namespace :v1 do
           # APPLICATIONS

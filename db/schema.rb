@@ -29,10 +29,10 @@ ActiveRecord::Schema.define(version: 20150115225458) do
   add_index "applications", ["user_id"], name: "index_applications_on_user_id"
 
   create_table "friendly_id_slugs", force: :cascade do |t|
-    t.string   "slug",           limit: 255, null: false
-    t.integer  "sluggable_id",               null: false
+    t.string   "slug",                      null: false
+    t.integer  "sluggable_id",              null: false
     t.string   "sluggable_type", limit: 50
-    t.string   "scope",          limit: 255
+    t.string   "scope"
     t.datetime "created_at"
   end
 
@@ -42,25 +42,25 @@ ActiveRecord::Schema.define(version: 20150115225458) do
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
 
   create_table "hackathons", force: :cascade do |t|
-    t.string   "name",                limit: 255
+    t.string   "name"
     t.text     "about"
-    t.string   "tagline",             limit: 255
-    t.string   "location",            limit: 255
+    t.string   "tagline"
+    t.string   "location"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "start"
     t.datetime "end"
-    t.string   "logo_file_name",      limit: 255
-    t.string   "logo_content_type",   limit: 255
+    t.string   "logo_file_name"
+    t.string   "logo_content_type"
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
-    t.string   "header_file_name",    limit: 255
-    t.string   "header_content_type", limit: 255
+    t.string   "header_file_name"
+    t.string   "header_content_type"
     t.integer  "header_file_size"
     t.datetime "header_updated_at"
-    t.boolean  "hs_hackers_allowed",              default: false
-    t.boolean  "mlh_sanctioned",                  default: false
-    t.string   "subdomain",           limit: 255
+    t.boolean  "hs_hackers_allowed",  default: false
+    t.boolean  "mlh_sanctioned",      default: false
+    t.string   "subdomain"
     t.integer  "user_id"
   end
 
@@ -78,14 +78,14 @@ ActiveRecord::Schema.define(version: 20150115225458) do
   add_index "likes", ["user_id"], name: "index_likes_on_user_id"
 
   create_table "oauth_access_grants", force: :cascade do |t|
-    t.integer  "resource_owner_id",             null: false
-    t.integer  "application_id",                null: false
-    t.string   "token",             limit: 255, null: false
-    t.integer  "expires_in",                    null: false
-    t.text     "redirect_uri",                  null: false
-    t.datetime "created_at",                    null: false
+    t.integer  "resource_owner_id", null: false
+    t.integer  "application_id",    null: false
+    t.string   "token",             null: false
+    t.integer  "expires_in",        null: false
+    t.text     "redirect_uri",      null: false
+    t.datetime "created_at",        null: false
     t.datetime "revoked_at"
-    t.string   "scopes",            limit: 255
+    t.string   "scopes"
   end
 
   add_index "oauth_access_grants", ["token"], name: "index_oauth_access_grants_on_token", unique: true
@@ -93,12 +93,12 @@ ActiveRecord::Schema.define(version: 20150115225458) do
   create_table "oauth_access_tokens", force: :cascade do |t|
     t.integer  "resource_owner_id"
     t.integer  "application_id"
-    t.string   "token",             limit: 255, null: false
-    t.string   "refresh_token",     limit: 255
+    t.string   "token",             null: false
+    t.string   "refresh_token"
     t.integer  "expires_in"
     t.datetime "revoked_at"
-    t.datetime "created_at",                    null: false
-    t.string   "scopes",            limit: 255
+    t.datetime "created_at",        null: false
+    t.string   "scopes"
   end
 
   add_index "oauth_access_tokens", ["refresh_token"], name: "index_oauth_access_tokens_on_refresh_token", unique: true
@@ -106,15 +106,15 @@ ActiveRecord::Schema.define(version: 20150115225458) do
   add_index "oauth_access_tokens", ["token"], name: "index_oauth_access_tokens_on_token", unique: true
 
   create_table "oauth_applications", force: :cascade do |t|
-    t.string   "name",         limit: 255,              null: false
-    t.string   "uid",          limit: 255,              null: false
-    t.string   "secret",       limit: 255,              null: false
-    t.text     "redirect_uri",                          null: false
+    t.string   "name",                      null: false
+    t.string   "uid",                       null: false
+    t.string   "secret",                    null: false
+    t.text     "redirect_uri",              null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "owner_id"
-    t.string   "owner_type",   limit: 255
-    t.string   "scopes",       limit: 255, default: "", null: false
+    t.string   "owner_type"
+    t.string   "scopes",       default: "", null: false
   end
 
   add_index "oauth_applications", ["owner_id", "owner_type"], name: "index_oauth_applications_on_owner_id_and_owner_type"
@@ -131,14 +131,14 @@ ActiveRecord::Schema.define(version: 20150115225458) do
   add_index "organizers", ["user_id"], name: "index_organizers_on_user_id"
 
   create_table "profiles", force: :cascade do |t|
-    t.string   "name",                limit: 255
-    t.string   "school_grad",         limit: 255
-    t.string   "website",             limit: 255
-    t.string   "github",              limit: 255
+    t.string   "name"
+    t.string   "school_grad"
+    t.string   "website"
+    t.string   "github"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "resume_file_name",    limit: 255
-    t.string   "resume_content_type", limit: 255
+    t.string   "resume_file_name"
+    t.string   "resume_content_type"
     t.integer  "resume_file_size"
     t.datetime "resume_updated_at"
     t.text     "dietary_needs"
@@ -148,17 +148,17 @@ ActiveRecord::Schema.define(version: 20150115225458) do
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id"
 
   create_table "submissions", force: :cascade do |t|
-    t.string   "title",        limit: 255
-    t.string   "tagline",      limit: 255
+    t.string   "title"
+    t.string   "tagline"
     t.text     "description"
-    t.string   "video",        limit: 255
-    t.string   "website",      limit: 255
+    t.string   "video"
+    t.string   "website"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
     t.integer  "hackathon_id"
     t.datetime "submitted_at"
-    t.string   "slug",         limit: 255
+    t.string   "slug"
   end
 
   add_index "submissions", ["slug"], name: "index_submissions_on_slug", unique: true
@@ -175,7 +175,7 @@ ActiveRecord::Schema.define(version: 20150115225458) do
   add_index "taggings", ["tag_id"], name: "index_taggings_on_tag_id"
 
   create_table "tags", force: :cascade do |t|
-    t.string   "name",       limit: 255
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -191,26 +191,26 @@ ActiveRecord::Schema.define(version: 20150115225458) do
   add_index "team_members", ["user_id"], name: "index_team_members_on_user_id"
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  limit: 255, default: "",    null: false
-    t.string   "encrypted_password",     limit: 255, default: "",    null: false
-    t.string   "reset_password_token",   limit: 255
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
+    t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                      default: 0,     null: false
+    t.integer  "sign_in_count",          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip",     limit: 255
-    t.string   "last_sign_in_ip",        limit: 255
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "admin",                              default: false
-    t.boolean  "mlh",                                default: false
-    t.string   "name",                   limit: 255
-    t.string   "confirmation_token",     limit: 255
+    t.boolean  "admin",                  default: false
+    t.boolean  "mlh",                    default: false
+    t.string   "name"
+    t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.text     "bio"
-    t.string   "username",               limit: 255
+    t.string   "username"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
