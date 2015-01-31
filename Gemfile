@@ -39,6 +39,7 @@ group :development, :test do
   gem 'grape'
   gem 'grape-raketasks'
   gem 'grape-entity'
+  gem 'wine_bouncer', github: 'maclover7/wine_bouncer'
 end
 
 group :test do

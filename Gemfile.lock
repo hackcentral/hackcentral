@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/maclover7/wine_bouncer.git
+  revision: d04dd2d547b82a4eb58aa67923a3d27aafdb0679
+  specs:
+    wine_bouncer (0.2.1)
+      doorkeeper (>= 1.4, <= 2.1.0)
+      grape (~> 0.8)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -352,3 +360,4 @@ DEPENDENCIES
   uglifier (= 2.7.0)
   will_paginate (~> 3.0.5)
   will_paginate-bootstrap
+  wine_bouncer!
