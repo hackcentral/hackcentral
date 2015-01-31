@@ -1,6 +1,7 @@
 GIT
-  remote: git://github.com/maclover7/wine_bouncer.git
-  revision: d04dd2d547b82a4eb58aa67923a3d27aafdb0679
+  remote: git://github.com/antek-drzewiecki/wine_bouncer.git
+  revision: 16b7d66b0b59832a67f521be90d57cca4bdf1b09
+  branch: doorkeeper_2_1
   specs:
     wine_bouncer (0.2.1)
       doorkeeper (>= 1.4, <= 2.1.0)
@@ -122,7 +123,7 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
     docile (1.1.5)
-    doorkeeper (2.1.0)
+    doorkeeper (2.0.1)
       railties (>= 3.1)
     equalizer (0.0.9)
     erubis (2.7.0)
@@ -332,7 +333,7 @@ DEPENDENCIES
   coveralls
   database_cleaner
   devise
-  doorkeeper
+  doorkeeper (= 2.0.1)
   factory_girl_rails
   faker
   figaro
@@ -348,7 +349,7 @@ DEPENDENCIES
   paperclip
   pg
   puma
-  rails (= 4.2.0)
+  rails
   rails_12factor
   rspec-rails
   sass-rails (= 5.0.1)

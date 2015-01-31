@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Rails Dependencies
-gem 'rails', '4.2.0'
+gem 'rails'
 gem 'sass-rails', '5.0.1'
 gem 'uglifier', '2.7.0'
 gem 'coffee-rails', '4.1.0'
@@ -18,7 +18,7 @@ gem 'figaro'
 gem 'bootstrap-sass'
 gem 'font-awesome-sass'
 gem 'devise'
-gem 'doorkeeper'
+gem 'doorkeeper', '2.0.1'
 gem 'friendly_id'
 gem 'local_time'
 gem 'will_paginate', '~> 3.0.5'
@@ -32,7 +32,7 @@ gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
 gem 'grape'
 gem 'grape-raketasks'
 gem 'grape-entity'
-gem 'wine_bouncer', github: 'maclover7/wine_bouncer'
+gem 'wine_bouncer', github: 'antek-drzewiecki/wine_bouncer', branch: 'doorkeeper_2_1'
 
 # Environment Dependencies
 group :development, :test do
