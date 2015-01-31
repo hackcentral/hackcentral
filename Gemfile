@@ -28,6 +28,11 @@ gem 'newrelic_rpm'
 gem 'puma'
 gem 'bugsnag'
 gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
+    # Grape
+gem 'grape'
+gem 'grape-raketasks'
+gem 'grape-entity'
+gem 'wine_bouncer', github: 'maclover7/wine_bouncer'
 
 # Environment Dependencies
 group :development, :test do
@@ -35,11 +40,6 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'coveralls', require: false
-
-  gem 'grape'
-  gem 'grape-raketasks'
-  gem 'grape-entity'
-  gem 'wine_bouncer', github: 'maclover7/wine_bouncer'
 end
 
 group :test do
