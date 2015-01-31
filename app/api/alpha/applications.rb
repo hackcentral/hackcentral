@@ -40,5 +40,15 @@ module Alpha
         present application, with: Alpha::Entities::Application
       end
 
+    desc "Show an application (Doorkeeper Auth)", auth: { scopes: [] }, entity: Alpha::Entities::Application
+      params do
+        requires :id, type: Integer, desc: "ID of application"
+      end
+
+      get '/applications/:id', http_codes: [ [200, "Ok", Alpha::Entities::Application] ] do
+        application = Application.find(params[:id])
+        present application, with: Alpha::Entities::Application
+      end
+
   end
 end
