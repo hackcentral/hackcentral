@@ -3,8 +3,8 @@ module Alpha
     version 'v1', using: :path
     format :json
 
-    # Mounts
-    # mount Alpha::Applications
+    # Mountings
+    mount Alpha::Applications
 
     #desc "Returns pong."
     #get "ping" do
