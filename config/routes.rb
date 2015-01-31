@@ -51,7 +51,7 @@ Rails.application.routes.draw do
           controllers :applications => 'oauth/applications'
         end
 
-      scope 'api', path: "", :constraints => {:subdomain => "api"}, defaults: {format: 'json'} do
+      namespace 'api', path: "", constraints: {:subdomain => "api"}, defaults: {format: 'json'} do
         mount HC => '/'
       end
 
