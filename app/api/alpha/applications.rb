@@ -50,5 +50,16 @@ module Alpha
         present application, with: Alpha::Entities::Application
       end
 
+    desc "Delete an application", auth: { scopes: [] }, entity: Alpha::Entities::Application
+      params do
+        requires :id, type: Integer, desc: "ID of application"
+      end
+
+      delete '/applications/:id', http_codes: [ [200, "Ok", Alpha::Entities::Application] ] do
+        Application.destroy(params[:id])
+
+        status 204
+      end
+
   end
 end
