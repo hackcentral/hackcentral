@@ -20,5 +20,24 @@ module Alpha
         present applications, with: Alpha::Entities::Application
       end
 
+    desc "Create an application (Doorkeeper Auth)", auth: { scopes: [] }, entity: Alpha::Entities::Application
+      params do
+        requires :reimbursement_needed, type: Boolean, desc: "If user needs travel reimbursement"
+        requires :profile_id, type: Integer, desc: "ID of profile"
+        requires :hackathon_id, type: Integer, desc: "ID of hackathon applying to"
+      end
+
+      post '/applications', http_codes: [ [200, "Ok", Alpha::Entities::Application] ] do
+        application = Application.new
+        application.reimbursement_needed = params[:reimbursement_needed] if params[:reimbursement_needed]
+        application.profile_id = params[:profile_id] if params[:profile_id]
+        application.hackathon_id = params[:hackathon_id] if params[:hackathon_id]
+        application.user_id = resource_owner.id
+        application.save
+
+        status 201
+        present application, with: Alpha::Entities::Application
+      end
+
   end
 end
