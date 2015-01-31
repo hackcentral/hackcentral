@@ -50,7 +50,34 @@ module Alpha
         present application, with: Alpha::Entities::Application
       end
 
-    desc "Delete an application", auth: { scopes: [] }, entity: Alpha::Entities::Application
+    desc "Update an application (Doorkeeper Auth)", auth: { scopes: [] }, entity: Alpha::Entities::Application
+      params do
+        requires :reimbursement_needed, type: String, desc: "If user needs travel reimbursement"
+        requires :profile_id, type: Integer, desc: "ID of profile"
+        # You cannot change the hackathon_id for which you are applying.
+      end
+
+      put '/applications/:id', http_codes: [ [200, "Ok", Alpha::Entities::Application] ] do
+        @application = Application.find(params[:id])
+        @application.reimbursement_needed = params[:reimbursement_needed] if params[:reimbursement_needed]
+        @application.profile_id = params[:profile_id] if params[:profile_id]
+        @application.save
+
+        status 200
+        present @application, with: Alpha::Entities::Application
+      end
+
+      patch '/applications/:id', http_codes: [ [200, "Ok", Alpha::Entities::Application] ] do
+        @application = Application.find(params[:id])
+        @application.reimbursement_needed = params[:reimbursement_needed] if params[:reimbursement_needed]
+        @application.profile_id = params[:profile_id] if params[:profile_id]
+        @application.save
+
+        status 200
+        present @application, with: Alpha::Entities::Application
+      end
+
+    desc "Delete an application (Doorkeeper Auth)", auth: { scopes: [] }, entity: Alpha::Entities::Application
       params do
         requires :id, type: Integer, desc: "ID of application"
       end
