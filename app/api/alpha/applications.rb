@@ -12,6 +12,8 @@ module Alpha
     end
   end
 
+  class Applications < Grape::API
+  end
 
   end
 end
