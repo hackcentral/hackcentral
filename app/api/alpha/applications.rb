@@ -6,6 +6,7 @@ module Alpha
       expose :reimbursement_needed, documentation: { type: "Boolean", desc: "If user needs travel reimbursement" }
       expose :profile_id, documentation: { type: "Integer", desc: "ID of profile" }
       expose :hackathon_id, documentation: { type: "Integer", desc: "ID of hackathon applying to" }
+      expose :user_id
       expose :created_at
       expose :updated_at
     end
