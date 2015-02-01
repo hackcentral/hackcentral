@@ -31,4 +31,6 @@ RSpec.configure do |config|
   config.extend ControllerMacros, :type => :controller
 
   config.include Paperclip::Shoulda::Matchers
+
+  config.include RSpec::Rails::RequestExampleGroup, type: :request, file_path: /spec\/api/
 end
