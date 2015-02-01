@@ -23,7 +23,7 @@ module Alpha
 
     desc "Create an application (Doorkeeper Auth)", auth: { scopes: [] }, entity: Alpha::Entities::Application
       params do
-        requires :reimbursement_needed, type: Boolean, desc: "If user needs travel reimbursement"
+        requires :reimbursement_needed, type: String, desc: "If user needs travel reimbursement"
         requires :profile_id, type: Integer, desc: "ID of profile"
         requires :hackathon_id, type: Integer, desc: "ID of hackathon applying to"
       end
