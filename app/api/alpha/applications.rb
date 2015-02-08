@@ -4,11 +4,13 @@ module Alpha
     class Application < Grape::Entity
       expose :id
       expose :reimbursement_needed, documentation: { type: "Boolean", desc: "If user needs travel reimbursement" }
-      expose :profile_id, documentation: { type: "Integer", desc: "ID of profile" }
-      expose :hackathon_id, documentation: { type: "Integer", desc: "ID of hackathon applying to" }
-      expose :user_id
       expose :created_at
       expose :updated_at
+      expose :user_id
+      expose :profile_id, documentation: { type: "Integer", desc: "ID of profile" }
+      expose :hackathon_id, documentation: { type: "Integer", desc: "ID of hackathon applying to" }
+      expose :accepted #, documentation: { type: "String", desc: "If application was accepted to hackathon" }
+      expose :checked_in #, documentation: { type: "String", desc: "If application was checked_in to hackathon" }
     end
   end
 

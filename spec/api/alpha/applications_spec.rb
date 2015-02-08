@@ -53,7 +53,7 @@ RSpec.describe "Alpha::Applications", :type => :request do
           get "https://api.vcap.me:3000/v1/applications/#{application.id}", application: FactoryGirl.attributes_for(:application), :format => :json, :access_token => @token.token
 
           #assigns(:application).should eq application
-          #expect(response.body).to eq application.to_json
+          expect(response.body).to eq application.to_json
           response.status.should eq(200)
         else
           response.status.should eq(401)
