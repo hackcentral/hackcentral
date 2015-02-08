@@ -15,6 +15,13 @@ module Alpha
   class Applications < Grape::API
     use WineBouncer::OAuth2
 
+    rescue_from WineBouncer::Errors::OAuthUnauthorizedError do |e|
+      Rack::Response.new({
+        error: "unauthorized_oauth",
+        error_description: "Please supply a valid access token."
+      }.to_json, 401).finish
+    end
+
     desc "Show all applications (Doorkeeper Auth)", auth: { scopes: [] }, entity: Alpha::Entities::Application
       get '/applications', http_codes: [ [200, "Ok", Alpha::Entities::Application] ] do
         applications = Application.where(user_id: resource_owner).all
