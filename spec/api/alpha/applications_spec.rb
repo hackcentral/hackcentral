@@ -3,7 +3,6 @@ require "rails_helper"
 RSpec.describe "Alpha::Applications", :type => :request do
 
   let!(:user) { create(:user) }
-  before { controller.stub(:current_user).and_return user }
 
   context "no access token" do
     it 'returns a 401 when users are not authenticated' do
@@ -50,7 +49,7 @@ RSpec.describe "Alpha::Applications", :type => :request do
         application = FactoryGirl.create(:application)
 
         if application.user_id == user.id
-          get "https://api.vcap.me:3000/v1/applications/#{application.id}", application: FactoryGirl.attributes_for(:application), :format => :json, :access_token => @token.token
+          get "https://api.vcap.me:3000/v1/applications/#{application.id}", application: FactoryGirl.attributes_for(:application, user_id: ""), :format => :json, :access_token => @token.token
 
           #assigns(:application).should eq application
           expect(response.body).to eq application.to_json
@@ -60,7 +59,39 @@ RSpec.describe "Alpha::Applications", :type => :request do
         end
       end
     end
+
+    describe 'POST #create' do
+      before :each do
+        @oauth_application = FactoryGirl.build(:oauth_application)
+        @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => user.id)
+      end
+
+      context "with valid attributes" do
+        it "creates a new application" do
+          expect{
+            post "http://api.vcap.me:3000/v1/applications?access_token=#{@token.token}", application: FactoryGirl.attributes_for(:application), :format => :json
+          } .to change(Application, :count).by(1)
+        end
+
+        it "creates a new application, making sure response is #201" do
+          post "http://api.vcap.me:3000/v1/applications", application: FactoryGirl.attributes_for(:application), :format => :json, :access_token => @token.token
+          response.status.should eq(201)
+        end
+      end
+
+      context "invalid attributes" do
+        it "attempts to create a new application" do
+          expect{
+            post "http://api.vcap.me:3000/v1/applications?access_token=#{@token.token}", application: FactoryGirl.attributes_for(:application), :format => :json
+          } .to change(Application, :count).by(0)
+        end
+
+        it "returns 422" do
+        end
+      end
+    end
   end
+
   describe "GET /applications" do
     it "returns 401" do
       get "https://api.vcap.me:3000/v1/applications"

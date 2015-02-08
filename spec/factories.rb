@@ -7,8 +7,8 @@ FactoryGirl.define do
     f.reimbursement_needed "true"
     f.accepted "true"
     f.user_id "1"
-    f.profile_id { Faker::Number.number(4) }
-    f.hackathon_id { Faker::Number.number(4) }
+    f.profile_id "1"
+    f.hackathon_id "1"
   end
 
   factory :hackathon do |f|
