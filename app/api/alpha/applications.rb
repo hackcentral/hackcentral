@@ -13,6 +13,7 @@ module Alpha
   end
 
   class Applications < Grape::API
+    format :json
     use WineBouncer::OAuth2
 
     rescue_from WineBouncer::Errors::OAuthUnauthorizedError do |e|
