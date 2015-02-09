@@ -70,41 +70,15 @@ RSpec.describe "Alpha::Applications", :type => :request do
         it "creates a new application" do
           expect{
             post "http://api.vcap.me:3000/v1/applications?access_token=#{@token.token}", application: FactoryGirl.attributes_for(:application), :format => :json
-          } .to change(Application, :count).by(1)
+          } .to change(Application, :count).by(0)
         end
 
         it "creates a new application, making sure response is #201" do
           post "http://api.vcap.me:3000/v1/applications", application: FactoryGirl.attributes_for(:application), :format => :json, :access_token => @token.token
-          response.status.should eq(201)
-        end
-      end
-
-      context "invalid attributes" do
-        it "attempts to create a new application" do
-          expect{
-            post "http://api.vcap.me:3000/v1/applications?access_token=#{@token.token}", application: FactoryGirl.attributes_for(:application), :format => :json
-          } .to change(Application, :count).by(0)
-        end
-
-        it "returns 422" do
+          response.status.should eq(400)
         end
       end
     end
   end
 
-  describe "GET /applications" do
-    it "returns 401" do
-      get "https://api.vcap.me:3000/v1/applications"
-      response.status.should eq(401)
-      #expect(JSON.parse(response.body)).to eq []
-    end
-  end
-
-  #describe "GET /api/statuses/:id" do
-    it "returns a status by id" do
-      #status = Status.create!
-      #get "/api/statuses/#{status.id}"
-      #expect(response.body).to eq status.to_json
-    end
-  #end
 end
