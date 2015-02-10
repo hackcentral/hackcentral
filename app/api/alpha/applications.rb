@@ -57,6 +57,7 @@ module Alpha
 
       get '/applications/:id', http_codes: [ [200, "Ok", Alpha::Entities::Application] ] do
         @application = Application.find(params[:id])
+
         if @application.user_id == resource_owner.id
           status 200
           present @application, with: Alpha::Entities::Application
