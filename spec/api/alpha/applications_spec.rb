@@ -3,7 +3,6 @@ require "rails_helper"
 RSpec.describe "Alpha::Applications", :type => :request do
 
   let!(:user) { create(:user) }
-  let!(:bad_user) { create(:user) }
 
   context "no access token" do
     it 'returns a 401 when users are not authenticated' do
@@ -122,7 +121,7 @@ RSpec.describe "Alpha::Applications", :type => :request do
       before :each do
         @oauth_application = FactoryGirl.build(:oauth_application)
         @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => user.id)
-        @application = FactoryGirl.create(:application, user_id: '1')
+        @application = FactoryGirl.create(:application)
       end
 
       context "valid attributes && correct_user" do
@@ -155,6 +154,41 @@ RSpec.describe "Alpha::Applications", :type => :request do
       end
     end
 
-  end
+    describe 'DELETE #destroy' do
+      before :each do
+        @oauth_application = FactoryGirl.build(:oauth_application)
+        @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => '1')#user.id)
+        @application = FactoryGirl.create(:application, user_id: '1')
+      end
 
+      context "valid attributes && correct_user" do
+        it "located the requested @application" do
+          delete "http://api.vcap.me:3000/v1/applications/1?access_token=#{@token.token}", FactoryGirl.attributes_for(:application), :format => :json
+          puts response.body
+          response.status.should eq(204)
+        end
+
+        it "deletes @application" do
+          delete "http://api.vcap.me:3000/v1/applications/1?access_token=#{@token.token}", FactoryGirl.attributes_for(:application), :format => :json
+        end
+
+        it "sends a 204" do
+          delete "http://api.vcap.me:3000/v1/applications/1?access_token=#{@token.token}", FactoryGirl.attributes_for(:application), :format => :json
+          response.status.should eq(204)
+        end
+      end
+
+      context "valid attributes != correct_user" do
+        it "returns 401" do
+          delete "http://api.vcap.me:3000/v1/applications/1?access_token=#{@token.token}", FactoryGirl.attributes_for(:application), :format => :json
+          if @application.user_id == user.id
+            response.status.should eq(204)
+          else
+            response.status.should eq(401)
+          end
+        end
+      end
+    end
+
+  end
 end

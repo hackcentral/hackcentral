@@ -109,9 +109,17 @@ module Alpha
       end
 
       delete '/applications/:id', http_codes: [ [200, "Ok", Alpha::Entities::Application] ] do
-        Application.destroy(params[:id])
+        @application = Application.find(params[:id])
 
-        status 204
+        if @application.user_id == resource_owner.id
+          Application.destroy(params[:id])
+          status 204
+        else
+          Rack::Response.new({
+            error: "unauthorized_oauth",
+            error_description: "Please supply a valid access token."
+          }.to_json, 401).finish
+        end
       end
 
   end
