@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe "Alpha::Applications", :type => :request do
 
   let!(:user) { create(:user) }
+  let!(:bad_user) { create(:user) }
 
   context "no access token" do
     it 'returns a 401 when users are not authenticated' do
@@ -80,14 +81,14 @@ RSpec.describe "Alpha::Applications", :type => :request do
       end
     end
 
-    describe 'PUT #create' do
+    describe 'PUT #update' do
       before :each do
         @oauth_application = FactoryGirl.build(:oauth_application)
         @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => user.id)
-        @application = FactoryGirl.create(:application)
+        @application = FactoryGirl.create(:application, user_id: '1')
       end
 
-      context "valid attributes" do
+      context "valid attributes && correct_user" do
         it "located the requested @application" do
           put "http://api.vcap.me:3000/v1/applications/1?access_token=#{@token.token}", FactoryGirl.attributes_for(:application), :format => :json
           response.status.should eq(200)
@@ -102,6 +103,17 @@ RSpec.describe "Alpha::Applications", :type => :request do
         it "sends a 200 if updated application if correct_user" do
           put "http://api.vcap.me:3000/v1/applications/1?access_token=#{@token.token}", FactoryGirl.attributes_for(:application), :format => :json
           response.status.should eq(200)
+        end
+      end
+
+      context "valid attributes != correct_user" do
+        it "returns 401" do
+          put "http://api.vcap.me:3000/v1/applications/1?access_token=#{@token.token}", FactoryGirl.attributes_for(:application), :format => :json
+          if @application.user_id == user.id
+            response.status.should eq(200)
+          else
+            response.status.should eq(401)
+          end
         end
       end
 
