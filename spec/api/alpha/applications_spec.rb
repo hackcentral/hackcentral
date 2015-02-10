@@ -43,16 +43,20 @@ RSpec.describe "Alpha::Applications", :type => :request do
     end
 
     describe 'GET #show' do
-      it "should show the application" do
+      before :each do
         @oauth_application = FactoryGirl.build(:oauth_application)
         @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => user.id)
-        application = FactoryGirl.create(:application)
+        @application = FactoryGirl.create(:application)
+      end
 
-        if application.user_id == user.id
-          get "https://api.vcap.me:3000/v1/applications/#{application.id}", application: FactoryGirl.attributes_for(:application, user_id: ""), :format => :json, :access_token => @token.token
+      it "should show the application" do
+        get "https://api.vcap.me:3000/v1/applications/#{@application.id}", application: FactoryGirl.attributes_for(:application, user_id: ""), :format => :json, :access_token => @token.token
+        expect(response.body).to eq @application.to_json
+      end
 
-          #assigns(:application).should eq application
-          expect(response.body).to eq application.to_json
+      it "if correct_user?" do
+        if @application.user_id == user.id
+          get "https://api.vcap.me:3000/v1/applications/#{@application.id}", application: FactoryGirl.attributes_for(:application, user_id: ""), :format => :json, :access_token => @token.token
           response.status.should eq(200)
         else
           response.status.should eq(401)

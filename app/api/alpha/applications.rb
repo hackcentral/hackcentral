@@ -56,8 +56,16 @@ module Alpha
       end
 
       get '/applications/:id', http_codes: [ [200, "Ok", Alpha::Entities::Application] ] do
-        application = Application.find(params[:id])
-        present application, with: Alpha::Entities::Application
+        @application = Application.find(params[:id])
+        if @application.user_id == resource_owner.id
+          status 200
+          present @application, with: Alpha::Entities::Application
+        else
+          Rack::Response.new({
+            error: "unauthorized_oauth",
+            error_description: "Please supply a valid access token."
+          }.to_json, 401).finish
+        end
       end
 
     desc "Update an application (Doorkeeper Auth)", auth: { scopes: [] }, entity: Alpha::Entities::Application
