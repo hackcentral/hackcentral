@@ -86,9 +86,6 @@ Rails.application.routes.draw do
 
           # TAGS
             get 'tags/:tag', to: 'submissions#tag', as: :tag
-
-          # USER
-            get '/user' => "users#show"
         end
       end
 
