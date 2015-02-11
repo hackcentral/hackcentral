@@ -5,6 +5,7 @@ module Alpha
 
     # Mountings
     mount Alpha::Applications
+    mount Alpha::Users
 
     #desc "Returns pong."
     #get "ping" do
