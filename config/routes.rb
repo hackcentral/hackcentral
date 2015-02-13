@@ -58,14 +58,6 @@ Rails.application.routes.draw do
       namespace :api, path: "", :constraints => {:subdomain => "api"}, defaults: {format: 'json'} do
         namespace :v1 do
 
-          # HACKATHONS
-            get "hackathons" => "hackathons#index"
-            post "hackathons" => "hackathons#create"
-            get "hackathons/:id" => "hackathons#show"
-            put "hackathons/:id" => "hackathons#update"
-            patch "hackathons/:id" => "hackathons#update"
-            delete "hackathons/:id" => "hackathons#destroy"
-
           # HACKATHONS --> SUBMISSIONS
             get "hackathons/:hackathon_id/submissions" => "submissions#index"
             post "hackathons/:hackathon_id/submissions" => "submissions#create"
