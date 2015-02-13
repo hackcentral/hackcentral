@@ -13,12 +13,13 @@ FactoryGirl.define do
 
   factory :hackathon do |f|
     f.name { Faker::Name.name }
-    f.subdomain "testapps"
     f.about { Faker::Lorem.sentence }
     f.tagline { Faker::Lorem.sentence }
     f.location { Faker::Address.city }
     f.start { Faker::Date.backward(14) }
     f.end { Faker::Date.backward(14) }
+    f.hs_hackers_allowed "true"
+    f.subdomain "testapps"
     f.user_id "1"
   end
 
