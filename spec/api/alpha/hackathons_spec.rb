@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Alpha::Applications", :type => :request do
+RSpec.describe "Alpha::Hackathons", :type => :request do
 
   let!(:user) { create(:user) }
 
