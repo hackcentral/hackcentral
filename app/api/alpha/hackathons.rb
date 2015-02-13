@@ -43,10 +43,12 @@ module Alpha
         requires :about, type: String, desc: "About of hackathon"
         requires :tagline, type: String, desc: "Tagline of hackathon"
         requires :location, type: String, desc: "Location of hackathon"
-        requires :hs_hackers_allowed, type: String, desc: "If hs_hackers_allowed at hackathon"
-        requires :subdomain, type: String, desc: "Subdomain of hackathon"
         requires :start, type: String, desc: "Start time of hackathon"
         requires :end, type: String, desc: "End time of hackathon"
+        optional :logo, desc: "Logo image of hackathon"
+        optional :header, desc: "Header image of hackathon"
+        requires :hs_hackers_allowed, type: String, desc: "If hs_hackers_allowed at hackathon"
+        requires :subdomain, type: String, desc: "Subdomain of hackathon"
       end
 
       post '/hackathons', http_codes: [ [200, "Ok", Alpha::Entities::Hackathon] ] do
@@ -55,10 +57,12 @@ module Alpha
         hackathon.about = params[:about]
         hackathon.tagline = params[:tagline]
         hackathon.location = params[:location]
-        hackathon.hs_hackers_allowed = params[:hs_hackers_allowed]
-        hackathon.subdomain = params[:subdomain]
         hackathon.start = params[:start]
         hackathon.end = params[:end]
+        hackathon.logo = params[:logo] if params[:logo]
+        hackathon.header = params[:header] if params[:header]
+        hackathon.hs_hackers_allowed = params[:hs_hackers_allowed]
+        hackathon.subdomain = params[:subdomain]
         hackathon.user_id = resource_owner.id
         hackathon.save
 
