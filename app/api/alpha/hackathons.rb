@@ -63,5 +63,17 @@ module Alpha
         status 201
         present hackathon, with: Alpha::Entities::Hackathon
       end
+
+    desc "Show a hackathon (Doorkeeper Auth)", auth: { scopes: [] }, entity: Alpha::Entities::Hackathon
+      params do
+        requires :id, type: Integer, desc: "ID of hackathon"
+      end
+
+      get '/hackathons/:id', http_codes: [ [200, "Ok", Alpha::Entities::Hackathon] ] do
+        @hackathon = Hackathon.find(params[:id])
+
+        status 200
+        present @hackathon, with: Alpha::Entities::Hackathon
+      end
   end
 end
