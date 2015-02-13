@@ -11,6 +11,8 @@ module Alpha
       expose :updated_at
       expose :start
       expose :end
+      expose :logo_url
+      expose :header_url
       expose :hs_hackers_allowed, documentation: { type: "Boolean", desc: "If HS Hackers are allowed" }
       expose :mlh_sanctioned, documentation: { type: "Boolean", desc: "If hackathon has been sanctioned by MLH" }
       expose :subdomain
