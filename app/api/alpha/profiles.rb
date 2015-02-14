@@ -2,6 +2,7 @@ module Alpha
 
   module Entities
     class Profile < Grape::Entity
+      expose :id
       expose :name
       expose :school_grad
       expose :website
@@ -54,6 +55,25 @@ module Alpha
 
         status 201
         present profile, with: Alpha::Entities::Profile
+      end
+
+    desc "Show a profile (Doorkeeper Auth)", auth: { scopes: [] }, entity: Alpha::Entities::Profile
+      params do
+        requires :id, type: Integer, desc: "ID of profile"
+      end
+
+      get '/profiles/:id', http_codes: [ [200, "Ok", Alpha::Entities::Profile] ] do
+        @profile = Profile.find(params[:id])
+
+        if @profile.user_id == resource_owner.id
+          status 200
+          present @profile, with: Alpha::Entities::Profile
+        else
+          Rack::Response.new({
+            error: "unauthorized_oauth",
+            error_description: "Please supply a valid access token."
+          }.to_json, 401).finish
+        end
       end
   end
 end
