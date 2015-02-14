@@ -8,7 +8,7 @@ module Alpha
       expose :github
       expose :created_at
       expose :updated_at
-      expose :resume_url
+      expose :resume
       expose :dietary_needs
       expose :user_id
     end
@@ -29,6 +29,31 @@ module Alpha
       get '/profiles', http_codes: [ [200, "Ok", Alpha::Entities::Profile] ] do
         profiles = Profile.where(user_id: resource_owner).all
         present profiles, with: Alpha::Entities::Profile
+      end
+
+    desc "Create a profile (Doorkeeper Auth)", auth: { scopes: [] }, entity: Alpha::Entities::Profile
+      params do
+        requires :name, type: String, desc: "Name"
+        requires :school_grad, type: String, desc: "Year of school graduation"
+        optional :website, type: String, desc: "Website"
+        optional :github, type: String, desc: "GitHub"
+        optional :resume, type: String, desc: "Resume"
+        optional :dietary_needs, type: String, desc: "Dietary Needs"
+      end
+
+      post '/profiles', http_codes: [ [200, "Ok", Alpha::Entities::Profile] ] do
+        profile = Profile.new
+        profile.name = params[:name]
+        profile.school_grad = params[:school_grad]
+        profile.website = params[:website] if params[:website]
+        profile.github = params[:github] if params[:github]
+        profile.resume = params[:resume] if params[:resume]
+        profile.dietary_needs = params[:dietary_needs] if params[:dietary_needs]
+        profile.user_id = resource_owner.id
+        profile.save
+
+        status 201
+        present profile, with: Alpha::Entities::Profile
       end
   end
 end
