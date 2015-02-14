@@ -75,5 +75,59 @@ module Alpha
           }.to_json, 401).finish
         end
       end
+
+    desc "Update a profile (Doorkeeper Auth)", auth: { scopes: [] }, entity: Alpha::Entities::Profile
+      params do
+        requires :name, type: String, desc: "Name"
+        requires :school_grad, type: String, desc: "Year of school graduation"
+        optional :website, type: String, desc: "Website"
+        optional :github, type: String, desc: "GitHub"
+        optional :resume, type: String, desc: "Resume"
+        optional :dietary_needs, type: String, desc: "Dietary Needs"
+      end
+
+      put '/profiles/:id', http_codes: [ [200, "Ok", Alpha::Entities::Profile] ] do
+        @profile = Profile.find(params[:id])
+
+        if @profile.user_id == resource_owner.id
+          @profile.name = params[:name]
+          @profile.school_grad = params[:school_grad]
+          @profile.website = params[:website] if params[:website]
+          @profile.github = params[:github] if params[:github]
+          @profile.resume = params[:resume] if params[:resume]
+          @profile.dietary_needs = params[:dietary_needs] if params[:dietary_needs]
+          @profile.save
+
+          status 200
+          present @profile, with: Alpha::Entities::Profile
+        else
+          Rack::Response.new({
+            error: "unauthorized_oauth",
+            error_description: "Please supply a valid access token."
+          }.to_json, 401).finish
+        end
+      end
+
+      patch '/profiles/:id', http_codes: [ [200, "Ok", Alpha::Entities::Profile] ] do
+        @profile = Profile.find(params[:id])
+
+        if @profile.user_id == resource_owner.id
+          @profile.name = params[:name]
+          @profile.school_grad = params[:school_grad]
+          @profile.website = params[:website] if params[:website]
+          @profile.github = params[:github] if params[:github]
+          @profile.resume = params[:resume] if params[:resume]
+          @profile.dietary_needs = params[:dietary_needs] if params[:dietary_needs]
+          @profile.save
+
+          status 200
+          present @profile, with: Alpha::Entities::Profile
+        else
+          Rack::Response.new({
+            error: "unauthorized_oauth",
+            error_description: "Please supply a valid access token."
+          }.to_json, 401).finish
+        end
+      end
   end
 end

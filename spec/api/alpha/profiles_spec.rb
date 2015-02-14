@@ -77,5 +77,42 @@ RSpec.describe "Alpha::Profiles", :type => :request do
         end
       end
     end
+
+    describe 'PUT #update' do
+      before :each do
+        @oauth_application = FactoryGirl.build(:oauth_application)
+        @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => user.id)
+        @profile = FactoryGirl.create(:profile, user_id: '1')
+      end
+
+      context "valid attributes && correct_user" do
+        it "located the requested @profile" do
+          put "http://api.vcap.me:3000/v1/profiles/1?access_token=#{@token.token}", FactoryGirl.attributes_for(:profile), :format => :json
+          response.status.should eq(200)
+        end
+
+        it "changes @profile's attributes" do
+          put "http://api.vcap.me:3000/v1/profiles/1?access_token=#{@token.token}", FactoryGirl.attributes_for(:profile, dietary_needs: "default"), :format => :json
+          @profile.reload
+          @profile.dietary_needs.should eq("default")
+        end
+
+        it "sends a 200 if updated profile if correct_user" do
+          put "http://api.vcap.me:3000/v1/profiles/1?access_token=#{@token.token}", FactoryGirl.attributes_for(:profile), :format => :json
+          response.status.should eq(200)
+        end
+      end
+
+      context "valid attributes != correct_user" do
+        it "returns 401" do
+          put "http://api.vcap.me:3000/v1/profiles/1?access_token=#{@token.token}", FactoryGirl.attributes_for(:profile), :format => :json
+          if @profile.user_id == user.id
+            response.status.should eq(200)
+          else
+            response.status.should eq(401)
+          end
+        end
+      end
+    end
   end
 end
