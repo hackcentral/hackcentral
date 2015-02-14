@@ -6,6 +6,7 @@ module Alpha
     # Mountings
     mount Alpha::Applications
     mount Alpha::Hackathons
+    mount Alpha::Profiles
     mount Alpha::Users
 
     #desc "Returns pong."
