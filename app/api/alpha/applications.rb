@@ -94,24 +94,6 @@ module Alpha
         end
       end
 
-      patch '/applications/:id', http_codes: [ [200, "Ok", Alpha::Entities::Application] ] do
-        @application = Application.find(params[:id])
-
-        if @application.user_id == resource_owner
-          @application.reimbursement_needed = params[:reimbursement_needed] if params[:reimbursement_needed]
-          @application.profile_id = params[:profile_id] if params[:profile_id]
-          @application.save
-
-          status 200
-          present @application, with: Alpha::Entities::Application
-        else
-          Rack::Response.new({
-            error: "unauthorized_oauth",
-            error_description: "Please supply a valid access token."
-          }.to_json, 401).finish
-        end
-      end
-
     desc "Delete an application (Doorkeeper Auth)", auth: { scopes: [] }, entity: Alpha::Entities::Application
       params do
         requires :id, type: Integer, desc: "ID of application"
