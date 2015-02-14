@@ -32,6 +32,7 @@ RSpec.describe "Alpha::Users", :type => :request do
         }.to_json
 
         response.body.should == @expected
+        response.status.should eq(200)
       end
     end
 

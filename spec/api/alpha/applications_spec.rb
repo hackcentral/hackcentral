@@ -10,15 +10,11 @@ RSpec.describe "Alpha::Applications", :type => :request do
       response.status.should eq(401)
     end
     it 'returns a 401 when users are not authenticated' do
-      get "https://api.vcap.me:3000/v1/applications/1"
-      response.status.should eq(401)
-    end
-    it 'returns a 401 when users are not authenticated' do
       post "https://api.vcap.me:3000/v1/applications"
       response.status.should eq(401)
     end
     it 'returns a 401 when users are not authenticated' do
-      put "https://api.vcap.me:3000/v1/applications/1"
+      get "https://api.vcap.me:3000/v1/applications/1"
       response.status.should eq(401)
     end
     it 'returns a 401 when users are not authenticated' do
@@ -78,8 +74,8 @@ RSpec.describe "Alpha::Applications", :type => :request do
         end
 
         it "creates a new application, making sure response is #201" do
-          post "http://api.vcap.me:3000/v1/applications", application: FactoryGirl.attributes_for(:application), :format => :json, :access_token => @token.token
-          response.status.should eq(400)
+          post "http://api.vcap.me:3000/v1/applications?access_token=#{@token.token}", FactoryGirl.attributes_for(:application), :format => :json
+          response.status.should eq(201)
         end
       end
     end
