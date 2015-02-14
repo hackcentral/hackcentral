@@ -6,7 +6,6 @@ module Alpha
     # Mountings
     mount Alpha::Applications
     mount Alpha::Hackathons
-    mount Alpha::Profiles
     mount Alpha::Users
 
     #desc "Returns pong."
@@ -14,9 +13,9 @@ module Alpha
       #{ ping: "pong" }
     #end
 
-    route :any, '*path' do
-      error! # or something else
-    end
+    #route :any, '*path' do
+      #error! # or something else
+    #end
 
   end
 end
