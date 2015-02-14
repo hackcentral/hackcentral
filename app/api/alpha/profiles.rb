@@ -11,7 +11,6 @@ module Alpha
       expose :resume_url
       expose :dietary_needs
       expose :user_id
-  end
     end
   end
 
