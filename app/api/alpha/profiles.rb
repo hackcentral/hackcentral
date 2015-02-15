@@ -107,5 +107,24 @@ module Alpha
           }.to_json, 401).finish
         end
       end
+
+    desc "Delete a profile (Doorkeeper Auth)", auth: { scopes: [] }, entity: Alpha::Entities::Profile
+      params do
+        requires :id, type: Integer, desc: "ID of application"
+      end
+
+      delete '/profiles/:id', http_codes: [ [200, "Ok", Alpha::Entities::Profile] ] do
+        @profile = Profile.find(params[:id])
+
+        if @profile.user_id == resource_owner.id
+          Profile.destroy(params[:id])
+          status 204
+        else
+          Rack::Response.new({
+            error: "unauthorized_oauth",
+            error_description: "Please supply a valid access token."
+          }.to_json, 401).finish
+        end
+      end
   end
 end
