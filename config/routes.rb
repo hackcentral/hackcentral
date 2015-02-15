@@ -65,14 +65,6 @@ Rails.application.routes.draw do
             patch "hackathons/:hackathon_id/submissions/:submission_id" => "submissions#update"
             delete "hackathons/:hackathon_id/submissions/:submission_id" => "submissions#destroy"
 
-          # PROFILES
-            get "/profiles" => "profiles#index"
-            post "profiles" => "profiles#create"
-            get "profiles/:id" => "profiles#show"
-            put "profiles/:id" => "profiles#update"
-            patch "profiles/:id" => "profiles#update"
-            delete "profiles/:id" => "profiles#destroy"
-
           # SUBMISSIONS
             get "submissions/:submission_id" => "submissions#show"
 
