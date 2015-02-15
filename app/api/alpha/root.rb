@@ -3,11 +3,14 @@ module Alpha
     version 'v1', using: :path
     format :json
 
-    # Mountings
+    # Regular Mountings
     mount Alpha::Applications
     mount Alpha::Hackathons
     mount Alpha::Profiles
     mount Alpha::Users
+
+    # Admin Mountings
+    mount Alpha::MLH
 
     #desc "Returns pong."
     #get "ping" do
