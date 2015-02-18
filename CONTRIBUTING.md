@@ -10,7 +10,7 @@ Fork the [project on Github](https://github.com/hackcentral/hackcentral) and che
 ```
 git clone https://github.com/contributor/hackcentral.git
 cd hackcentral
-git remote add upstream https://github.com/intridea/hackcentral.git
+git remote add upstream https://github.com/hackcentral/hackcentral.git
 ```
 
 #### Create a Topic Branch
@@ -93,7 +93,7 @@ git push origin my-feature-branch -f
 Update the [CHANGELOG](CHANGELOG.md) with the pull request number. A typical entry looks as follows.
 
 ```
-* [#123](https://github.com/intridea/hackcentral/pull/123): Reticulated splines - [@contributor](https://github.com/contributor).
+* [#123](https://github.com/hackcentral/hackcentral/pull/123): Reticulated splines - [@contributor](https://github.com/contributor).
 ```
 
 Amend your previous commit and force push the changes.
