@@ -10,6 +10,7 @@ module Alpha
     mount Alpha::Users
 
     # Admin Mountings
+    mount Alpha::Control
     mount Alpha::MLH
 
     #desc "Returns pong."
