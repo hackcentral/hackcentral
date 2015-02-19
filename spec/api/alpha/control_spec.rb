@@ -13,6 +13,10 @@ RSpec.describe "Alpha::Control", :type => :request do
       get "https://api.vcap.me:3000/v1/hackathons/1/applications/1"
       response.status.should eq(401)
     end
+    it 'returns a 401 when users are not authenticated' do
+      put "https://api.vcap.me:3000/v1/hackathons/1/applications/1/accept"
+      response.status.should eq(401)
+    end
   end
 
   context "with access token" do
@@ -75,6 +79,63 @@ RSpec.describe "Alpha::Control", :type => :request do
           response.status.should eq(200)
         else
           response.status.should eq(401)
+        end
+      end
+    end
+
+    describe 'PUT #update --> ACCEPT' do
+      before :each do
+        @oauth_application = FactoryGirl.build(:oauth_application)
+        @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => user.id)
+        @hackathon = FactoryGirl.create(:hackathon, user_id: '1')
+        @application = FactoryGirl.create(:application, hackathon_id: '1')
+      end
+
+      context "valid attributes && user_id ==?" do
+        it "sanction the @application" do
+          put "https://api.vcap.me:3000/v1/hackathons/1/applications/1/accept?access_token=#{@token.token}", :format => :json
+          response.status.should eq(200)
+        end
+
+        it "changes @application's attributes" do
+          put "https://api.vcap.me:3000/v1/hackathons/1/applications/1/accept?access_token=#{@token.token}", :format => :json
+          @application.reload
+          @application.accepted.should eq(true)
+        end
+      end
+
+      context "valid attributes && user_id !=" do
+        it "returns 401" do
+          put "https://api.vcap.me:3000/v1/hackathons/1/applications/1/accept?access_token=#{@token.token}", :format => :json
+          if @hackathon.user_id == user.id
+            response.status.should eq(200)
+          else
+            response.status.should eq(401)
+          end
+        end
+      end
+
+      context "valid attributes && organizer?" do
+        it "sanction the @application" do
+          put "https://api.vcap.me:3000/v1/hackathons/1/applications/1/accept?access_token=#{@token.token}", :format => :json
+          response.status.should eq(200)
+        end
+
+        it "changes @application's attributes" do
+          put "https://api.vcap.me:3000/v1/hackathons/1/applications/1/accept?access_token=#{@token.token}", :format => :json
+          @application.reload
+          @application.accepted.should eq(true)
+        end
+      end
+
+      context "valid attributes && organizer !=" do
+        it "returns 401" do
+          put "https://api.vcap.me:3000/v1/hackathons/1/applications/1/accept?access_token=#{@token.token}", :format => :json
+          if user.organizers.where(hackathon_id: @hackathon)
+            response.status.should eq(200)
+          else
+            response.status.should eq(401)
+          end
         end
       end
     end
