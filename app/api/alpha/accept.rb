@@ -1,6 +1,6 @@
 module Alpha
 
-  class Control < Grape::API
+  class Accept < Grape::API
     format :json
     use WineBouncer::OAuth2
 
@@ -10,10 +10,6 @@ module Alpha
         error_description: "Please supply a valid access token."
       }.to_json, 401).finish
     end
-
-    ####
-    ## APPLICATIONS ACCEPTANCE
-    ####
 
     desc "Show all applications to hackathon (Doorkeeper Auth)", auth: { scopes: [] }, entity: Alpha::Entities::Application
       params do

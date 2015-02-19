@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Alpha::Control", :type => :request do
+RSpec.describe "Alpha::Accept", :type => :request do
 
   let!(:user) { create(:user, mlh: true) }
 

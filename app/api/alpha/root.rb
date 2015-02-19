@@ -10,7 +10,7 @@ module Alpha
     mount Alpha::Users
 
     # Admin Mountings
-    mount Alpha::Control
+    mount Alpha::Accept
     mount Alpha::Checkin
     mount Alpha::MLH
 
