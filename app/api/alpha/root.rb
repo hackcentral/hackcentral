@@ -12,6 +12,7 @@ module Alpha
     # Admin Mountings
     mount Alpha::Accept
     mount Alpha::Checkin
+    mount Alpha::Control
     mount Alpha::MLH
 
     #desc "Returns pong."
