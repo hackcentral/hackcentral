@@ -14,15 +14,28 @@ module Alpha
     desc "Show all applications to hackathon (Doorkeeper Auth)", auth: { scopes: [] }, entity: Alpha::Entities::Application
       params do
         requires :hackathon_id, type: Integer, desc: "ID of hackathon"
+        optional :accepted, type: Boolean, desc: "Accpted to hackathon, true/false"
       end
 
       get '/hackathons/:hackathon_id/applications', http_codes: [ [200, "Ok", Alpha::Entities::Application] ] do
         @hackathon = Hackathon.find(params[:hackathon_id])
 
         if @hackathon.user_id == resource_owner.id or resource_owner.organizers.where(hackathon_id: @hackathon)
-          @applications = Application.where(hackathon_id: @hackathon)
-          status 200
-          present @applications, with: Alpha::Entities::Application
+          if params[:accepted] = "true"
+            @applications = Application.where(hackathon_id: @hackathon, accepted: true)
+            status 200
+            present @applications, with: Alpha::Entities::Application
+
+          elsif params[:accepted] = "false"
+            @applications = Application.where(hackathon_id: @hackathon, accepted: false)
+            status 200
+            present @applications, with: Alpha::Entities::Application
+
+          else
+            @applications = Application.where(hackathon_id: @hackathon)
+            status 200
+            present @applications, with: Alpha::Entities::Application
+          end
         else
           Rack::Response.new({
             error: "unauthorized_oauth",
