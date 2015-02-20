@@ -1,5 +1,16 @@
 module Alpha
 
+  module Entities
+    class Organizer < Grape::Entity
+      expose :id
+      expose :user_id
+      expose :hackathon_id
+      expose :created_at
+      expose :updated_at
+
+    end
+  end
+
   class Control < Grape::API
     format :json
     use WineBouncer::OAuth2
@@ -70,5 +81,27 @@ module Alpha
           }.to_json, 401).finish
         end
       end
+
+    desc "Show all organizers for hackathon (Doorkeeper Auth)", auth: { scopes: [] }, entity: Alpha::Entities::Organizer
+      params do
+        requires :hackathon_id, type: Integer, desc: "ID of hackathon"
+      end
+
+      get '/hackathons/:hackathon_id/organizers', http_codes: [ [200, "Ok", Alpha::Entities::Organizer] ] do
+        @hackathon = Hackathon.find(params[:hackathon_id])
+
+        if @hackathon.user_id == resource_owner.id or resource_owner.organizers.where(hackathon_id: @hackathon)
+          organizers = Organizer.where(hackathon_id: @hackathon).all
+
+          status 200
+          present organizers, with: Alpha::Entities::Organizer
+        else
+          Rack::Response.new({
+            error: "unauthorized_oauth",
+            error_description: "Please supply a valid access token."
+          }.to_json, 401).finish
+        end
+      end
+
   end
 end
