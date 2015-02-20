@@ -67,5 +67,67 @@ RSpec.describe "Alpha::Control", :type => :request do
         end
       end
     end
+
+    describe 'DELETE #destroy' do
+      before :each do
+        @oauth_application = FactoryGirl.build(:oauth_application)
+        @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => '1')
+        @hackathon = FactoryGirl.create(:hackathon, user_id: '1')
+      end
+
+      context "valid attributes && user_id ==?" do
+        it "located the requested @hackathon" do
+          get "http://api.vcap.me:3000/v1/hackathons/1?access_token=#{@token.token}", :format => :json
+          response.status.should eq(200)
+        end
+
+        it "deletes @hackathon" do
+          delete "http://api.vcap.me:3000/v1/hackathons/1?access_token=#{@token.token}", FactoryGirl.attributes_for(:hackathon), :format => :json
+        end
+
+        it "sends a 204" do
+          delete "http://api.vcap.me:3000/v1/hackathons/1?access_token=#{@token.token}", FactoryGirl.attributes_for(:hackathon), :format => :json
+          response.status.should eq(204)
+        end
+      end
+
+      context "valid attributes user !=" do
+        it "returns 401" do
+          delete "http://api.vcap.me:3000/v1/hackathons/1?access_token=#{@token.token}", FactoryGirl.attributes_for(:hackathon), :format => :json
+          if @hackathon.user_id == user.id
+            response.status.should eq(204)
+          else
+            response.status.should eq(401)
+          end
+        end
+      end
+
+      context "valid attributes && organizer?" do
+        it "located the requested @hackathon" do
+          get "http://api.vcap.me:3000/v1/hackathons/1?access_token=#{@token.token}", :format => :json
+          response.status.should eq(200)
+        end
+
+        it "deletes @hackathon" do
+          delete "http://api.vcap.me:3000/v1/hackathons/1?access_token=#{@token.token}", FactoryGirl.attributes_for(:hackathon), :format => :json
+        end
+
+        it "sends a 204" do
+          delete "http://api.vcap.me:3000/v1/hackathons/1?access_token=#{@token.token}", FactoryGirl.attributes_for(:hackathon), :format => :json
+          response.status.should eq(204)
+        end
+      end
+
+      context "valid attributes && organizer !=" do
+        it "returns 401" do
+          delete "https://api.vcap.me:3000/v1/hackathons/1?access_token=#{@token.token}", FactoryGirl.attributes_for(:hackathon), :format => :json
+          if user.organizers.where(hackathon_id: @hackathon)
+            response.status.should eq(204)
+          else
+            response.status.should eq(401)
+          end
+        end
+      end
+    end
   end
 end
