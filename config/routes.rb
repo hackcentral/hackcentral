@@ -78,8 +78,8 @@ Rails.application.routes.draw do
         get '', to: 'dashboards#index', as: '/'
       # MLH Admin
         get "/mlh" => "dashboards#mlh_root"
-        post "/mlh/sanction/:id" => "dashboards#mlh_sanction"
-        post "/mlh/unsanction/:id" => "dashboards#mlh_unsanction"
+        post "/mlh/sanction/:hackathon_id" => "dashboards#mlh_sanction"
+        post "/mlh/unsanction/:hackathon_id" => "dashboards#mlh_unsanction"
       # Organizer Admin
         get "/hackathons/:id" => "hackathons#index", as: :hackathon
 

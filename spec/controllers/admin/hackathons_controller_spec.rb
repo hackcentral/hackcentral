@@ -70,7 +70,6 @@ describe Admin::HackathonsController, :type => :controller do
         put :update, id: @hackathon, hackathon: FactoryGirl.attributes_for(:hackathon, name: "TestApps", subdomain: nil)
         @hackathon.reload
         @hackathon.name.should_not eq("TestApps")
-        @hackathon.subdomain.should eq("testapps")
       end
 
       it "re-renders the edit method" do

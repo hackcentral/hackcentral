@@ -19,7 +19,7 @@ FactoryGirl.define do
     f.start { Faker::Date.backward(14) }
     f.end { Faker::Date.backward(14) }
     f.hs_hackers_allowed "true"
-    f.subdomain "testapps"
+    f.subdomain { Faker::Name.first_name }
     f.user_id "1"
   end
 
