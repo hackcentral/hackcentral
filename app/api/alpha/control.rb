@@ -128,5 +128,25 @@ module Alpha
         end
       end
 
+    desc "Delete an organizer (Doorkeeper Auth)", auth: { scopes: [] }, entity: Alpha::Entities::Organizer
+      params do
+        requires :hackathon_id, type: Integer, desc: "ID of hackathon"
+        requires :organizer_id, type: Integer, desc: "ID of organizer"
+      end
+
+      delete '/hackathons/:hackathon_id/organizers/:organizer_id', http_codes: [ [200, "Ok", Alpha::Entities::Organizer] ] do
+        @hackathon = Hackathon.find(params[:hackathon_id])
+
+        if @hackathon.user_id == resource_owner.id or resource_owner.organizers.where(hackathon_id: @hackathon)
+          Organizer.destroy(params[:organizer_id])
+          status 204
+        else
+          Rack::Response.new({
+            error: "unauthorized_oauth",
+            error_description: "Please supply a valid access token."
+          }.to_json, 401).finish
+        end
+      end
+
   end
 end
