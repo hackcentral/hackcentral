@@ -103,5 +103,30 @@ module Alpha
         end
       end
 
+    desc "Create organizer for hackathon (Doorkeeper Auth)", auth: { scopes: [] }, entity: Alpha::Entities::Organizer
+      params do
+        requires :hackathon_id, type: Integer, desc: "ID of hackathon"
+        requires :user_id, type: Integer, desc: "ID of user"
+      end
+
+      post '/hackathons/:hackathon_id/organizers', http_codes: [ [200, "Ok", Alpha::Entities::Organizer] ] do
+        @hackathon = Hackathon.find(params[:hackathon_id])
+
+        if @hackathon.user_id == resource_owner.id or resource_owner.organizers.where(hackathon_id: @hackathon)
+          @organizer = Organizer.new
+          @organizer.hackathon_id = params[:hackathon_id]
+          @organizer.user_id = params[:user_id]
+          @organizer.save
+
+          status 201
+          present @organizer, with: Alpha::Entities::Organizer
+        else
+          Rack::Response.new({
+            error: "unauthorized_oauth",
+            error_description: "Please supply a valid access token."
+          }.to_json, 401).finish
+        end
+      end
+
   end
 end

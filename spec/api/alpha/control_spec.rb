@@ -17,6 +17,10 @@ RSpec.describe "Alpha::Control", :type => :request do
       get "https://api.vcap.me:3000/v1/hackathons/1/organizers"
       response.status.should eq(401)
     end
+    it 'returns a 401 when users are not authenticated' do
+      post "https://api.vcap.me:3000/v1/hackathons/1/organizers"
+      response.status.should eq(401)
+    end
   end
 
   context "with access token" do
@@ -178,6 +182,27 @@ RSpec.describe "Alpha::Control", :type => :request do
           else
             response.status.should eq(401)
           end
+        end
+      end
+    end
+
+    describe 'POST #create --> ORGANIZER' do
+      before :each do
+        @oauth_application = FactoryGirl.build(:oauth_application)
+        @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => user.id)
+        @hackathon = FactoryGirl.create(:hackathon, user_id: '1')
+      end
+
+      context "valid attributes && user_id ==" do
+        it "creates a new organizer" do
+          expect{
+            post "http://api.vcap.me:3000/v1/hackathons/1/organizers/?access_token=#{@token.token}", FactoryGirl.attributes_for(:organizer), :format => :json
+          } .to change(Organizer, :count).by(1)
+        end
+
+        it "creates a new application, making sure response is #201" do
+          post "http://api.vcap.me:3000/v1/hackathons/1/organizers?access_token=#{@token.token}", FactoryGirl.attributes_for(:organizer), :format => :json
+          response.status.should eq(201)
         end
       end
     end
