@@ -36,7 +36,7 @@ RSpec.describe ProfilesController, :type => :controller do
 
   describe "GET #new" do
     it "renders the new template" do
-      get 'new'
+      get :new
       response.should render_template 'new'
       response.status.should eq(200)
     end
@@ -79,7 +79,7 @@ RSpec.describe ProfilesController, :type => :controller do
     it "shows profile if correct_user" do
       if @profile.user_id == @current_user
         get :show, id: @profile, profile: FactoryGirl.attributes_for(:profile)
-        response.should render_template 'show'
+        response.should render_template 'edit'
         response.status.should eq(200)
       end
     end
@@ -128,7 +128,7 @@ RSpec.describe ProfilesController, :type => :controller do
         @profile.name.should_not eq("Carl")
       end
 
-      it "re-renders the edit method" do
+      it "renders the edit template" do
         put :update, id: @profile, profile: FactoryGirl.attributes_for(:profile, name: nil)
         response.should render_template 'edit'
       end
@@ -156,7 +156,7 @@ RSpec.describe ProfilesController, :type => :controller do
       end
     end
 
-    context "invalid attributes && correct_user" do
+    context "invalid attributes && not correct_user" do
       login_user
 
       it "will redirect if not correct_user" do

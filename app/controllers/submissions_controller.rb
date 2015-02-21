@@ -2,14 +2,14 @@ class SubmissionsController < ApplicationController
   before_action :set_hackathon, except: [:tag, :show]
   before_action :set_hackathon_submission, only: [:edit, :update, :destroy]
   before_action :set_submission, only: [:show]
-  #before_action :correct_user, only: [:edit, :update, :destroy]
+  before_action :correct_user, only: [:edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index, :show]
 
   # GET /submissions
   # GET /submissions.json
   def index
-      #@submissions = Submission.where(:hackathon_id => @hackathon).paginate(:page => params[:page], :per_page => 30) #Submission.all
-      @submissions = Submission.where(:hackathon_id => @hackathon).paginate(:page => params[:page]).order('id DESC')
+    #@submissions = Submission.where(:hackathon_id => @hackathon).paginate(:page => params[:page], :per_page => 30) #Submission.all
+    @submissions = Submission.where(:hackathon_id => @hackathon).paginate(:page => params[:page]).order('id DESC')
   end
 
   def tag
@@ -24,8 +24,7 @@ class SubmissionsController < ApplicationController
 
   # GET /submissions/new
   def new
-    @submission = @hackathon.submissions.build #Submission.new
-    @submission.user_id = current_user.id
+    @submission = @hackathon.submissions.build(user_id: current_user.id) #Submission.new
   end
 
   # GET /submissions/1/edit
@@ -35,9 +34,7 @@ class SubmissionsController < ApplicationController
   # POST /submissions
   # POST /submissions.json
   def create
-    #@submission.user_id = current_user
-    @submission = @hackathon.submissions.build(submission_params) #Submission.new(submission_params)
-    @submission.user_id = current_user.id
+    @submission = @hackathon.submissions.build(submission_params.merge(user_id: current_user.id)) #Submission.new(submission_params)
     @submission.submitted_at = Time.now if submitting?
 
     respond_to do |format|
@@ -91,7 +88,7 @@ class SubmissionsController < ApplicationController
     end
 
     def correct_user
-      @submission = current_user.submissions.find_by(id: params[:id])
+      @submission = current_user.submissions.friendly.find(params[:id])
       redirect_to hackathon_submissions_path(@hackathon), notice: "Not authorized to edit this submission" if @submission.nil?
     end
 
