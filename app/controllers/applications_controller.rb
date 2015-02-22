@@ -17,7 +17,11 @@ class ApplicationsController < ApplicationController
   # GET /applications/new
   def new
     if(params.has_key?(:hackathon_id))
-      @application = current_user.applications.build(hackathon_id: params[:hackathon_id]) #Application.new
+      if Hackathon.find_by_id(params[:hackathon_id])
+        @application = current_user.applications.build(hackathon_id: params[:hackathon_id]) #Application.new
+      else
+        redirect_to root_path, notice: "This hackathon doesn't exist."
+      end
     else
       redirect_to applications_path, notice: 'An application needs to have a hackathon_id.'
     end
