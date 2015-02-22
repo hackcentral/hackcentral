@@ -11,6 +11,7 @@ module Alpha
       expose :hackathon_id, documentation: { type: "Integer", desc: "ID of hackathon applying to" }
       expose :accepted #, documentation: { type: "String", desc: "If application was accepted to hackathon" }
       expose :checked_in #, documentation: { type: "String", desc: "If application was checked_in to hackathon" }
+      expose :rsvp
     end
   end
 

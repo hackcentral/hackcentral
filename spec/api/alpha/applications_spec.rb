@@ -42,7 +42,7 @@ RSpec.describe "Alpha::Applications", :type => :request do
       before :each do
         @oauth_application = FactoryGirl.build(:oauth_application)
         @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => user.id)
-        @application = FactoryGirl.create(:application)
+        @application = FactoryGirl.create(:application, rsvp: false)
       end
 
       it "should show the application" do
