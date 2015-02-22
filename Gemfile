@@ -28,7 +28,8 @@ gem 'newrelic_rpm'
 gem 'puma'
 gem 'bugsnag'
 gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
-    # Grape
+gem 'delayed_job_active_record'
+  # Grape
 gem 'grape'
 gem 'grape-raketasks'
 gem 'grape-entity'

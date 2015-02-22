@@ -112,6 +112,11 @@ GEM
       term-ansicolor
       thor
     database_cleaner (1.4.0)
+    delayed_job (4.0.6)
+      activesupport (>= 3.0, < 5.0)
+    delayed_job_active_record (4.0.3)
+      activerecord (>= 3.0, < 5.0)
+      delayed_job (>= 3.0, < 4.1)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
     devise (3.4.1)
@@ -332,6 +337,7 @@ DEPENDENCIES
   coffee-rails (= 4.1.0)
   coveralls
   database_cleaner
+  delayed_job_active_record
   devise
   doorkeeper (= 2.0.1)
   factory_girl_rails
