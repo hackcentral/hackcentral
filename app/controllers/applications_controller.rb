@@ -36,6 +36,8 @@ class ApplicationsController < ApplicationController
       if @application.save
         format.html { redirect_to @application, notice: 'Application was successfully created.' }
 
+        UserMailer.application_confirmation(@application.user, @application.hackathon).deliver_now
+
         Analytics.track(
           user_id: "#{@application.user_id}",
           event: 'Created an application',

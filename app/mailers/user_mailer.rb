@@ -1,9 +1,11 @@
 class UserMailer < ApplicationMailer
 
-  default from: "from@example.com"
+  default from: "\"HackCentral\" <support@hackcentral.co>"
 
-  def application_confirmation
-    @greeting = "Hi"
-    mail to: "to@example.org", subject: "Application confirmation"
+  def application_confirmation(user, hackathon)
+    @user = user
+    @hackathon = hackathon
+
+    mail to: user.email, subject: "#{hackathon.name} Application Submitted"
   end
 end

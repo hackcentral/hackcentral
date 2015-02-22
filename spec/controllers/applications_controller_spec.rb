@@ -51,13 +51,15 @@ RSpec.describe ApplicationsController, :type => :controller do
   describe "POST #create" do
     context "valid attributes" do
       it "creates a new application" do
+        @hackathon = FactoryGirl.create(:hackathon)
         expect{
-          post :create, application: FactoryGirl.attributes_for(:application)
+          post :create, hackathon_id: @hackathon, application: FactoryGirl.attributes_for(:application)
         } .to change(Application, :count).by(1)
       end
 
       it "redirects to new application" do
-        post :create, application: FactoryGirl.attributes_for(:application)
+        @hackathon = FactoryGirl.create(:hackathon)
+        post :create, hackathon_id: @hackathon, application: FactoryGirl.attributes_for(:application)
         response.should redirect_to Application.last
       end
     end

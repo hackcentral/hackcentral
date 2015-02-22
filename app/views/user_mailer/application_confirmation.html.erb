@@ -1,5 +1,10 @@
-<h1>UserMailer#application_confirmation</h1>
+<h1><%= @hackathon.name %> Confirmation</h1>
 
-<p>
-  <%= @greeting %>, find me in app/views/user_mailer/application_confirmation.html.erb
-</p>
+<p><%= @user.name %>,</p>
+
+<p>Thank you for submitting an application to <%= @hackathon.name %>.</p>
+
+<p>Let us know if you have any other questions.</p>
+
+<p>Sincerely,</p>
+<p>The <%= @hackathon.name %> Team</p>
