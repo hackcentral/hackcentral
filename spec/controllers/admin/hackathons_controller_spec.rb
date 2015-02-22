@@ -163,7 +163,6 @@ describe Admin::HackathonsController, :type => :controller do
         end
       end
     end
-
   end
 
   describe "DELETE #destroy" do
@@ -173,7 +172,6 @@ describe Admin::HackathonsController, :type => :controller do
     end
 
     context "valid attributes && correct_user" do
-
       it "deletes the hackathon" do
         if @hackathon.user_id == @current_user
           expect{
@@ -246,7 +244,6 @@ describe Admin::HackathonsController, :type => :controller do
         end
       end
     end
-
   end
 
   describe "GET #checkin_index" do
@@ -257,26 +254,140 @@ describe Admin::HackathonsController, :type => :controller do
     it "renders the checkin_index template" do
       get :checkin_index, id: @hackathon
       response.should render_template 'checkin_index'
+      response.status.should eq(200)
     end
   end
 
   describe "POST #checkin" do
     before :each do
       @hackathon = FactoryGirl.create(:hackathon)
-      @application = FactoryGirl.create(:application)
+      @hackathon1 = FactoryGirl.create(:hackathon, user_id: "2")
+      @application = FactoryGirl.create(:application, hackathon_id: "1")
+      @application1 = FactoryGirl.create(:application, hackathon_id: "2")
     end
 
-    context "valid attributes" do
-      it "changes @application's attributes" do
-        #post :checkin, id: @hackathon, application_id: FactoryGirl.attributes_for(:application).id
-        #@application = FactoryGirl.attributes_for(:application, accepted: true)
-        #@application.reload
-        #@application.accepted.should eq(true)
+    context "valid attributes && correct_user" do
+      it "checks in application" do
+        if @hackathon.user_id == @current_user
+          post :checkin, id: @hackathon, application_id: @application
+          @application.reload
+          @application.checked_in.should eq(true)
+        end
       end
 
-      it "redirects" do
-        #put :checkin, id: @hackathon, hackathon: FactoryGirl.attributes_for(:hackathon)
-        #response.should redirect_to admin_hackathon_tickets_path(@application.hackathon)
+      it "redirects to admin_hackathon_tickets_path" do
+        if @hackathon.user_id == @current_user
+          post :checkin, id: @hackathon, application_id: @application
+          response.should redirect_to admin_hackathon_tickets_path
+          flash[:notice].should == "Checkin complete!"
+        end
+      end
+    end
+
+    context "valid attributes && organizer" do
+      it "checks in application" do
+        if user.organizers.where(hackathon_id: @hackathon)
+          post :checkin, id: @hackathon, application_id: @application
+          @application.reload
+          @application.checked_in.should eq(true)
+        end
+      end
+
+      it "redirects to admin_hackathon_tickets_path" do
+        if user.organizers.where(hackathon_id: @hackathon)
+          post :checkin, id: @hackathon, application_id: @application
+          response.should redirect_to admin_hackathon_tickets_path
+          flash[:notice].should == "Checkin complete!"
+        end
+      end
+    end
+
+    context "valid attributes && correct_user !=" do
+      it "redirects to root_path" do
+        if @hackathon1.user_id == @current_user
+        else
+          post :checkin, id: @hackathon1, application_id: @application1
+          response.should redirect_to root_path
+          flash[:notice].should == "Not authorized"
+        end
+      end
+    end
+
+    context "valid attributes && organizer !=" do
+      it "redirects to root_path" do
+        if user.organizers.where(hackathon_id: @hackathon1)
+        else
+          post :checkin, id: @hackathon1, application_id: @application1
+          response.should redirect_to root_path
+          flash[:notice].should == "Not authorized"
+        end
+      end
+    end
+  end
+
+  describe "POST #uncheckin" do
+    before :each do
+      @hackathon = FactoryGirl.create(:hackathon)
+      @hackathon1 = FactoryGirl.create(:hackathon, user_id: "2")
+      @application = FactoryGirl.create(:application, hackathon_id: "1")
+      @application1 = FactoryGirl.create(:application, hackathon_id: "2")
+    end
+
+    context "valid attributes && correct_user" do
+      it "unchecks in application" do
+        if @hackathon.user_id == @current_user
+          post :uncheckin, id: @hackathon, application_id: @application
+          @application.reload
+          @application.checked_in.should eq(false)
+        end
+      end
+
+      it "redirects to admin_hackathon_tickets_path" do
+        if @hackathon.user_id == @current_user
+          post :uncheckin, id: @hackathon, application_id: @application
+          response.should redirect_to admin_hackathon_tickets_path
+          flash[:notice].should == "Un-checkin complete!"
+        end
+      end
+    end
+
+    context "valid attributes && organizer" do
+      it "unchecks in application" do
+        if user.organizers.where(hackathon_id: @hackathon)
+          post :uncheckin, id: @hackathon, application_id: @application
+          @application.reload
+          @application.checked_in.should eq(false)
+        end
+      end
+
+      it "redirects to admin_hackathon_tickets_path" do
+        if user.organizers.where(hackathon_id: @hackathon)
+          post :uncheckin, id: @hackathon, application_id: @application
+          response.should redirect_to admin_hackathon_tickets_path
+          flash[:notice].should == "Un-checkin complete!"
+        end
+      end
+    end
+
+    context "valid attributes && correct_user !=" do
+      it "redirects to root_path" do
+        if @hackathon1.user_id == @current_user
+        else
+          post :uncheckin, id: @hackathon1, application_id: @application1
+          response.should redirect_to root_path
+          flash[:notice].should == "Not authorized"
+        end
+      end
+    end
+
+    context "valid attributes && organizer !=" do
+      it "redirects to root_path" do
+        if user.organizers.where(hackathon_id: @hackathon1)
+        else
+          post :uncheckin, id: @hackathon1, application_id: @application1
+          response.should redirect_to root_path
+          flash[:notice].should == "Not authorized"
+        end
       end
     end
   end
