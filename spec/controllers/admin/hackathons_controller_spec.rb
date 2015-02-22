@@ -422,4 +422,138 @@ describe Admin::HackathonsController, :type => :controller do
     end
   end
 
+  describe "POST #application_accept" do
+    before :each do
+      @hackathon = FactoryGirl.create(:hackathon)
+      @hackathon1 = FactoryGirl.create(:hackathon, user_id: "2")
+      @application = FactoryGirl.create(:application, hackathon_id: "1")
+      @application1 = FactoryGirl.create(:application, hackathon_id: "2")
+    end
+
+    context "valid attributes && correct_user" do
+      it "accept application" do
+        if @hackathon.user_id == @current_user
+          post :application_accept, id: @hackathon, application_id: @application
+          @application.reload
+          @application.accepted.should eq(true)
+        end
+      end
+
+      it "redirects to admin_hackathon_applications_path" do
+        if @hackathon.user_id == @current_user
+          post :application_accept, id: @hackathon, application_id: @application
+          response.should redirect_to admin_hackathon_applications_path
+          flash[:notice].should == "Acceptance complete!"
+        end
+      end
+    end
+
+    context "valid attributes && organizer" do
+      it "accept application" do
+        if user.organizers.where(hackathon_id: @hackathon)
+          post :application_accept, id: @hackathon, application_id: @application
+          @application.reload
+          @application.accepted.should eq(true)
+        end
+      end
+
+      it "redirects to admin_hackathon_tickets_path" do
+        if user.organizers.where(hackathon_id: @hackathon)
+          post :application_accept, id: @hackathon, application_id: @application
+          response.should redirect_to admin_hackathon_applications_path
+          flash[:notice].should == "Acceptance complete!"
+        end
+      end
+    end
+
+    context "valid attributes && correct_user !=" do
+      it "redirects to root_path" do
+        if @hackathon1.user_id == @current_user
+        else
+          post :application_accept, id: @hackathon1, application_id: @application1
+          response.should redirect_to root_path
+          flash[:notice].should == "Not authorized"
+        end
+      end
+    end
+
+    context "valid attributes && organizer !=" do
+      it "redirects to root_path" do
+        if user.organizers.where(hackathon_id: @hackathon1)
+        else
+          post :application_accept, id: @hackathon1, application_id: @application1
+          response.should redirect_to root_path
+          flash[:notice].should == "Not authorized"
+        end
+      end
+    end
+  end
+
+  describe "POST #application_unaccept" do
+    before :each do
+      @hackathon = FactoryGirl.create(:hackathon)
+      @hackathon1 = FactoryGirl.create(:hackathon, user_id: "2")
+      @application = FactoryGirl.create(:application, hackathon_id: "1")
+      @application1 = FactoryGirl.create(:application, hackathon_id: "2")
+    end
+
+    context "valid attributes && correct_user" do
+      it "unaccept application" do
+        if @hackathon.user_id == @current_user
+          post :application_unaccept, id: @hackathon, application_id: @application
+          @application.reload
+          @application.accepted.should eq(false)
+        end
+      end
+
+      it "redirects to admin_hackathon_applications_path" do
+        if @hackathon.user_id == @current_user
+          post :application_unaccept, id: @hackathon, application_id: @application
+          response.should redirect_to admin_hackathon_applications_path
+          flash[:notice].should == "Acceptance complete!"
+        end
+      end
+    end
+
+    context "valid attributes && organizer" do
+      it "accept application" do
+        if user.organizers.where(hackathon_id: @hackathon)
+          post :application_unaccept, id: @hackathon, application_id: @application
+          @application.reload
+          @application.accepted.should eq(false)
+        end
+      end
+
+      it "redirects to admin_hackathon_tickets_path" do
+        if user.organizers.where(hackathon_id: @hackathon)
+          post :application_unaccept, id: @hackathon, application_id: @application
+          response.should redirect_to admin_hackathon_applications_path
+          flash[:notice].should == "Unacceptance complete!"
+        end
+      end
+    end
+
+    context "valid attributes && correct_user !=" do
+      it "redirects to root_path" do
+        if @hackathon1.user_id == @current_user
+        else
+          post :application_unaccept, id: @hackathon1, application_id: @application1
+          response.should redirect_to root_path
+          flash[:notice].should == "Not authorized"
+        end
+      end
+    end
+
+    context "valid attributes && organizer !=" do
+      it "redirects to root_path" do
+        if user.organizers.where(hackathon_id: @hackathon1)
+        else
+          post :application_unaccept, id: @hackathon1, application_id: @application1
+          response.should redirect_to root_path
+          flash[:notice].should == "Not authorized"
+        end
+      end
+    end
+  end
+
 end
