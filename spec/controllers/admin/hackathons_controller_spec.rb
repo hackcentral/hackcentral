@@ -323,6 +323,14 @@ describe Admin::HackathonsController, :type => :controller do
         end
       end
     end
+
+    context "application does not belong to hackathon" do
+      it "redirects to root_path" do
+        post :checkin, hackathon_id: @hackathon1, application_id: @application
+        response.should redirect_to root_path
+        flash[:notice].should == "Not authorized"
+      end
+    end
   end
 
   describe "POST #uncheckin" do
@@ -390,6 +398,14 @@ describe Admin::HackathonsController, :type => :controller do
         end
       end
     end
+
+    context "application does not belong to hackathon" do
+      it "redirects to root_path" do
+        post :uncheckin, hackathon_id: @hackathon1, application_id: @application
+        response.should redirect_to root_path
+        flash[:notice].should == "Not authorized"
+      end
+    end
   end
 
   describe "GET #application_index" do
@@ -425,6 +441,7 @@ describe Admin::HackathonsController, :type => :controller do
   describe "GET #application_show" do
     before :each do
       @hackathon = FactoryGirl.create(:hackathon)
+      @hackathon1 = FactoryGirl.create(:hackathon, user_id: "2")
       @application = FactoryGirl.create(:application, hackathon_id: "1")
     end
 
@@ -432,6 +449,14 @@ describe Admin::HackathonsController, :type => :controller do
       get :application_show, hackathon_id: @hackathon, application_id: @application
       response.should render_template 'application_show'
       response.status.should eq(200)
+    end
+
+    context "application does not belong to hackathon" do
+      it "redirects to root_path" do
+        get :application_show, hackathon_id: @hackathon1, application_id: @application
+        response.should redirect_to root_path
+        flash[:notice].should == "Not authorized"
+      end
     end
   end
 
@@ -500,6 +525,14 @@ describe Admin::HackathonsController, :type => :controller do
         end
       end
     end
+
+    context "application does not belong to hackathon" do
+      it "redirects to root_path" do
+        post :application_accept, hackathon_id: @hackathon1, application_id: @application
+        response.should redirect_to root_path
+        flash[:notice].should == "Not authorized"
+      end
+    end
   end
 
   describe "POST #application_unaccept" do
@@ -565,6 +598,14 @@ describe Admin::HackathonsController, :type => :controller do
           response.should redirect_to root_path
           flash[:notice].should == "Not authorized"
         end
+      end
+    end
+
+    context "application does not belong to hackathon" do
+      it "redirects to root_path" do
+        post :application_unaccept, hackathon_id: @hackathon1, application_id: @application
+        response.should redirect_to root_path
+        flash[:notice].should == "Not authorized"
       end
     end
   end
