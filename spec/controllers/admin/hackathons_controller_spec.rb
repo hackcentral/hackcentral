@@ -392,4 +392,34 @@ describe Admin::HackathonsController, :type => :controller do
     end
   end
 
+  describe "GET #application_index" do
+    before :each do
+      @hackathon = FactoryGirl.create(:hackathon)
+    end
+
+    context "accepted = t" do
+      it "renders the application_index template" do
+        get :application_index, id: @hackathon, accepted: "t"
+        response.should render_template 'application_index'
+        response.status.should eq(200)
+      end
+    end
+
+    context "accepted = f" do
+      it "renders the application_index template" do
+        get :application_index, id: @hackathon, accepted: "f"
+        response.should render_template 'application_index'
+        response.status.should eq(200)
+      end
+    end
+
+    context "accepted = nil" do
+      it "renders the application_index template" do
+        get :application_index, id: @hackathon
+        response.should render_template 'application_index'
+        response.status.should eq(200)
+      end
+    end
+  end
+
 end
