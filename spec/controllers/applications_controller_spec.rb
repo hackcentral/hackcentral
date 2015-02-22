@@ -35,6 +35,10 @@ RSpec.describe ApplicationsController, :type => :controller do
   end
 
   describe "GET #new" do
+    before :each do
+      @hackathon = FactoryGirl.create(:hackathon)
+    end
+
     it "redirects if no params[:hackathon_id]" do
       get :new
       response.should redirect_to applications_path
@@ -42,9 +46,15 @@ RSpec.describe ApplicationsController, :type => :controller do
     end
 
     it "renders the new template" do
-      get :new, :hackathon_id => Faker::Number.number(4)
+      get :new, :hackathon_id => @hackathon
       response.should render_template 'new'
       response.status.should eq(200)
+    end
+
+    it 'redirects to root_path if Hackathon is fake' do
+      get :new, :hackathon_id => "90"
+      response.should redirect_to root_path
+      flash[:notice].should == "This hackathon doesn't exist."
     end
   end
 
