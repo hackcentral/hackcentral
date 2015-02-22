@@ -146,7 +146,7 @@ describe Admin::HackathonsController, :type => :controller do
     context "valid attributes && user_id !=" do
       it "redirects to root_path" do
         put :update, id: @hackathon1, hackathon: FactoryGirl.attributes_for(:hackathon, user_id: "3")
-        if @hackathon.user_id != @current_user
+        if @hackathon1.user_id != @current_user
           response.should redirect_to root_path
           flash[:notice].should == "Not authorized"
         end
@@ -156,7 +156,7 @@ describe Admin::HackathonsController, :type => :controller do
     context "valid attributes && organizer !=" do
       it "redirects to root_path" do
         put :update, id: @hackathon1, hackathon: FactoryGirl.attributes_for(:hackathon, user_id: "3")
-        if user.organizers.where(hackathon_id: @hackathon)
+        if user.organizers.where(hackathon_id: @hackathon1)
         else
           response.should redirect_to root_path
           flash[:notice].should == "Not authorized"
@@ -169,15 +169,16 @@ describe Admin::HackathonsController, :type => :controller do
   describe "DELETE #destroy" do
     before :each do
       @hackathon = FactoryGirl.create(:hackathon)
+      @hackathon1 = FactoryGirl.create(:hackathon, user_id: '3')
     end
 
-    context "correct_user" do
+    context "valid attributes && correct_user" do
+
       it "deletes the hackathon" do
         if @hackathon.user_id == @current_user
           expect{
             delete :destroy, id: @hackathon
           }.to change(Hackathon,:count).by(-1)
-        else
         end
       end
 
@@ -185,13 +186,67 @@ describe Admin::HackathonsController, :type => :controller do
         if @hackathon.user_id == @current_user
           delete :destroy, id: @hackathon
           response.should redirect_to root_path
-        else
         end
       end
     end
 
-    context "not correct_user" do
+    context "valid attributes && organizer" do
+      it "deletes the hackathon" do
+        if user.organizers.where(hackathon_id: @hackathon)
+          expect{
+            delete :destroy, id: @hackathon
+          }.to change(Hackathon,:count).by(-1)
+        end
+      end
+
+      it "redirects to root_path" do
+        if user.organizers.where(hackathon_id: @hackathon)
+          delete :destroy, id: @hackathon
+          response.should redirect_to root_path
+        end
+      end
     end
+
+    context "valid attributes && correct_user !=" do
+      it "will not delete hackathon" do
+        if @hackathon1.user_id == @current_user
+        else
+          expect{
+            delete :destroy, id: @hackathon1
+          }.to change(Hackathon,:count).by(0)
+        end
+      end
+
+      it "redirects to root_path" do
+        if @hackathon1.user_id == @current_user
+        else
+          delete :destroy, id: @hackathon1
+          response.should redirect_to root_path
+          flash[:notice].should == "Not authorized"
+        end
+      end
+    end
+
+    context "valid attributes && organizer !=" do
+      it "will not delete hackathon" do
+        if user.organizers.where(hackathon_id: @hackathon1)
+        else
+          expect{
+            delete :destroy, id: @hackathon1
+          }.to change(Hackathon,:count).by(0)
+        end
+      end
+
+      it "redirects to root_path" do
+        if user.organizers.where(hackathon_id: @hackathon1)
+        else
+          delete :destroy, id: @hackathon1
+          response.should redirect_to root_path
+          flash[:notice].should == "Not authorized"
+        end
+      end
+    end
+
   end
 
   describe "GET #checkin_index" do
