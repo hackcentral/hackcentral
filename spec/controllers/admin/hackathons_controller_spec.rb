@@ -422,6 +422,19 @@ describe Admin::HackathonsController, :type => :controller do
     end
   end
 
+  describe "GET #application_show" do
+    before :each do
+      @hackathon = FactoryGirl.create(:hackathon)
+      @application = FactoryGirl.create(:application, hackathon_id: "1")
+    end
+
+    it "renders the application_show template" do
+      get :application_show, id: @hackathon, application_id: @application
+      response.should render_template 'application_show'
+      response.status.should eq(200)
+    end
+  end
+
   describe "POST #application_accept" do
     before :each do
       @hackathon = FactoryGirl.create(:hackathon)
