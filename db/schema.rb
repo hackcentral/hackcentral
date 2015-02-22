@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150115225458) do
+ActiveRecord::Schema.define(version: 20150222200522) do
 
   create_table "applications", force: :cascade do |t|
     t.boolean  "reimbursement_needed"
@@ -27,6 +27,22 @@ ActiveRecord::Schema.define(version: 20150115225458) do
   add_index "applications", ["accepted"], name: "index_applications_on_accepted"
   add_index "applications", ["profile_id"], name: "index_applications_on_profile_id"
   add_index "applications", ["user_id"], name: "index_applications_on_user_id"
+
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer  "priority",   default: 0, null: false
+    t.integer  "attempts",   default: 0, null: false
+    t.text     "handler",                null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
