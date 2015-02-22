@@ -200,7 +200,7 @@ GEM
       cocaine (~> 0.5.3)
       mime-types
     pg (0.18.1)
-    puma (2.11.0)
+    puma (2.11.1)
       rack (>= 1.1, < 2.0)
     rack (1.6.0)
     rack-accept (0.4.5)
