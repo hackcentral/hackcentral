@@ -81,21 +81,29 @@ Rails.application.routes.draw do
         post "/mlh/sanction/:hackathon_id" => "dashboards#mlh_sanction"
         post "/mlh/unsanction/:hackathon_id" => "dashboards#mlh_unsanction"
       # Organizer Admin
-        get "/hackathons/:id" => "hackathons#index", as: :hackathon
+        get "/hackathons/:hackathon_id" => "hackathons#index", as: :hackathon
 
-        get "/hackathons/:id/applications" => "hackathons#application_index", as: :hackathon_applications
-        get "/hackathons/:id/applications/:application_id/" => "hackathons#application_show", as: :hackathon_application
-        post "/hackathons/:id/applications/:application_id/accept" => "hackathons#application_accept"
-        post "/hackathons/:id/applications/:application_id/unaccept" => "hackathons#application_unaccept"
+        get "/hackathons/:hackathon_id/applications" => "hackathons#application_index", as: :hackathon_applications
+        get "/hackathons/:hackathon_id/applications/:application_id/" => "hackathons#application_show", as: :hackathon_application
+        post "/hackathons/:hackathon_id/applications/:application_id/accept" => "hackathons#application_accept"
+        post "/hackathons/:hackathon_id/applications/:application_id/unaccept" => "hackathons#application_unaccept"
 
-        get "/hackathons/:id/tickets" => "hackathons#checkin_index", as: :hackathon_tickets
-        post "/hackathons/:id/:application_id/checkin" => "hackathons#checkin"
-        post "/hackathons/:id/:application_id/uncheckin" => "hackathons#uncheckin"
+        get "/hackathons/:hackathon_id/tickets" => "hackathons#checkin_index", as: :hackathon_tickets
+        post "/hackathons/:hackathon_id/:application_id/checkin" => "hackathons#checkin"
+        post "/hackathons/:hackathon_id/:application_id/uncheckin" => "hackathons#uncheckin"
 
+      # Hackathon Admin
+        get "/hackathons/:hackathon_id/edit" => "hackathons#edit", as: :edit_hackathon
+        put "/hackathons/:hackathon_id/" => "hackathons#update"
+        patch "/hackathons/:hackathon_id/" => "hackathons#update"
+        delete "/hackathons/:hackathon_id/" => "hackathons#destroy"
 
-        resources :hackathons, only: [:edit, :update, :destroy], controller: 'hackathons' do
-          resources :organizers, only: [:index, :new, :create, :destroy]
-        end
+      # Hackathon --> Organizer Admin
+        get "/hackathons/:hackathon_id/organizers" => "organizers#index", as: :hackathon_organizers
+        get "/hackathons/:hackathon_id/organizers/new" => "organizers#new", as: :new_hackathon_organizer
+        post "/hackathons/:hackathon_id/organizers" => "organizers#create"
+        delete "/hackathons/:hackathon_id/organizers" => "organizers#destroy"
+
     end
   end
 

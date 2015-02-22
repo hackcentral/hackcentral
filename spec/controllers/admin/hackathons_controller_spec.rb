@@ -12,7 +12,7 @@ describe Admin::HackathonsController, :type => :controller do
     end
 
     it "renders the index template" do
-      get :index, id: @hackathon
+      get :index, hackathon_id: @hackathon
       response.should render_template 'index'
       response.status.should eq(200)
     end
@@ -26,7 +26,7 @@ describe Admin::HackathonsController, :type => :controller do
 
     it "renders edit template if correct_user" do
       if @hackathon.user_id == @current_user
-        get :edit, id: @hackathon, hackathon: FactoryGirl.attributes_for(:hackathon)
+        get :edit, hackathon_id: @hackathon, hackathon: FactoryGirl.attributes_for(:hackathon)
         response.should render_template 'edit'
         response.status.should eq(200)
       end
@@ -34,7 +34,7 @@ describe Admin::HackathonsController, :type => :controller do
 
     it "will redirect if not correct_user" do
       if @hackathon.user_id != @current_user
-        get :edit, id: @hackathon1, hackathon: FactoryGirl.attributes_for(:hackathon, user_id: '3')
+        get :edit, hackathon_id: @hackathon1, hackathon: FactoryGirl.attributes_for(:hackathon, user_id: '3')
         response.should redirect_to root_path
         flash[:notice].should == "Not authorized"
       end
@@ -42,11 +42,11 @@ describe Admin::HackathonsController, :type => :controller do
 
     it "renders edit template if organizer" do
       if user.organizers.where(hackathon_id: @hackathon)
-        get :edit, id: @hackathon, hackathon: FactoryGirl.attributes_for(:hackathon)
+        get :edit, hackathon_id: @hackathon, hackathon: FactoryGirl.attributes_for(:hackathon)
         response.should render_template 'edit'
         response.status.should eq(200)
       else
-        get :edit, id: @hackathon, hackathon: FactoryGirl.attributes_for(:hackathon)
+        get :edit, hackathon_id: @hackathon, hackathon: FactoryGirl.attributes_for(:hackathon)
         response.should redirect_to root_path
         flash[:notice].should == "Not authorized"
       end
@@ -61,18 +61,18 @@ describe Admin::HackathonsController, :type => :controller do
 
     context "valid attributes && correct_user" do
       it "located the requested @hackathon" do
-        put :update, id: @hackathon, hackathon: FactoryGirl.attributes_for(:hackathon)
+        put :update, hackathon_id: @hackathon, hackathon: FactoryGirl.attributes_for(:hackathon)
         assigns(:hackathon).should eq(@hackathon)
       end
 
       it "changes @hackathon's attributes" do
-        put :update, id: @hackathon, hackathon: FactoryGirl.attributes_for(:hackathon, name: "TestApps")
+        put :update, hackathon_id: @hackathon, hackathon: FactoryGirl.attributes_for(:hackathon, name: "TestApps")
         @hackathon.reload
         @hackathon.name.should eq("TestApps")
       end
 
       it "redirects to updated hackathon" do
-        put :update, id: @hackathon, hackathon: FactoryGirl.attributes_for(:hackathon)
+        put :update, hackathon_id: @hackathon, hackathon: FactoryGirl.attributes_for(:hackathon)
         response.should redirect_to admin_hackathon_path
       end
     end
@@ -80,14 +80,14 @@ describe Admin::HackathonsController, :type => :controller do
     context "valid attributes && organizer" do
       it "located the request @hackathon" do
         if user.organizers.where(hackathon_id: @hackathon)
-          put :update, id: @hackathon, hackathon: FactoryGirl.attributes_for(:hackathon)
+          put :update, hackathon_id: @hackathon, hackathon: FactoryGirl.attributes_for(:hackathon)
           assigns(:hackathon).should eq(@hackathon)
         end
       end
 
       it "changes @hackathon's attributes" do
         if user.organizers.where(hackathon_id: @hackathon)
-          put :update, id: @hackathon, hackathon: FactoryGirl.attributes_for(:hackathon, name: "TestApps")
+          put :update, hackathon_id: @hackathon, hackathon: FactoryGirl.attributes_for(:hackathon, name: "TestApps")
           @hackathon.reload
           @hackathon.name.should eq("TestApps")
         end
@@ -95,7 +95,7 @@ describe Admin::HackathonsController, :type => :controller do
 
       it "redirects to updated hackathon" do
         if user.organizers.where(hackathon_id: @hackathon)
-          put :update, id: @hackathon, hackathon: FactoryGirl.attributes_for(:hackathon)
+          put :update, hackathon_id: @hackathon, hackathon: FactoryGirl.attributes_for(:hackathon)
           response.should redirect_to admin_hackathon_path
         end
       end
@@ -103,18 +103,18 @@ describe Admin::HackathonsController, :type => :controller do
 
     context "invalid attributes && correct_user" do
       it "located the requested @hackathon" do
-        put :update, id: @hackathon, hackathon: FactoryGirl.attributes_for(:hackathon)
+        put :update, hackathon_id: @hackathon, hackathon: FactoryGirl.attributes_for(:hackathon)
         assigns(:hackathon).should eq(@hackathon)
       end
 
       it "does not change @hackathon's attributes" do
-        put :update, id: @hackathon, hackathon: FactoryGirl.attributes_for(:hackathon, name: "TestApps", subdomain: nil)
+        put :update, hackathon_id: @hackathon, hackathon: FactoryGirl.attributes_for(:hackathon, name: "TestApps", subdomain: nil)
         @hackathon.reload
         @hackathon.subdomain.should_not eq("test")
       end
 
       it "renders the edit template" do
-        put :update, id: @hackathon, hackathon: FactoryGirl.attributes_for(:hackathon, name: "TestApps", subdomain: nil)
+        put :update, hackathon_id: @hackathon, hackathon: FactoryGirl.attributes_for(:hackathon, name: "TestApps", subdomain: nil)
         response.should render_template 'edit'
       end
     end
@@ -122,14 +122,14 @@ describe Admin::HackathonsController, :type => :controller do
     context "invalid attributes && organizer" do
       it "located the requested @hackathon" do
         if user.organizers.where(hackathon_id: @hackathon)
-          put :update, id: @hackathon, hackathon: FactoryGirl.attributes_for(:hackathon)
+          put :update, hackathon_id: @hackathon, hackathon: FactoryGirl.attributes_for(:hackathon)
           assigns(:hackathon).should eq(@hackathon)
         end
       end
 
       it "does not change @hackathon's attributes" do
         if user.organizers.where(hackathon_id: @hackathon)
-          put :update, id: @hackathon, hackathon: FactoryGirl.attributes_for(:hackathon, name: "TestApps", subdomain: nil)
+          put :update, hackathon_id: @hackathon, hackathon: FactoryGirl.attributes_for(:hackathon, name: "TestApps", subdomain: nil)
           @hackathon.reload
           @hackathon.subdomain.should_not eq("test")
         end
@@ -137,7 +137,7 @@ describe Admin::HackathonsController, :type => :controller do
 
       it "renders the edit template" do
         if user.organizers.where(hackathon_id: @hackathon)
-          put :update, id: @hackathon, hackathon: FactoryGirl.attributes_for(:hackathon, name: "TestApps", subdomain: nil)
+          put :update, hackathon_id: @hackathon, hackathon: FactoryGirl.attributes_for(:hackathon, name: "TestApps", subdomain: nil)
           response.should render_template 'edit'
         end
       end
@@ -145,7 +145,7 @@ describe Admin::HackathonsController, :type => :controller do
 
     context "valid attributes && user_id !=" do
       it "redirects to root_path" do
-        put :update, id: @hackathon1, hackathon: FactoryGirl.attributes_for(:hackathon, user_id: "3")
+        put :update, hackathon_id: @hackathon1, hackathon: FactoryGirl.attributes_for(:hackathon, user_id: "3")
         if @hackathon1.user_id != @current_user
           response.should redirect_to root_path
           flash[:notice].should == "Not authorized"
@@ -155,7 +155,7 @@ describe Admin::HackathonsController, :type => :controller do
 
     context "valid attributes && organizer !=" do
       it "redirects to root_path" do
-        put :update, id: @hackathon1, hackathon: FactoryGirl.attributes_for(:hackathon, user_id: "3")
+        put :update, hackathon_id: @hackathon1, hackathon: FactoryGirl.attributes_for(:hackathon, user_id: "3")
         if user.organizers.where(hackathon_id: @hackathon1)
         else
           response.should redirect_to root_path
@@ -175,14 +175,14 @@ describe Admin::HackathonsController, :type => :controller do
       it "deletes the hackathon" do
         if @hackathon.user_id == @current_user
           expect{
-            delete :destroy, id: @hackathon
+            delete :destroy, hackathon_id: @hackathon
           }.to change(Hackathon,:count).by(-1)
         end
       end
 
       it "redirects to root_path" do
         if @hackathon.user_id == @current_user
-          delete :destroy, id: @hackathon
+          delete :destroy, hackathon_id: @hackathon
           response.should redirect_to root_path
         end
       end
@@ -192,14 +192,14 @@ describe Admin::HackathonsController, :type => :controller do
       it "deletes the hackathon" do
         if user.organizers.where(hackathon_id: @hackathon)
           expect{
-            delete :destroy, id: @hackathon
+            delete :destroy, hackathon_id: @hackathon
           }.to change(Hackathon,:count).by(-1)
         end
       end
 
       it "redirects to root_path" do
         if user.organizers.where(hackathon_id: @hackathon)
-          delete :destroy, id: @hackathon
+          delete :destroy, hackathon_id: @hackathon
           response.should redirect_to root_path
         end
       end
@@ -210,7 +210,7 @@ describe Admin::HackathonsController, :type => :controller do
         if @hackathon1.user_id == @current_user
         else
           expect{
-            delete :destroy, id: @hackathon1
+            delete :destroy, hackathon_id: @hackathon1
           }.to change(Hackathon,:count).by(0)
         end
       end
@@ -218,7 +218,7 @@ describe Admin::HackathonsController, :type => :controller do
       it "redirects to root_path" do
         if @hackathon1.user_id == @current_user
         else
-          delete :destroy, id: @hackathon1
+          delete :destroy, hackathon_id: @hackathon1
           response.should redirect_to root_path
           flash[:notice].should == "Not authorized"
         end
@@ -230,7 +230,7 @@ describe Admin::HackathonsController, :type => :controller do
         if user.organizers.where(hackathon_id: @hackathon1)
         else
           expect{
-            delete :destroy, id: @hackathon1
+            delete :destroy, hackathon_id: @hackathon1
           }.to change(Hackathon,:count).by(0)
         end
       end
@@ -238,7 +238,7 @@ describe Admin::HackathonsController, :type => :controller do
       it "redirects to root_path" do
         if user.organizers.where(hackathon_id: @hackathon1)
         else
-          delete :destroy, id: @hackathon1
+          delete :destroy, hackathon_id: @hackathon1
           response.should redirect_to root_path
           flash[:notice].should == "Not authorized"
         end
@@ -252,7 +252,7 @@ describe Admin::HackathonsController, :type => :controller do
     end
 
     it "renders the checkin_index template" do
-      get :checkin_index, id: @hackathon
+      get :checkin_index, hackathon_id: @hackathon
       response.should render_template 'checkin_index'
       response.status.should eq(200)
     end
@@ -269,7 +269,7 @@ describe Admin::HackathonsController, :type => :controller do
     context "valid attributes && correct_user" do
       it "checks in application" do
         if @hackathon.user_id == @current_user
-          post :checkin, id: @hackathon, application_id: @application
+          post :checkin, hackathon_id: @hackathon, application_id: @application
           @application.reload
           @application.checked_in.should eq(true)
         end
@@ -277,7 +277,7 @@ describe Admin::HackathonsController, :type => :controller do
 
       it "redirects to admin_hackathon_tickets_path" do
         if @hackathon.user_id == @current_user
-          post :checkin, id: @hackathon, application_id: @application
+          post :checkin, hackathon_id: @hackathon, application_id: @application
           response.should redirect_to admin_hackathon_tickets_path
           flash[:notice].should == "Checkin complete!"
         end
@@ -287,7 +287,7 @@ describe Admin::HackathonsController, :type => :controller do
     context "valid attributes && organizer" do
       it "checks in application" do
         if user.organizers.where(hackathon_id: @hackathon)
-          post :checkin, id: @hackathon, application_id: @application
+          post :checkin, hackathon_id: @hackathon, application_id: @application
           @application.reload
           @application.checked_in.should eq(true)
         end
@@ -295,7 +295,7 @@ describe Admin::HackathonsController, :type => :controller do
 
       it "redirects to admin_hackathon_tickets_path" do
         if user.organizers.where(hackathon_id: @hackathon)
-          post :checkin, id: @hackathon, application_id: @application
+          post :checkin, hackathon_id: @hackathon, application_id: @application
           response.should redirect_to admin_hackathon_tickets_path
           flash[:notice].should == "Checkin complete!"
         end
@@ -306,7 +306,7 @@ describe Admin::HackathonsController, :type => :controller do
       it "redirects to root_path" do
         if @hackathon1.user_id == @current_user
         else
-          post :checkin, id: @hackathon1, application_id: @application1
+          post :checkin, hackathon_id: @hackathon1, application_id: @application1
           response.should redirect_to root_path
           flash[:notice].should == "Not authorized"
         end
@@ -317,7 +317,7 @@ describe Admin::HackathonsController, :type => :controller do
       it "redirects to root_path" do
         if user.organizers.where(hackathon_id: @hackathon1)
         else
-          post :checkin, id: @hackathon1, application_id: @application1
+          post :checkin, hackathon_id: @hackathon1, application_id: @application1
           response.should redirect_to root_path
           flash[:notice].should == "Not authorized"
         end
@@ -336,7 +336,7 @@ describe Admin::HackathonsController, :type => :controller do
     context "valid attributes && correct_user" do
       it "unchecks in application" do
         if @hackathon.user_id == @current_user
-          post :uncheckin, id: @hackathon, application_id: @application
+          post :uncheckin, hackathon_id: @hackathon, application_id: @application
           @application.reload
           @application.checked_in.should eq(false)
         end
@@ -344,7 +344,7 @@ describe Admin::HackathonsController, :type => :controller do
 
       it "redirects to admin_hackathon_tickets_path" do
         if @hackathon.user_id == @current_user
-          post :uncheckin, id: @hackathon, application_id: @application
+          post :uncheckin, hackathon_id: @hackathon, application_id: @application
           response.should redirect_to admin_hackathon_tickets_path
           flash[:notice].should == "Un-checkin complete!"
         end
@@ -354,7 +354,7 @@ describe Admin::HackathonsController, :type => :controller do
     context "valid attributes && organizer" do
       it "unchecks in application" do
         if user.organizers.where(hackathon_id: @hackathon)
-          post :uncheckin, id: @hackathon, application_id: @application
+          post :uncheckin, hackathon_id: @hackathon, application_id: @application
           @application.reload
           @application.checked_in.should eq(false)
         end
@@ -362,7 +362,7 @@ describe Admin::HackathonsController, :type => :controller do
 
       it "redirects to admin_hackathon_tickets_path" do
         if user.organizers.where(hackathon_id: @hackathon)
-          post :uncheckin, id: @hackathon, application_id: @application
+          post :uncheckin, hackathon_id: @hackathon, application_id: @application
           response.should redirect_to admin_hackathon_tickets_path
           flash[:notice].should == "Un-checkin complete!"
         end
@@ -373,7 +373,7 @@ describe Admin::HackathonsController, :type => :controller do
       it "redirects to root_path" do
         if @hackathon1.user_id == @current_user
         else
-          post :uncheckin, id: @hackathon1, application_id: @application1
+          post :uncheckin, hackathon_id: @hackathon1, application_id: @application1
           response.should redirect_to root_path
           flash[:notice].should == "Not authorized"
         end
@@ -384,7 +384,7 @@ describe Admin::HackathonsController, :type => :controller do
       it "redirects to root_path" do
         if user.organizers.where(hackathon_id: @hackathon1)
         else
-          post :uncheckin, id: @hackathon1, application_id: @application1
+          post :uncheckin, hackathon_id: @hackathon1, application_id: @application1
           response.should redirect_to root_path
           flash[:notice].should == "Not authorized"
         end
@@ -399,7 +399,7 @@ describe Admin::HackathonsController, :type => :controller do
 
     context "accepted = t" do
       it "renders the application_index template" do
-        get :application_index, id: @hackathon, accepted: "t"
+        get :application_index, hackathon_id: @hackathon, accepted: "t"
         response.should render_template 'application_index'
         response.status.should eq(200)
       end
@@ -407,7 +407,7 @@ describe Admin::HackathonsController, :type => :controller do
 
     context "accepted = f" do
       it "renders the application_index template" do
-        get :application_index, id: @hackathon, accepted: "f"
+        get :application_index, hackathon_id: @hackathon, accepted: "f"
         response.should render_template 'application_index'
         response.status.should eq(200)
       end
@@ -415,7 +415,7 @@ describe Admin::HackathonsController, :type => :controller do
 
     context "accepted = nil" do
       it "renders the application_index template" do
-        get :application_index, id: @hackathon
+        get :application_index, hackathon_id: @hackathon
         response.should render_template 'application_index'
         response.status.should eq(200)
       end
@@ -429,7 +429,7 @@ describe Admin::HackathonsController, :type => :controller do
     end
 
     it "renders the application_show template" do
-      get :application_show, id: @hackathon, application_id: @application
+      get :application_show, hackathon_id: @hackathon, application_id: @application
       response.should render_template 'application_show'
       response.status.should eq(200)
     end
@@ -446,7 +446,7 @@ describe Admin::HackathonsController, :type => :controller do
     context "valid attributes && correct_user" do
       it "accept application" do
         if @hackathon.user_id == @current_user
-          post :application_accept, id: @hackathon, application_id: @application
+          post :application_accept, hackathon_id: @hackathon, application_id: @application
           @application.reload
           @application.accepted.should eq(true)
         end
@@ -454,7 +454,7 @@ describe Admin::HackathonsController, :type => :controller do
 
       it "redirects to admin_hackathon_applications_path" do
         if @hackathon.user_id == @current_user
-          post :application_accept, id: @hackathon, application_id: @application
+          post :application_accept, hackathon_id: @hackathon, application_id: @application
           response.should redirect_to admin_hackathon_applications_path
           flash[:notice].should == "Acceptance complete!"
         end
@@ -464,7 +464,7 @@ describe Admin::HackathonsController, :type => :controller do
     context "valid attributes && organizer" do
       it "accept application" do
         if user.organizers.where(hackathon_id: @hackathon)
-          post :application_accept, id: @hackathon, application_id: @application
+          post :application_accept, hackathon_id: @hackathon, application_id: @application
           @application.reload
           @application.accepted.should eq(true)
         end
@@ -472,7 +472,7 @@ describe Admin::HackathonsController, :type => :controller do
 
       it "redirects to admin_hackathon_tickets_path" do
         if user.organizers.where(hackathon_id: @hackathon)
-          post :application_accept, id: @hackathon, application_id: @application
+          post :application_accept, hackathon_id: @hackathon, application_id: @application
           response.should redirect_to admin_hackathon_applications_path
           flash[:notice].should == "Acceptance complete!"
         end
@@ -483,7 +483,7 @@ describe Admin::HackathonsController, :type => :controller do
       it "redirects to root_path" do
         if @hackathon1.user_id == @current_user
         else
-          post :application_accept, id: @hackathon1, application_id: @application1
+          post :application_accept, hackathon_id: @hackathon1, application_id: @application1
           response.should redirect_to root_path
           flash[:notice].should == "Not authorized"
         end
@@ -494,7 +494,7 @@ describe Admin::HackathonsController, :type => :controller do
       it "redirects to root_path" do
         if user.organizers.where(hackathon_id: @hackathon1)
         else
-          post :application_accept, id: @hackathon1, application_id: @application1
+          post :application_accept, hackathon_id: @hackathon1, application_id: @application1
           response.should redirect_to root_path
           flash[:notice].should == "Not authorized"
         end
@@ -513,7 +513,7 @@ describe Admin::HackathonsController, :type => :controller do
     context "valid attributes && correct_user" do
       it "unaccept application" do
         if @hackathon.user_id == @current_user
-          post :application_unaccept, id: @hackathon, application_id: @application
+          post :application_unaccept, hackathon_id: @hackathon, application_id: @application
           @application.reload
           @application.accepted.should eq(false)
         end
@@ -521,7 +521,7 @@ describe Admin::HackathonsController, :type => :controller do
 
       it "redirects to admin_hackathon_applications_path" do
         if @hackathon.user_id == @current_user
-          post :application_unaccept, id: @hackathon, application_id: @application
+          post :application_unaccept, hackathon_id: @hackathon, application_id: @application
           response.should redirect_to admin_hackathon_applications_path
           flash[:notice].should == "Acceptance complete!"
         end
@@ -531,7 +531,7 @@ describe Admin::HackathonsController, :type => :controller do
     context "valid attributes && organizer" do
       it "accept application" do
         if user.organizers.where(hackathon_id: @hackathon)
-          post :application_unaccept, id: @hackathon, application_id: @application
+          post :application_unaccept, hackathon_id: @hackathon, application_id: @application
           @application.reload
           @application.accepted.should eq(false)
         end
@@ -539,7 +539,7 @@ describe Admin::HackathonsController, :type => :controller do
 
       it "redirects to admin_hackathon_tickets_path" do
         if user.organizers.where(hackathon_id: @hackathon)
-          post :application_unaccept, id: @hackathon, application_id: @application
+          post :application_unaccept, hackathon_id: @hackathon, application_id: @application
           response.should redirect_to admin_hackathon_applications_path
           flash[:notice].should == "Unacceptance complete!"
         end
@@ -550,7 +550,7 @@ describe Admin::HackathonsController, :type => :controller do
       it "redirects to root_path" do
         if @hackathon1.user_id == @current_user
         else
-          post :application_unaccept, id: @hackathon1, application_id: @application1
+          post :application_unaccept, hackathon_id: @hackathon1, application_id: @application1
           response.should redirect_to root_path
           flash[:notice].should == "Not authorized"
         end
@@ -561,7 +561,7 @@ describe Admin::HackathonsController, :type => :controller do
       it "redirects to root_path" do
         if user.organizers.where(hackathon_id: @hackathon1)
         else
-          post :application_unaccept, id: @hackathon1, application_id: @application1
+          post :application_unaccept, hackathon_id: @hackathon1, application_id: @application1
           response.should redirect_to root_path
           flash[:notice].should == "Not authorized"
         end

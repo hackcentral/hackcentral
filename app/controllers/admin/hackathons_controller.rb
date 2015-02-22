@@ -39,11 +39,17 @@ class Admin::HackathonsController < ApplicationController
     end
     def checkin
       @application = Application.find(params[:application_id])
+        if @application.hackathon_id != @hackathon.id
+          redirect_to root_path, notice: "Not authorized"
+        end
       @application.update_attribute :checked_in, true
       redirect_to admin_hackathon_tickets_path(@application.hackathon), notice: "Checkin complete!"
     end
     def uncheckin
       @application = Application.find(params[:application_id])
+        if @application.hackathon_id != @hackathon.id
+          redirect_to root_path, notice: "Not authorized"
+        end
       @application.update_attribute :checked_in, false
       redirect_to admin_hackathon_tickets_path(@application.hackathon), notice: "Un-checkin complete!"
     end
@@ -59,31 +65,40 @@ class Admin::HackathonsController < ApplicationController
       end
 
       if params[:accepted] == nil
-        @applications = Application.where(hackathon_id: Hackathon.find_by(params[:hackathon_id])).all
+        @applications = Application.where(hackathon_id: @hackathon).all
       end
     end
     def application_show
       @application = Application.find(params[:application_id])
+        if @application.hackathon_id != @hackathon.id
+          redirect_to root_path, notice: "Not authorized"
+        end
     end
     def application_accept
       @application = Application.find(params[:application_id])
+        if @application.hackathon_id != @hackathon.id
+          redirect_to root_path, notice: "Not authorized"
+        end
       @application.update_attribute :accepted, true
       redirect_to admin_hackathon_applications_path(@hackathon), notice: "Acceptance complete!"
     end
     def application_unaccept
       @application = Application.find(params[:application_id])
+        if @application.hackathon_id != @hackathon.id
+          redirect_to root_path, notice: "Not authorized"
+        end
       @application.update_attribute :accepted, false
       redirect_to admin_hackathon_applications_path(@hackathon), notice: "Unacceptance complete!"
     end
 
   private
     def set_hackathon
-      @hackathon = Hackathon.find_by(params[:id])
+      @hackathon = Hackathon.find_by(params[:hackathon_id])
     end
 
     def is_organizer
       #if user_signed_in?
-        if @hackathon = current_user.hackathons.find_by(id: params[:id])
+        if @hackathon = current_user.hackathons.find_by(id: params[:hackathon_id])
           else redirect_to root_path, notice: "Not authorized" if @hackathon.nil?
         end
 
