@@ -1,7 +1,7 @@
 class Admin::HackathonsController < ApplicationController
   before_action :set_hackathon
-  before_action :is_organizer
   before_action :authenticate_user!
+  before_action :is_organizer
 
   # Root
     def index
@@ -82,7 +82,7 @@ class Admin::HackathonsController < ApplicationController
     end
 
     def is_organizer
-      if user_signed_in?
+      #if user_signed_in?
         if @hackathon = current_user.hackathons.find_by(id: params[:id])
           else redirect_to root_path, notice: "Not authorized" if @hackathon.nil?
         end
@@ -90,8 +90,8 @@ class Admin::HackathonsController < ApplicationController
         if current_user.organizers.where(hackathon_id: @hackathon)
           else redirect_to root_path, notice: "Not authorized" if @organizer.nil?
         end
-      else
-      end
+      #else
+      #end
     end
 
     def hackathon_params
