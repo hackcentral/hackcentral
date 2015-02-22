@@ -37,6 +37,7 @@ class Admin::HackathonsController < ApplicationController
     def checkin_index
       @applications = Application.where(hackathon_id: @hackathon, accepted: true).all
     end
+
     def checkin
       @application = Application.find(params[:application_id])
         if @application.hackathon_id != @hackathon.id
@@ -45,6 +46,7 @@ class Admin::HackathonsController < ApplicationController
       @application.update_attribute :checked_in, true
       redirect_to admin_hackathon_tickets_path(@application.hackathon), notice: "Checkin complete!"
     end
+
     def uncheckin
       @application = Application.find(params[:application_id])
         if @application.hackathon_id != @hackathon.id
@@ -68,12 +70,14 @@ class Admin::HackathonsController < ApplicationController
         @applications = Application.where(hackathon_id: @hackathon).all
       end
     end
+
     def application_show
       @application = Application.find(params[:application_id])
         if @application.hackathon_id != @hackathon.id
           redirect_to root_path, notice: "Not authorized"
         end
     end
+
     def application_accept
       @application = Application.find(params[:application_id])
         if @application.hackathon_id != @hackathon.id
@@ -82,6 +86,7 @@ class Admin::HackathonsController < ApplicationController
       @application.update_attribute :accepted, true
       redirect_to admin_hackathon_applications_path(@hackathon), notice: "Acceptance complete!"
     end
+
     def application_unaccept
       @application = Application.find(params[:application_id])
         if @application.hackathon_id != @hackathon.id

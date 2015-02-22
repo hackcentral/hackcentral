@@ -102,7 +102,7 @@ Rails.application.routes.draw do
         get "/hackathons/:hackathon_id/organizers" => "organizers#index", as: :hackathon_organizers
         get "/hackathons/:hackathon_id/organizers/new" => "organizers#new", as: :new_hackathon_organizer
         post "/hackathons/:hackathon_id/organizers" => "organizers#create"
-        delete "/hackathons/:hackathon_id/organizers" => "organizers#destroy"
+        delete "/hackathons/:hackathon_id/organizers/:id" => "organizers#destroy", as: :hackathon_organizer
 
     end
   end
