@@ -27,6 +27,14 @@ class HackathonsController < ApplicationController
     respond_to do |format|
       if @hackathon.save
         format.html { redirect_to hackathons_path, notice: 'Hackathon was successfully created.' }
+
+        Analytics.track(
+          user_id: "#{@hackathon.user_id}",
+          event: 'Created a hackathon',
+          properties: {
+            name: "#{@hackathon.name}",
+            location: "#{@hackathon.location}",
+            hs_hackers_allowed: "#{@hackathon.hs_hackers_allowed}"})
       else
         format.html { render :new }
       end

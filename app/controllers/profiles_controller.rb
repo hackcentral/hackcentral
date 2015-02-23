@@ -31,6 +31,14 @@ class ProfilesController < ApplicationController
     respond_to do |format|
       if @profile.save
         format.html { redirect_to @profile, notice: 'Profile was successfully created.' }
+
+        Analytics.track(
+          user_id: "#{@profile.user_id}",
+          event: 'Created a profile',
+          properties: {
+            website: "#{@profile.website}",
+            github: "#{@profile.github}",
+            school_grad: "#{@profile.school_grad}"})
       else
         format.html { render :new }
       end
