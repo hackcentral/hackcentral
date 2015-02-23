@@ -54,13 +54,17 @@ class ApplicationsController < ApplicationController
   end
 
   def rsvp_yes
-    @application.update_attribute :rsvp, true
-    redirect_to application_path(@application), notice: "You have RSVPed yes."
+    if @application.accepted?
+      @application.update_attribute :rsvp, true
+      redirect_to application_path(@application), notice: "You have RSVPed yes."
+    end
   end
 
   def rsvp_no
-    @application.update_attribute :rsvp, false
-    redirect_to application_path(@application), notice: "You have RSVPed no."
+    if @application.accepted?
+      @application.update_attribute :rsvp, false
+      redirect_to application_path(@application), notice: "You have RSVPed no."
+    end
   end
 
   # PATCH/PUT /applications/1
