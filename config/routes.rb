@@ -30,7 +30,12 @@ Rails.application.routes.draw do
 
     # Scaffolds
       resources :profiles
-      resources :applications
+      resources :applications do
+        member do
+          post "rsvp_yes"
+          post "rsvp_no"
+        end
+      end
       resources :submissions, only: :show do
         resource :like, module: :submissions
       end

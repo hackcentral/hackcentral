@@ -98,6 +98,56 @@ RSpec.describe ApplicationsController, :type => :controller do
     end
   end
 
+  describe "POST #rsvp_yes" do
+    before :each do
+      @application = FactoryGirl.create(:application, accepted: true)
+    end
+
+    context "valid attributes && correct_user" do
+      it "located the requested @application" do
+        post :rsvp_yes, id: @application, application: FactoryGirl.attributes_for(:application)
+        assigns(:application).should eq(@application)
+      end
+
+      it "changes @application's attributes" do
+        post :rsvp_yes, id: @application, application: FactoryGirl.attributes_for(:application)
+        @application.reload
+        @application.rsvp.should eq(true)
+      end
+
+      it "redirects to updated application" do
+        post :rsvp_yes, id: @application, application: FactoryGirl.attributes_for(:application)
+        response.should redirect_to application_path
+        flash[:notice].should == "You have RSVPed yes."
+      end
+    end
+  end
+
+  describe "POST #rsvp_no" do
+    before :each do
+      @application = FactoryGirl.create(:application, accepted: true)
+    end
+
+    context "valid attributes && correct_user" do
+      it "located the requested @application" do
+        post :rsvp_no, id: @application, application: FactoryGirl.attributes_for(:application)
+        assigns(:application).should eq(@application)
+      end
+
+      it "changes @application's attributes" do
+        post :rsvp_no, id: @application, application: FactoryGirl.attributes_for(:application)
+        @application.reload
+        @application.rsvp.should eq(false)
+      end
+
+      it "redirects to updated application" do
+        post :rsvp_no, id: @application, application: FactoryGirl.attributes_for(:application)
+        response.should redirect_to application_path
+        flash[:notice].should == "You have RSVPed no."
+      end
+    end
+  end
+
   describe "PUT #update" do
     before :each do
       @application = FactoryGirl.create(:application)

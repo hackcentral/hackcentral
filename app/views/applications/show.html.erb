@@ -1,3 +1,13 @@
+<% if @application.accepted? %>
+  <div class="center">
+    <h1>You have been accepted to <%= @application.hackathon.name %>!</p>
+
+    <br>
+
+    <%= render "rsvp" %>
+  </div>
+<% end %>
+
 <p>
   <strong>Applied to:</strong>
   <%= @application.hackathon.name %>

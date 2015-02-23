@@ -1,6 +1,6 @@
 class ApplicationsController < ApplicationController
   before_action :set_application, only: [:show, :edit, :update, :destroy]
-  before_action :correct_user, only: [:show, :edit, :update, :destroy]
+  before_action :correct_user, only: [:show, :edit, :rsvp_yes, :rsvp_no, :update, :destroy]
   before_action :authenticate_user!
 
   # GET /applications
@@ -51,6 +51,16 @@ class ApplicationsController < ApplicationController
       else
       end
     end
+  end
+
+  def rsvp_yes
+    @application.update_attribute :rsvp, true
+    redirect_to application_path(@application), notice: "You have RSVPed yes."
+  end
+
+  def rsvp_no
+    @application.update_attribute :rsvp, false
+    redirect_to application_path(@application), notice: "You have RSVPed no."
   end
 
   # PATCH/PUT /applications/1

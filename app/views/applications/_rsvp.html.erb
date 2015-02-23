@@ -1,0 +1,17 @@
+<% if @application.rsvp? %>
+  <div class="form-group">
+    <%= button_to "Never mind, I can't come (RSVP No)",
+      :controller => "applications",
+      :action => "rsvp_no",
+      :method => :post
+    %>
+  </div>
+<% else %>
+  <div class="form-group">
+    <%= button_to "Count me in! (RSVP Yes)",
+      :controller => "applications",
+      :action => "rsvp_yes",
+      :method => :post
+    %>
+  </div>
+<% end %>
