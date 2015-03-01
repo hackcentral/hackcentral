@@ -117,6 +117,140 @@ RSpec.describe "Alpha::Applications", :type => :request do
       end
     end
 
+    describe 'PUT #update --> RSVP YES' do
+      before :each do
+        @oauth_application = FactoryGirl.build(:oauth_application)
+        @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => user.id)
+        @application = FactoryGirl.create(:application, user_id: '1', accepted: 'true')
+        @application1 = FactoryGirl.create(:application, user_id: '1', accepted: 'false')
+      end
+
+      context "valid attributes && correct_user" do
+        it "located the requested @application" do
+          put "http://api.vcap.me:3000/v1/applications/1?access_token=#{@token.token}", FactoryGirl.attributes_for(:application), :format => :json
+          response.status.should eq(200)
+        end
+
+        it "changes @application's attributes" do
+          put "http://api.vcap.me:3000/v1/applications/1?access_token=#{@token.token}", FactoryGirl.attributes_for(:application, rsvp: true), :format => :json
+          @application.reload
+          @application.rsvp.should eq(true)
+        end
+
+        it "sends a 200 if updated application if correct_user" do
+          put "http://api.vcap.me:3000/v1/applications/1?access_token=#{@token.token}", FactoryGirl.attributes_for(:application), :format => :json
+          response.status.should eq(200)
+        end
+      end
+
+      context "valid attributes != correct_user" do
+        it "returns 401" do
+          put "http://api.vcap.me:3000/v1/applications/1?access_token=#{@token.token}", FactoryGirl.attributes_for(:application, rsvp: false), :format => :json
+          if @application.user_id == user.id
+            response.status.should eq(200)
+          else
+            response.status.should eq(401)
+          end
+        end
+      end
+
+      context "invalid attributes && correct_user" do
+        it "located the requested @application" do
+          put "http://api.vcap.me:3000/v1/applications/2?access_token=#{@token.token}", FactoryGirl.attributes_for(:application), :format => :json
+          response.status.should eq(200)
+        end
+
+        it "changes @application's attributes" do
+          put "http://api.vcap.me:3000/v1/applications/2?access_token=#{@token.token}", FactoryGirl.attributes_for(:application, rsvp: true), :format => :json
+          @application1.reload
+          @application1.rsvp.should eq(false)
+        end
+
+        it "sends a 200 if updated application if correct_user" do
+          put "http://api.vcap.me:3000/v1/applications/2?access_token=#{@token.token}", FactoryGirl.attributes_for(:application), :format => :json
+          response.status.should eq(200)
+        end
+      end
+
+      context "invalid attributes != correct_user" do
+        it "returns 401" do
+          put "http://api.vcap.me:3000/v1/applications/2?access_token=#{@token.token}", FactoryGirl.attributes_for(:application, rsvp: true), :format => :json
+          if @application1.user_id == user.id
+            response.status.should eq(200)
+          else
+            response.status.should eq(401)
+          end
+        end
+      end
+    end
+
+    describe 'PUT #update --> RSVP NO' do
+      before :each do
+        @oauth_application = FactoryGirl.build(:oauth_application)
+        @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => user.id)
+        @application = FactoryGirl.create(:application, user_id: '1', accepted: 'true')
+        @application1 = FactoryGirl.create(:application, user_id: '1', accepted: 'false')
+      end
+
+      context "valid attributes && correct_user" do
+        it "located the requested @application" do
+          put "http://api.vcap.me:3000/v1/applications/1?access_token=#{@token.token}", FactoryGirl.attributes_for(:application), :format => :json
+          response.status.should eq(200)
+        end
+
+        it "changes @application's attributes" do
+          put "http://api.vcap.me:3000/v1/applications/1?access_token=#{@token.token}", FactoryGirl.attributes_for(:application, rsvp: false), :format => :json
+          @application.reload
+          @application.rsvp.should eq(false)
+        end
+
+        it "sends a 200 if updated application if correct_user" do
+          put "http://api.vcap.me:3000/v1/applications/1?access_token=#{@token.token}", FactoryGirl.attributes_for(:application), :format => :json
+          response.status.should eq(200)
+        end
+      end
+
+      context "valid attributes != correct_user" do
+        it "returns 401" do
+          put "http://api.vcap.me:3000/v1/applications/1?access_token=#{@token.token}", FactoryGirl.attributes_for(:application, rsvp: false), :format => :json
+          if @application.user_id == user.id
+            response.status.should eq(200)
+          else
+            response.status.should eq(401)
+          end
+        end
+      end
+
+      context "invalid attributes && correct_user" do
+        it "located the requested @application" do
+          put "http://api.vcap.me:3000/v1/applications/2?access_token=#{@token.token}", FactoryGirl.attributes_for(:application), :format => :json
+          response.status.should eq(200)
+        end
+
+        it "changes @application's attributes" do
+          put "http://api.vcap.me:3000/v1/applications/2?access_token=#{@token.token}", FactoryGirl.attributes_for(:application, rsvp: false), :format => :json
+          @application1.reload
+          @application1.rsvp.should eq(false)
+        end
+
+        it "sends a 200 if updated application if correct_user" do
+          put "http://api.vcap.me:3000/v1/applications/2?access_token=#{@token.token}", FactoryGirl.attributes_for(:application), :format => :json
+          response.status.should eq(200)
+        end
+      end
+
+      context "invalid attributes != correct_user" do
+        it "returns 401" do
+          put "http://api.vcap.me:3000/v1/applications/2?access_token=#{@token.token}", FactoryGirl.attributes_for(:application, rsvp: false), :format => :json
+          if @application1.user_id == user.id
+            response.status.should eq(200)
+          else
+            response.status.should eq(401)
+          end
+        end
+      end
+    end
+
     describe 'DELETE #destroy' do
       before :each do
         @oauth_application = FactoryGirl.build(:oauth_application)

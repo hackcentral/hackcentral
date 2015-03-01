@@ -74,6 +74,7 @@ module Alpha
       params do
         requires :reimbursement_needed, type: String, desc: "If user needs travel reimbursement"
         requires :profile_id, type: Integer, desc: "ID of profile"
+        optional :rsvp, type: String, desc: "RSVP to the hackathon"
         # You cannot change the hackathon_id for which you are applying.
       end
 
@@ -83,6 +84,13 @@ module Alpha
         if @application.user_id == resource_owner.id
           @application.reimbursement_needed = params[:reimbursement_needed] if params[:reimbursement_needed]
           @application.profile_id = params[:profile_id] if params[:profile_id]
+
+          if params[:rsvp]
+            if @application.accepted?
+              @application.rsvp = params[:rsvp]
+            end
+          end
+
           @application.save
 
           status 200
