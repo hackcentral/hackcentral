@@ -33,7 +33,7 @@ gem 'rails_admin'
 gem 'grape'
 gem 'grape-raketasks'
 gem 'grape-entity'
-gem 'wine_bouncer', github: 'antek-drzewiecki/wine_bouncer', branch: 'doorkeeper_2_1'
+gem 'wine_bouncer', github: 'antek-drzewiecki/wine_bouncer'
 
 # Environment Dependencies
 group :development, :test do

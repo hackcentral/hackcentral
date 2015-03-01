@@ -1,11 +1,10 @@
 GIT
   remote: git://github.com/antek-drzewiecki/wine_bouncer.git
-  revision: 16b7d66b0b59832a67f521be90d57cca4bdf1b09
-  branch: doorkeeper_2_1
+  revision: e5900d5c684eaff9515953f4c95e9126b0bbd766
   specs:
-    wine_bouncer (0.2.1)
-      doorkeeper (>= 1.4, <= 2.1.0)
-      grape (~> 0.8)
+    wine_bouncer (0.3.0)
+      doorkeeper (>= 1.4, <= 2.1.1)
+      grape (~> 0.8, <= 0.11.0)
 
 GEM
   remote: https://rubygems.org/
