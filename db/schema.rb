@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150222222445) do
+ActiveRecord::Schema.define(version: 20150305170310) do
 
   create_table "applications", force: :cascade do |t|
     t.boolean  "reimbursement_needed"
@@ -228,6 +228,10 @@ ActiveRecord::Schema.define(version: 20150222222445) do
     t.datetime "confirmation_sent_at"
     t.text     "bio"
     t.string   "username"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
