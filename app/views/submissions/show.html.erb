@@ -7,28 +7,21 @@
         <div class="well well-lg">
           <h1><%= @submission.title %></h1>
 
-          <% if @submission.submitted_at == nil %>
-            <p>In Progress</p>
-          <% else %>
-            <p>Submitted for Judging</p>
-          <% end %>
-
+          <h3><%= @submission.tagline %></h3>
         </div>
 
         <hr>
 
-        <h2><%= @submission.tagline %></h2>
-
         <p><%= @submission.description %></p>
 
-        <p>video coming soon</p>
-        <% if @submission.video? %>
-          <% if @submission.video.include?('vimeo.com') %>
-            <div class="embed-responsive embed-responsive-4by3">
-              <iframe class="embed-responsive-item" src=""></iframe>
-            </div>
-          <% end %>
+        <% if @c.exist? %>
+          <div class="embed-responsive embed-responsive-16by9">
+            <!-- <iframe class="embed-responsive-item" src="..."></iframe>-->
+            <%= @c.code.html_safe %>
+          </div>
         <% end %>
+
+        <br />
 
         <p>Built With:</p> <%= raw @submission.tags.map(&:name).map { |t| link_to t, tag_path(t) }.join(', ') %>
 

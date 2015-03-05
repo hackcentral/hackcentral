@@ -21,6 +21,15 @@ class SubmissionsController < ApplicationController
   def show
     @hackathon = @submission.hackathon_id
     @team_members = TeamMember.where(:submission_id => @submission).all
+
+    if @submission.video?
+      @c = Conred::Video.new(
+        video_url: @submission.video,
+        width: 285,
+        height: 185,
+        error_message: "Video url is invalid"
+      )
+    end
   end
 
   # GET /submissions/new
