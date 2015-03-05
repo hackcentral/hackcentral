@@ -20,6 +20,7 @@ class SubmissionsController < ApplicationController
   # GET /submissions/1.json
   def show
     @hackathon = @submission.hackathon_id
+    @team_members = TeamMember.where(:submission_id => @submission).all
   end
 
   # GET /submissions/new

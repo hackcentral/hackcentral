@@ -4,13 +4,16 @@
   <div class="container">
     <div class="row">
       <div class="col-md-9">
-        <h1><%= @submission.title %></h1>
+        <div class="well well-lg">
+          <h1><%= @submission.title %></h1>
 
-        <% if @submission.submitted_at == nil %>
-          <p>In Progress</p>
-        <% else %>
-          <p>Submitted for Judging</p>
-        <% end %>
+          <% if @submission.submitted_at == nil %>
+            <p>In Progress</p>
+          <% else %>
+            <p>Submitted for Judging</p>
+          <% end %>
+
+        </div>
 
         <hr>
 
@@ -57,6 +60,21 @@
 
         <br />
 
+        <!-- Hackathon -->
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              Submitted To
+            </div><!-- .panel-heading -->
+            <div class="panel-body">
+              <%= image_tag @submission.hackathon.logo.url %>
+              <%= link_to "#{@submission.hackathon.name}", root_url(:subdomain => @submission.hackathon.subdomain) %>
+            </div><!-- .panel-body -->
+          </div><!-- .panel panel-default -->
+
+        <!-- .Hackathon -->
+
+        <br />
+
         <!-- Team -->
 
           <div class="panel panel-default">
@@ -64,12 +82,20 @@
             <div class="panel-body">
               <div class="row">
                 <div class="col-sm-6 col-xs-4 participation">
-                  <a href="/users/poegem"><img alt="D9b04855e710bbdd460e21be5f249d5e?s=60&amp;d=retro" class="avatar" src="https://secure.gravatar.com/avatar/d9b04855e710bbdd460e21be5f249d5e?s=60&amp;d=retro"></a>
+                  <!--< image_tag team_member.user.profile_pic %>-->
+                  <img src="https://secure.gravatar.com/avatar/d9b04855e710bbdd460e21be5f249d5e?s=60&amp;d=retro"></a>
                   <br>
-                  <strong><a href="/users/poegem" class="username">poegem</a></strong>
-                  <br>
-                  <small><%= @submission.user.name %></small>
+                  <small><%= link_to "#{@submission.user.name}", user_path(@submission.user_id) %></small>
                 </div>
+
+                <% @team_members.each do |team_member| %>
+                  <div class="col-sm-6 col-xs-4 participation">
+                    <!--< image_tag team_member.user.profile_pic %>-->
+                    <img src="https://secure.gravatar.com/avatar/d9b04855e710bbdd460e21be5f249d5e?s=60&amp;d=retro"></a>
+                    <br>
+                    <small><%= link_to "#{@submission.user.name}", user_path(@team_member.user_id) %></small>
+                  </div>
+                <% end %>
               </div><!-- .row -->
             </div><!-- .panel-body -->
           </div><!-- .panel panel-default -->
@@ -87,8 +113,8 @@
               </div><!-- .panel-heading -->
               <div class="panel-body">
                 <ul class="list-unstyled">
-                    <li><i class="fa fa-pencil-square-o"></i><%= link_to ' Edit', edit_hackathon_submission_path(@hackathon, @submission) %></li>
-                    <li><i class="fa fa-trash"></i><%= link_to ' Destroy', hackathon_submission_path(@hackathon, @submission), method: :delete, data: { confirm: 'Are you sure?' } %></li>
+                    <li><i class="fa fa-pencil-square-o"></i><%= link_to 'Edit', edit_hackathon_submission_path(@hackathon, @submission) %></li>
+                    <li><i class="fa fa-trash"></i><%= link_to 'Destroy', hackathon_submission_path(@hackathon, @submission), method: :delete, data: { confirm: 'Are you sure?' } %></li>
                 </ul>
               </div><!-- .panel-body -->
             </div><!-- .panel panel-default -->
