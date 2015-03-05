@@ -29,6 +29,7 @@ gem 'bugsnag'
 gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
 gem 'delayed_job_active_record'
 gem 'rails_admin'
+gem 'conred'
   # Grape
 gem 'grape'
 gem 'grape-raketasks'
