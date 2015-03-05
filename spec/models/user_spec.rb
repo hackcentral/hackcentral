@@ -14,4 +14,9 @@ describe User do
   it { should have_many(:likes) }
   it { should have_many(:oauth_applications) }
 
+  it { should have_attached_file(:avatar) }
+  it { should validate_attachment_content_type(:avatar).
+    allowing('image/png', 'image/gif').
+    rejecting('text/plain', 'text/xml') }
+
 end
