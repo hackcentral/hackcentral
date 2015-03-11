@@ -1,7 +1,9 @@
 <div class="jumbotron">
   <div class="container">
     <div class="center">
-      <!-- profilepic --><h1><%= @user.name %></h1>
+      <%= image_tag @user.avatar.url(:thumb) %><h1><%= @user.name %></h1>
+
+      <%= raw @user.avatar.url %>
       <hr>
       <p><%= @user.bio %></p>
     </div><!-- .center -->

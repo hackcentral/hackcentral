@@ -76,7 +76,7 @@
               <div class="row">
                 <div class="col-sm-6 col-xs-4 participation">
                   <!--< image_tag team_member.user.profile_pic %>-->
-                  <img src="https://secure.gravatar.com/avatar/d9b04855e710bbdd460e21be5f249d5e?s=60&amp;d=retro"></a>
+                  <%= image_tag @submission.user.avatar.url(:thumb) %>
                   <br>
                   <small><%= link_to "#{@submission.user.name}", user_path(@submission.user_id) %></small>
                 </div>
@@ -84,9 +84,9 @@
                 <% @team_members.each do |team_member| %>
                   <div class="col-sm-6 col-xs-4 participation">
                     <!--< image_tag team_member.user.profile_pic %>-->
-                    <img src="https://secure.gravatar.com/avatar/d9b04855e710bbdd460e21be5f249d5e?s=60&amp;d=retro"></a>
+                    <%= image_tag team_member.user.avatar.url(:thumb) %>
                     <br>
-                    <small><%= link_to "#{@submission.user.name}", user_path(@team_member.user_id) %></small>
+                    <small><%= link_to "#{@submission.user.name}", user_path(team_member.user_id) %></small>
                   </div>
                 <% end %>
               </div><!-- .row -->
