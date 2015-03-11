@@ -11,25 +11,35 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 
 # HC Dependencies
-gem 'paperclip'
+  # Image Upload
 gem 'aws-sdk'
-gem 'figaro'
+gem 'paperclip'
+
+  # Assets
 gem 'bootstrap-sass'
+gem 'chosen-rails', '1.3.0'
 gem 'font-awesome-sass'
-gem 'devise'
-gem 'doorkeeper', '2.1.3'
-gem 'friendly_id'
-gem 'local_time'
 gem 'will_paginate', '~> 3.0.5'
 gem 'will_paginate-bootstrap'
-gem 'chosen-rails', '1.3.0'
+
+  # Auth
+gem 'devise'
+gem 'doorkeeper', '2.1.3'
+
+  # Utilities
+gem 'conred'
+gem 'delayed_job_active_record'
+gem 'figaro'
+gem 'friendly_id'
+gem 'local_time'
+gem 'rails_admin'
+
+  # Server Stuff
 gem 'newrelic_rpm'
 gem 'puma'
 gem 'bugsnag'
 gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
-gem 'delayed_job_active_record'
-gem 'rails_admin'
-gem 'conred'
+
   # Grape
 gem 'grape'
 gem 'grape-raketasks'
