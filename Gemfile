@@ -12,7 +12,7 @@ gem 'spring',        group: :development
 
 # HC Dependencies
   # Image Upload
-gem 'aws-sdk'
+gem 'aws-sdk', '1.60.2'
 gem 'paperclip'
 
   # Assets
