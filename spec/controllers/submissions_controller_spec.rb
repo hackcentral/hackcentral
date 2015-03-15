@@ -30,10 +30,9 @@ RSpec.describe SubmissionsController, :type => :controller do
     end
 
     it "renders the show template" do
-      #get :show, submission: @submission
-      #get :show
-      #response.should render_template 'show'
-      #response.status.should eq(200)
+      get :show, id: @submission
+      response.should render_template 'show'
+      response.status.should eq(200)
     end
   end
 
