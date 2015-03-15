@@ -7,7 +7,7 @@ module Alpha
     mount Alpha::Applications
     mount Alpha::Hackathons
     mount Alpha::Profiles
-    mount Alpha::Submissions
+
     mount Alpha::Users
 
     # Admin Mountings
@@ -24,6 +24,8 @@ module Alpha
     #route :any, '*path' do
       #error! # or something else
     #end
+
+    mount Alpha::Submissions
 
   end
 end
