@@ -17,5 +17,25 @@ module Alpha
   end
 
   class Submissions < Grape::API
+    format :json
+    use WineBouncer::OAuth2
+
+    rescue_from WineBouncer::Errors::OAuthUnauthorizedError do |e|
+      Rack::Response.new({
+        error: "unauthorized_oauth",
+        error_description: "Please supply a valid access token."
+      }.to_json, 401).finish
+    end
+
+    desc "Show all submissions for @hackathon (Doorkeeper Auth)", auth: { scopes: [] }, entity: Alpha::Entities::Submission
+      params do
+        requires :hackathon_id, type: Integer, desc: "ID of hackathon"
+      end
+
+      get '/submissions', http_codes: [ [200, "Ok", Alpha::Entities::Submission] ] do
+        @hackathon = Hackathon.where(id: params[:hackathon_id])
+        submissions = Submission.where(hackathon_id: @hackathon).all
+        present submissions, with: Alpha::Entities::Submission
+      end
   end
 end
