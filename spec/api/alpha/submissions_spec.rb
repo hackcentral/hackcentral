@@ -6,7 +6,11 @@ RSpec.describe "Alpha::Submissions", :type => :request do
 
   context "no access token" do
     it 'returns a 401 when users are not authenticated' do
-      get "https://api.vcap.me:3000/v1/applications"
+      get "https://api.vcap.me:3000/v1/submissions"
+      response.status.should eq(401)
+    end
+    it 'returns a 401 when users are not authenticated' do
+      get "https://api.vcap.me:3000/v1/submissions/1"
       response.status.should eq(401)
     end
   end
@@ -23,5 +27,35 @@ RSpec.describe "Alpha::Submissions", :type => :request do
         response.status.should eq(200)
       end
     end
+
+    describe 'GET #show' do
+      it "should show the submission if submitted" do
+        @oauth_application = FactoryGirl.build(:oauth_application)
+        @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => user.id)
+        @hackathon = FactoryGirl.create(:hackathon)
+        @submission = FactoryGirl.create(:submission, hackathon_id: "1", user_id: "")
+
+        get "https://api.vcap.me:3000/v1/submissions/#{@submission.id}?access_token=#{@token.token}", FactoryGirl.attributes_for(:submission, hackathon_id: "1", user_id: ""), :format => :json
+        expect(response.body).to eq @submission.to_json
+        response.status.should eq(200)
+      end
+
+      it "should show the submission if not submitted && correct_user?" do
+        @oauth_application = FactoryGirl.build(:oauth_application)
+        @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => user.id)
+        @hackathon = FactoryGirl.create(:hackathon)
+        @submission = FactoryGirl.create(:submission, hackathon_id: "1", user_id: "1", submitted_at: "")
+        @submission1 = FactoryGirl.create(:submission, hackathon_id: "1", user_id: "2", submitted_at: "")
+
+        if @submission.user_id == user.id
+          get "https://api.vcap.me:3000/v1/submissions/#{@submission.id}?access_token=#{@token.token}", FactoryGirl.attributes_for(:submission, hackathon_id: "1", user_id: "", submitted_at: ""), :format => :json
+          response.status.should eq(200)
+        else
+          get "https://api.vcap.me:3000/v1/submissions/#{@submission1.id}?access_token=#{@token.token}", FactoryGirl.attributes_for(:submission, hackathon_id: "1", user_id: "", submitted_at: ""), :format => :json
+          response.status.should eq(401)
+        end
+      end
+    end
+
   end
 end

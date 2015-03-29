@@ -71,9 +71,6 @@ Rails.application.routes.draw do
             patch "hackathons/:hackathon_id/submissions/:submission_id" => "submissions#update"
             delete "hackathons/:hackathon_id/submissions/:submission_id" => "submissions#destroy"
 
-          # SUBMISSIONS
-            get "submissions/:submission_id" => "submissions#show"
-
           # TAGS
             get 'tags/:tag', to: 'submissions#tag', as: :tag
         end

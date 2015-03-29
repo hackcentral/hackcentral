@@ -70,7 +70,7 @@ FactoryGirl.define do
     f.video { Faker::Internet.url }
     f.website { Faker::Internet.domain_name }
     f.submitted_at { Faker::Date.backward(14) }
-    f.slug { Faker::Lorem.sentence }
+    f.slug { Faker::Name.first_name }
     f.user_id "1"
     f.hackathon_id "1"
   end

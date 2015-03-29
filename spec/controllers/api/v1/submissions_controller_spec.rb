@@ -11,10 +11,10 @@ describe Api::V1::SubmissionsController do
       get :index, hackathon_id: create(:hackathon)
       expect(response.code).to eq "401"
     end
-    it 'returns a 401 when users are not authenticated' do
-      get :show, submission_id: '12345', hackathon_id: create(:hackathon)
-      expect(response.code).to eq "401"
-    end
+#    it 'returns a 401 when users are not authenticated' do
+#      get :show, submission_id: '12345', hackathon_id: create(:hackathon)
+#      expect(response.code).to eq "401"
+#    end
     it 'returns a 401 when users are not authenticated' do
       post :create, hackathon_id: create(:hackathon)
       expect(response.code).to eq "401"
@@ -44,17 +44,17 @@ describe Api::V1::SubmissionsController do
       end
     end
 
-    describe 'GET #show' do
-      it "should show the submission" do
-        @oauth_application = FactoryGirl.build(:oauth_application)
-        @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => user.id)
-        @submission = FactoryGirl.create(:submission)
-
-        get 'show', hackathon_id: create(:hackathon), submission_id: @submission.id, submission: FactoryGirl.attributes_for(:submission), :format => :json, :access_token => @token.token
-        response.status.should eq(200)
-        assigns(:submission).should eq(@submission)
-      end
-    end
+#    describe 'GET #show' do
+#      it "should show the submission" do
+#        @oauth_application = FactoryGirl.build(:oauth_application)
+#        @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => user.id)
+#        @submission = FactoryGirl.create(:submission)
+#
+#        get 'show', hackathon_id: create(:hackathon), submission_id: @submission.id, submission: FactoryGirl.attributes_for(:submission), :format => :json, :access_token => @token.token
+#        response.status.should eq(200)
+#        assigns(:submission).should eq(@submission)
+#      end
+#    end
 
     describe 'POST #create' do
       before :each do
