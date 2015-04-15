@@ -68,11 +68,11 @@ class ProfilesController < ApplicationController
 
   private
     def set_profile
-      @profile = Profile.find(params[:id])
+      @profile = Profile.find_by_id(params[:id])
     end
 
     def correct_user
-      @profile = current_user.profiles.find_by(id: params[:id])
+      @profile = current_user.profiles.find_by_id(params[:id])
       redirect_to profiles_path, notice: "Not authorized to edit this profile" if @profile.nil?
     end
 

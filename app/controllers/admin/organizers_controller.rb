@@ -1,6 +1,7 @@
 class Admin::OrganizersController < ApplicationController
   before_action :set_organizer, only: [:destroy]
   before_action :set_hackathon
+  before_action :authenticate_user!
   before_action :is_organizer
 
   def index
@@ -32,16 +33,16 @@ class Admin::OrganizersController < ApplicationController
 
   private
     def set_hackathon
-      @hackathon = Hackathon.find(params[:hackathon_id])
+      @hackathon = Hackathon.find_by_id(params[:hackathon_id])
     end
 
     def set_organizer
-      @organizer = Organizer.find(params[:id])
+      @organizer = Organizer.find_by_id(params[:id])
     end
 
     def is_organizer
       if user_signed_in?
-        if @hackathon = current_user.hackathons.find_by(id: params[:hackathon_id])
+        if @hackathon = current_user.hackathons.find_by_id(params[:hackathon_id])
           else redirect_to root_path, notice: "Not authorized" if @hackathon.nil?
         end
 

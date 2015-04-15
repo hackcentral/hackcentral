@@ -20,7 +20,7 @@ class SubmissionsController < ApplicationController
   # GET /submissions/1.json
   def show
     @hackathon = @submission.hackathon_id
-    @team_members = TeamMember.where(:submission_id => @submission).all
+    @team_members = TeamMember.where(submission_id: @submission).all
 
     if @submission.video?
       @c = Conred::Video.new(
@@ -90,7 +90,7 @@ class SubmissionsController < ApplicationController
     end
 
     def set_hackathon
-      @hackathon = Hackathon.find(params[:hackathon_id])
+      @hackathon = Hackathon.find_by_id(params[:hackathon_id])
     end
 
     def submitting?

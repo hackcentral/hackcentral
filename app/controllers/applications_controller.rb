@@ -89,11 +89,11 @@ class ApplicationsController < ApplicationController
 
   private
     def set_application
-      @application = Application.find(params[:id])
+      @application = Application.find_by_id(params[:id])
     end
 
     def correct_user
-      @application = current_user.applications.find_by(id: params[:id])
+      @application = current_user.applications.find_by_id(params[:id])
       redirect_to applications_path, notice: "Not authorized to edit this application" if @application.nil?
     end
 

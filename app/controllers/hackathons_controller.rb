@@ -11,7 +11,7 @@ class HackathonsController < ApplicationController
   # GET /hackathons/1
   # GET /hackathons/1.json
   def show
-    @hackathon = current_hackathon#Hackathon.find_by_subdomain!(request.subdomain)
+    @hackathon = current_hackathon
   end
 
   # GET /hackathons/new

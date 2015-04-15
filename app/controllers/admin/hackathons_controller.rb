@@ -39,7 +39,7 @@ class Admin::HackathonsController < ApplicationController
     end
 
     def checkin
-      @application = Application.find(params[:application_id])
+      @application = Application.find_by_id(params[:application_id])
         if @application.hackathon_id != @hackathon.id
           redirect_to root_path, notice: "Not authorized"
         end
@@ -48,7 +48,7 @@ class Admin::HackathonsController < ApplicationController
     end
 
     def uncheckin
-      @application = Application.find(params[:application_id])
+      @application = Application.find_by_id(params[:application_id])
         if @application.hackathon_id != @hackathon.id
           redirect_to root_path, notice: "Not authorized"
         end
@@ -72,14 +72,14 @@ class Admin::HackathonsController < ApplicationController
     end
 
     def application_show
-      @application = Application.find(params[:application_id])
+      @application = Application.find_by_id(params[:application_id])
         if @application.hackathon_id != @hackathon.id
           redirect_to root_path, notice: "Not authorized"
         end
     end
 
     def application_accept
-      @application = Application.find(params[:application_id])
+      @application = Application.find_by_id(params[:application_id])
         if @application.hackathon_id != @hackathon.id
           redirect_to root_path, notice: "Not authorized"
         end
@@ -88,7 +88,7 @@ class Admin::HackathonsController < ApplicationController
     end
 
     def application_unaccept
-      @application = Application.find(params[:application_id])
+      @application = Application.find_by_id(params[:application_id])
         if @application.hackathon_id != @hackathon.id
           redirect_to root_path, notice: "Not authorized"
         end
@@ -98,20 +98,17 @@ class Admin::HackathonsController < ApplicationController
 
   private
     def set_hackathon
-      @hackathon = Hackathon.find_by(params[:hackathon_id])
+      @hackathon = Hackathon.find_by_id(params[:hackathon_id])
     end
 
     def is_organizer
-      #if user_signed_in?
-        if @hackathon = current_user.hackathons.find_by(id: params[:hackathon_id])
-          else redirect_to root_path, notice: "Not authorized" if @hackathon.nil?
-        end
+      if @hackathon = current_user.hackathons.find_by_id(params[:hackathon_id])
+        else redirect_to root_path, notice: "Not authorized" if @hackathon.nil?
+      end
 
-        if current_user.organizers.where(hackathon_id: @hackathon)
-          else redirect_to root_path, notice: "Not authorized" if @organizer.nil?
-        end
-      #else
-      #end
+      if current_user.organizers.where(hackathon_id: @hackathon)
+        else redirect_to root_path, notice: "Not authorized" if @organizer.nil?
+      end
     end
 
     def hackathon_params
