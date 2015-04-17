@@ -38,6 +38,31 @@ module Alpha
         present submissions, with: Alpha::Entities::Submission
       end
 
+    desc "Create a submission (Doorkeeper Auth)", auth: { scopes: [] }, entity: Alpha::Entities::Submission
+      params do
+        requires :hackathon_id, type: Integer
+        requires :title, type: String
+        requires :tagline, type: String
+        optional :description, type: String
+        optional :video, type: String
+        optional :website, type: String
+      end
+
+      post '/hackathons/:hackathon_id/submissions', http_codes: [ [200, "Ok", Alpha::Entities::Submission] ] do
+        submission = Submission.new
+        submission.hackathon_id = params[:hackathon_id]
+        submission.title = params[:title] if params[:title]
+        submission.tagline = params[:tagline] if params[:tagline]
+        submission.description = params[:description] if params[:description]
+        submission.video = params[:video] if params[:video]
+        submission.website = params[:website] if params[:website]
+        submission.user_id = resource_owner.id
+        submission.save
+
+        status 201
+        present submission, with: Alpha::Entities::Submission
+      end
+
     desc "Show a submission (Doorkeeper Auth)", auth: { scopes: [] }, entity: Alpha::Entities::Submission
       params do
         requires :id, type: Integer, desc: "ID of submission"

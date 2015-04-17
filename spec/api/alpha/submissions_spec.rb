@@ -10,6 +10,10 @@ RSpec.describe "Alpha::Submissions", :type => :request do
       response.status.should eq(401)
     end
     it 'returns a 401 when users are not authenticated' do
+      post "https://api.vcap.me:3000/v1/hackathons/1/submissions"
+      response.status.should eq(401)
+    end
+    it 'returns a 401 when users are not authenticated' do
       get "https://api.vcap.me:3000/v1/submissions/1"
       response.status.should eq(401)
     end
@@ -53,6 +57,40 @@ RSpec.describe "Alpha::Submissions", :type => :request do
         else
           get "https://api.vcap.me:3000/v1/submissions/#{@submission1.id}?access_token=#{@token.token}", FactoryGirl.attributes_for(:submission, hackathon_id: "1", user_id: "", submitted_at: ""), :format => :json
           response.status.should eq(401)
+        end
+      end
+    end
+
+    describe 'POST #create' do
+      before :each do
+        @oauth_application = FactoryGirl.build(:oauth_application)
+        @token = Doorkeeper::AccessToken.create!(:application_id => @oauth_application.id, :resource_owner_id => user.id)
+        @hackathon = FactoryGirl.create(:hackathon)
+      end
+
+      context "with valid attributes" do
+        it "creates a new submission" do
+          expect{
+            post "http://api.vcap.me:3000/v1/hackathons/#{@hackathon.id}/submissions?access_token=#{@token.token}", FactoryGirl.attributes_for(:submission), :format => :json
+          } .to change(Submission, :count).by(1)
+        end
+
+        it "creates a new submission, making sure response is #201" do
+          post "http://api.vcap.me:3000/v1/hackathons/#{@hackathon.id}/submissions?access_token=#{@token.token}", FactoryGirl.attributes_for(:submission), :format => :json
+          response.status.should eq(201)
+        end
+      end
+
+      context "with invalid attributes" do
+        it "creates a new submission" do
+          expect{
+            post "http://api.vcap.me:3000/v1/hackathons/#{@hackathon.id}/submissions?access_token=#{@token.token}", FactoryGirl.attributes_for(:submission, title: ""), :format => :json
+          } .to change(Submission, :count).by(0)
+        end
+
+        it "creates a new submission, making sure response is #201" do
+          post "http://api.vcap.me:3000/v1/hackathons/#{@hackathon.id}/submissions?access_token=#{@token.token}", FactoryGirl.attributes_for(:submission, title: ""), :format => :json
+          response.status.should eq(201)
         end
       end
     end

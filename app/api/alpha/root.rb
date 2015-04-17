@@ -7,8 +7,8 @@ module Alpha
     mount Alpha::Applications
     mount Alpha::Hackathons
     mount Alpha::Profiles
-    mount Alpha::Submissions
     mount Alpha::Users
+    mount Alpha::Submissions
 
     # Admin Mountings
     mount Alpha::Accept
