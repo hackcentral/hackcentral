@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby '2.2.2'
+
 # Rails Dependencies
 gem 'rails'
 gem 'sass-rails', '5.0.1'
