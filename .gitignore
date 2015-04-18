@@ -24,3 +24,6 @@
 
 # Ignore Coveralls
 coverage/
+
+# Ignore deployer
+deploy.sh
